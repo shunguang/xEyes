@@ -35,7 +35,7 @@
 	  <imgW>1920</imgW>
 	  <imgH>1080</imgH>
     <dispQueSz>50</dispQueSz>
-	  <dispPyrLev>1</dispPyrLev>
+	  <dispPyrLev>2</dispPyrLev>
   </disp>
 
   <!--dump and log -->

@@ -6,11 +6,13 @@ using namespace xeyes;
 CfgLocalView::CfgLocalView()
 : CfgBase()
 , minGuiWinW_(640)
-, ctrlGrpBoxH_(100)
+, minCtrlPanelH_(140)
+, logoSz_(100,100)
 , maxGuiWinSz_(1920,1080)
 , dispQueSz_(10)
 , dispPyrLev_(2)
-, nNumOfCams_(2)
+, maxPyrLev_(3)
+, nNumOfCams_(4)
 , imgSz_L0_(1920,1080)
 {
 }
@@ -23,9 +25,11 @@ CfgLocalView& CfgLocalView::operator = (const CfgLocalView& x)
 		maxGuiWinSz_=x.maxGuiWinSz_;
 		dispQueSz_=x.dispQueSz_;
 		dispPyrLev_=x.dispPyrLev_;
+		maxPyrLev_ = x.maxPyrLev_;
 		nNumOfCams_=x.nNumOfCams_;
 		imgSz_L0_ = x.imgSz_L0_;
 		vDispPyrLev_ =  x.vDispPyrLev_;
+		logoSz_ = x.logoSz_;
 	}
 	return *this;
 }
@@ -55,7 +59,7 @@ std::string CfgLocalView::toString()
 
 ImgSize CfgLocalView::getGuiWinSz() const
 {
-	int w0, h0, b = 5;
+	int w0=0, h0=0, b = 2;
 	ImgSize sz = getDispImgSz();
 	if (nNumOfCams_ == 1) {
 		w0 = sz.w;
@@ -72,12 +76,24 @@ ImgSize CfgLocalView::getGuiWinSz() const
 	else{
 		myAssert( 0, "CfgLocalView::getGuiWinSz(): cannot supprot more than 4 cameras!");
 	}
-
+	
+	w0 += 2*b;  //add extra space
 	if (w0 < minGuiWinW_) {
 		w0 = minGuiWinW_;
 	}
+	if (w0 > maxGuiWinSz_.w) {
+		w0 = maxGuiWinSz_.w;
+	}
+
 	//control pannel size
-	h0 += ctrlGrpBoxH_;
+	int contrlPanelH = logoSz_.h + 2 * b;
+	if (contrlPanelH < minCtrlPanelH_) {
+		contrlPanelH = minCtrlPanelH_;
+	}
+	h0 += contrlPanelH;
+	if (h0 > maxGuiWinSz_.h) {
+		h0 = maxGuiWinSz_.h;
+	}
 
 	return ImgSize(w0, h0);
 }

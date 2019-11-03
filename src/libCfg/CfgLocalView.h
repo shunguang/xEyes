@@ -22,12 +22,15 @@ namespace xeyes {
 		ImgSize getGuiWinSz() const;
 	public:
 		const int	minGuiWinW_;      //minimum gui window width 
-		const int   ctrlGrpBoxH_;
+		const int	minCtrlPanelH_;      //minimum gui window width 
+
+		ImgSize     logoSz_;
 
 		ImgSize		maxGuiWinSz_;     //maximu whole size of the gui windows
 
 		int 		dispQueSz_;      //disp frm que size
 		int 		dispPyrLev_;     //disp pyramid level		
+		int 		maxPyrLev_;     //disp pyramid level		
 		int			nNumOfCams_;
 
 		ImgSize			 imgSz_L0_;	         //disp single camera image sz

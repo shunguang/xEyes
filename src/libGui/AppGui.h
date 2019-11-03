@@ -81,8 +81,8 @@ namespace xeyes {
 		void resizeGuiWin();
 
 	private:
-		void setupMenu(QMainWindow *mainWin);
-		void setupGuiTexts(QMainWindow* mainWin);
+		void setupMenu();
+		void setupGuiTexts();
 		void initSettings();
 		void setupGroupBoxs();
 		void resizeCtrlPanel();
@@ -102,11 +102,14 @@ namespace xeyes {
 		QGroupBox	*m_vGrpBox[GRP_BOX_CUNT];
 
 		//widgets in GRP_BOX_CTRL
-		QLabel	  *m_vLabelCamId[NUM_OF_CAMS];
-		QLabel	  *m_vLabelCamIp[NUM_OF_CAMS];
-		QLineEdit *m_vLineEditCamName[NUM_OF_CAMS];
-		QCheckBox *m_vChkBoxCamRec[NUM_OF_CAMS];
-		QCheckBox *m_vChkBoxCamDisp[NUM_OF_CAMS];
+		QLabel		*m_vLabelCamId[NUM_OF_CAMS];
+		QLabel		*m_vLabelCamIp[NUM_OF_CAMS];
+		QLineEdit	*m_vLineEditCamName[NUM_OF_CAMS];
+		QCheckBox	*m_vChkBoxCamRec[NUM_OF_CAMS];
+		QCheckBox	*m_vChkBoxCamDisp[NUM_OF_CAMS];
+		QLabel* m_vConnectStatus[NUM_OF_CAMS];
+		QLabel* m_vTabTitle[5];
+
 		ImgLabel  *m_vLabelImg[NUM_OF_CAMS];
 
 		QLabel	    *m_labelLogo;
