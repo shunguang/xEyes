@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfg>
+  <gui>
+  <todo>0</todo>
+  </gui>
+
+  <cams>
+    <cam>
+      <cameraId>1</cameraId>
+      <cameraName>Front Door</cameraName>
+	    <imgW>1920</imgW>
+	    <imgH>1080</imgH>
+	    <fpsNum>25</fpsNum>
+	    <fpsDen>1</fpsDen>
+	    <capQueSz>50</capQueSz>
+		  <detQueSz>50</detQueSz>
+		  <detPyrLev>1</detPyrLev>
+	    <rtspUrl>unkn</rtspUrl>
+    </cam>
+    <cam>
+      <cameraId>2</cameraId>
+      <cameraName>Back Door</cameraName>
+	    <imgW>1920</imgW>
+	    <imgH>1080</imgH>
+	    <fpsNum>25</fpsNum>
+	    <fpsDen>1</fpsDen>
+	    <capQueSz>50</capQueSz>
+		  <detQueSz>50</detQueSz>
+		  <detPyrLev>1</detPyrLev>
+	    <rtspUrl>unkn</rtspUrl>
+    </cam>
+  </cams>
+
+  <disp>
+	  <imgW>1920</imgW>
+	  <imgH>1080</imgH>
+    <dispQueSz>50</dispQueSz>
+	  <dispPyrLev>1</dispPyrLev>
+  </disp>
+
+  <!--dump and log -->
+  <log>
+    <logFolder>/home/swu/Projects/xEyes/build</logFolder>
+    <appRootFolder>/home/swu/Projects/xEyes/build</appRootFolder>
+    <isDumpLog>1</isDumpLog>
+    <isShowLogInConsole>1</isShowLogInConsole>
+    <!-- frameFreqsToLog[0] frm freq to log capture threads cpu time usage  -->
+    <!-- frameFreqsToLog[1] frm freq to log detection threads cpu time usage -->
+    <!-- frameFreqsToLog[2] to log disp thread cpu time usage -->
+    <frameFreqsToLog>100,100,100,100,100</frameFreqsToLog>
+  </log>
+</cfg>
