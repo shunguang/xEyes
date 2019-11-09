@@ -41,7 +41,15 @@ TestGui::TestGui(CfgPtr& cfg, QWidget* parent)
 	//Menu item actions
 	QObject::connect(m_ui->m_actionExit, SIGNAL(triggered()), this, SLOT(on_actionExit_triggered()), MY_QT_CONN);
 	QObject::connect(m_ui->m_actionAbout, SIGNAL(triggered()), this, SLOT(on_actionAbout_triggered()), MY_QT_CONN);
+	QObject::connect(m_ui->m_actionDecreaseSz, SIGNAL(triggered()), this, SLOT(on_actionDecreaseDispImgSz_triggered()), MY_QT_CONN);
 	QObject::connect(m_ui->m_actionHelp, SIGNAL(triggered()), this, SLOT(on_actionHelp_triggered()), MY_QT_CONN);
+	
+	QObject::connect(m_ui->m_pushButtonStartExit, SIGNAL(clicked()), this, SLOT(on_pushButton_startExit_clicked()), MY_QT_CONN);
+	QObject::connect(m_ui->m_comboBoxDspCamImgSz, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBoxDspCamImgSz_currentIndexChanged(int)), MY_QT_CONN);
+
+	QLineEdit	*m_vLineEditCamName[NUM_OF_CAMS];
+	QCheckBox	*m_vChkBoxCamRec[NUM_OF_CAMS];
+	QCheckBox	*m_vChkBoxCamDisp[NUM_OF_CAMS];
 
 	THREAD_SLEEP(100);
 	m_guiReady = true;
@@ -116,4 +124,90 @@ void TestGui::on_actionExit_triggered()
 	progDlg->setProgress(100, "Successfully clean up!");
 	boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 	QApplication::quit();
+}
+
+void TestGui::on_pushButton_startExit_clicked()
+{
+	if ( 'S' == m_ui->getStartExitState()) {
+		m_ui->setStartExitState('E');
+	}
+	else {
+		on_actionExit_triggered();
+	}
+}
+
+void TestGui::on_comboBoxDspCamImgSz_currentIndexChanged(int idx)
+{
+	int newL = m_ui->dispIdx2PyrL(idx);
+	m_cfg->updateDispImgPryLevel(newL);
+	m_ui->resetGui();
+}
+
+void TestGui::on_actionDecreaseDispImgSz_triggered()
+{
+	int L = m_cfg->increaseDispImgPyrL();
+	m_ui->setDispIdx(L);
+	m_ui->resetGui();
+}
+
+void TestGui::on_checkBox_camRec0_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateRecFlag(0, chked);
+}
+void TestGui::on_checkBox_camRec1_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateRecFlag(1, chked);
+}
+void TestGui::on_checkBox_camRec2_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateRecFlag(2, chked);
+}
+void TestGui::on_checkBox_camRec3_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateRecFlag(3, chked);
+}
+
+void TestGui::on_checkBox_disp0_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateDispFlag(0, chked);
+}
+void TestGui::on_checkBox_disp1_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateDispFlag(1, chked);
+}
+void TestGui::on_checkBox_disp2_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateDispFlag(2, chked);
+}
+void TestGui::on_checkBox_disp3_stateChgd(int state)
+{
+	bool  chked = (state == Qt::Checked);
+	m_cfg->updateDispFlag(3, chked);
+}
+
+void TestGui::on_lineEdit_camName0_edited(const QString &s)
+{
+	m_cfg->updateCamName(0, s.toStdString() );
+}
+
+void TestGui::on_lineEdit_camName1_edited(const QString &s)
+{
+	m_cfg->updateCamName(1, s.toStdString());
+}
+
+void TestGui::on_lineEdit_camName2_edited(const QString &s)
+{
+	m_cfg->updateCamName(2, s.toStdString());
+}
+
+void TestGui::on_lineEdit_camName3_edited(const QString &s)
+{
+	m_cfg->updateCamName(3, s.toStdString());
 }

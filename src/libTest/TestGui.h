@@ -45,6 +45,25 @@ namespace xeyes {
 		void on_actionExit_triggered();
 		void on_actionHelp_triggered();
 		void on_actionAbout_triggered();
+		void on_actionDecreaseDispImgSz_triggered();
+
+		void on_pushButton_startExit_clicked();
+		void on_comboBoxDspCamImgSz_currentIndexChanged(int idx);
+
+		void on_checkBox_camRec0_stateChgd(int state);
+		void on_checkBox_camRec1_stateChgd(int state);
+		void on_checkBox_camRec2_stateChgd(int state);
+		void on_checkBox_camRec3_stateChgd(int state);
+
+		void on_checkBox_disp0_stateChgd(int state);
+		void on_checkBox_disp1_stateChgd(int state);
+		void on_checkBox_disp2_stateChgd(int state);
+		void on_checkBox_disp3_stateChgd(int state);
+
+		void on_lineEdit_camName0_edited(const QString &s);
+		void on_lineEdit_camName1_edited(const QString &s);
+		void on_lineEdit_camName2_edited(const QString &s);
+		void on_lineEdit_camName3_edited(const QString &s);
 
 	private:
 		virtual void closeEvent(QCloseEvent* event);

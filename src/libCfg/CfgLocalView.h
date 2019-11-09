@@ -19,10 +19,12 @@ namespace xeyes {
 			assert(dispPyrLev_ >= 0 && dispPyrLev_ <= 3);
 			return imgSz_L0_.getSize(dispPyrLev_);
 		}
-		ImgSize getGuiWinSz() const;
+		ImgSize getCentralWidgetSz() const;
 	public:
-		const int	minGuiWinW_;      //minimum gui window width 
-		const int	minCtrlPanelH_;      //minimum gui window width 
+		const int	minGuiWinW_;     //minimum gui window width 
+		const int	minCtrlGrpH_;  //minimum gui window width 
+		const int	minCtrlGrpW_M;      //w of middle control grp
+		const int	minCtrlGrpW_R;      //r of right control  grp
 
 		ImgSize     logoSz_;
 

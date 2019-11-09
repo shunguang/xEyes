@@ -7,25 +7,31 @@ CfgCam::CfgCam()
 : CfgBase()
 , cameraId_(0)
 , cameraName_("unkn")
+, ip_(0)
 , imgSz_(0,0)
 , fps_(0,0)
 , capQueSz_(10)
 , detQueSz_(10)
 , detPyrLev_(1)
 , rtspUrl_("unkn")
+, isRec_(true)
+, isDisp_(true)
 {
 }
 
 CfgCam::CfgCam( const CfgCam &x )
 : CfgBase		( x )
 , cameraId_		( x.cameraId_ )
-, cameraName_	( x.cameraName_ )
+, cameraName_(x.cameraName_)
+, ip_			(x.ip_)
 , imgSz_		( x.imgSz_ )
 , fps_			( x.fps_ )
 , capQueSz_		( x.capQueSz_ )
 , detQueSz_ 	( x.detQueSz_ )
 , detPyrLev_	( x.detPyrLev_ )
 , rtspUrl_		( x.rtspUrl_ )
+, isRec_		( x.isRec_ )
+, isDisp_		( x.isDisp_)
 {
 }
 
@@ -35,7 +41,8 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 	if (this != &x){
 		CfgBase::operator=(x);
 		cameraId_ 	= x.cameraId_;
-		cameraName_	= x.cameraName_;
+		cameraName_ = x.cameraName_;
+		ip_			= x.ip_;
 		imgSz_		= x.imgSz_;
 		fps_		= x.fps_;
 		capQueSz_	= x.capQueSz_;
@@ -43,7 +50,9 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 		detQueSz_ 	=  x.detQueSz_; 
 		detPyrLev_	=  x.detPyrLev_;
 
-		rtspUrl_	= x.rtspUrl_;;
+		rtspUrl_	= x.rtspUrl_;
+		isRec_ = x.isRec_;
+		isDisp_ = x.isDisp_;
 	}
 	return *this;
 }
@@ -51,7 +60,8 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 void CfgCam::fromPropertyTree(const boost::property_tree::ptree &pt)
 {
 	cameraId_	= pt.get<int>("cameraId");
-	cameraName_	= pt.get<std::string>("cameraName");
+	cameraName_ = pt.get<std::string>("cameraName");
+	ip_			= ipConvertStr2Num(pt.get<std::string>("ip"));
 	imgSz_.w 	= pt.get<int>("imgW");
 	imgSz_.h 	= pt.get<int>("imgH");
 	fps_.num 	= pt.get<int>("fpsNum");
@@ -67,7 +77,8 @@ boost::property_tree::ptree CfgCam::toPropertyTree()
 	boost::property_tree::ptree pt;
 
 	pt.put( "cameraId", 	cameraId_ );
-	pt.put( "cameraName", 	cameraName_ );
+	pt.put("cameraName", cameraName_);
+	pt.put("ip", ipConvertNum2Str(ip_));
 	pt.put( "imgW", 		imgSz_.w );
 	pt.put( "imgH", 		imgSz_.h );
 	pt.put( "fpsNum", 		fps_.num );

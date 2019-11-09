@@ -5,8 +5,10 @@ using namespace xeyes;
 
 CfgLocalView::CfgLocalView()
 : CfgBase()
-, minGuiWinW_(640)
-, minCtrlPanelH_(140)
+, minGuiWinW_(720)
+, minCtrlGrpH_(118)
+, minCtrlGrpW_M(430)
+, minCtrlGrpW_R(160)
 , logoSz_(100,100)
 , maxGuiWinSz_(1920,1080)
 , dispQueSz_(10)
@@ -57,7 +59,7 @@ std::string CfgLocalView::toString()
 }
 
 
-ImgSize CfgLocalView::getGuiWinSz() const
+ImgSize CfgLocalView::getCentralWidgetSz() const
 {
 	int w0=0, h0=0, b = 2;
 	ImgSize sz = getDispImgSz();
@@ -74,10 +76,11 @@ ImgSize CfgLocalView::getGuiWinSz() const
 		h0 = 2 * sz.h + b;
 	}
 	else{
-		myAssert( 0, "CfgLocalView::getGuiWinSz(): cannot supprot more than 4 cameras!");
+		myAssert( 0, "CfgLocalView::getCentralWidgetSz(): cannot supprot more than 4 cameras!");
 	}
 	
 	w0 += 2*b;  //add extra space
+	w0 = APP_MAX(w0, minCtrlGrpW_M + minCtrlGrpW_R + logoSz_.w + 20);
 	if (w0 < minGuiWinW_) {
 		w0 = minGuiWinW_;
 	}
@@ -86,11 +89,7 @@ ImgSize CfgLocalView::getGuiWinSz() const
 	}
 
 	//control pannel size
-	int contrlPanelH = logoSz_.h + 2 * b;
-	if (contrlPanelH < minCtrlPanelH_) {
-		contrlPanelH = minCtrlPanelH_;
-	}
-	h0 += contrlPanelH;
+	h0 += APP_MAX(logoSz_.h + 4, minCtrlGrpH_) + 5;
 	if (h0 > maxGuiWinSz_.h) {
 		h0 = maxGuiWinSz_.h;
 	}

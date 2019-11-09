@@ -67,3 +67,34 @@ boost::property_tree::ptree Cfg::toPropertyTree()
 
 	return pt;
 }
+
+
+int Cfg::increaseDispImgPyrL() 
+{
+	int L;
+	{
+		boost::mutex::scoped_lock lock(m_mutex);
+		L = m_localView->dispPyrLev_ + 1;
+		if (L > m_localView->vDispPyrLev_.back()) {
+			L = m_localView->vDispPyrLev_.back();
+		}
+	}
+	return L;
+}
+
+
+void Cfg::updateRecFlag(int camIdx, bool isRecording) {
+	boost::mutex::scoped_lock lock(m_mutex);
+	m_camMap[camIdx]->isRec_ = isRecording;
+}
+
+void Cfg::updateDispFlag(int camIdx, bool isDisp) {
+	boost::mutex::scoped_lock lock(m_mutex);
+	m_camMap[camIdx]->isDisp_ = isDisp;
+}
+
+void Cfg::updateCamName(int camIdx, std::string name)
+{
+	boost::mutex::scoped_lock lock(m_mutex);
+	m_camMap[camIdx]->cameraName_ = name;
+}

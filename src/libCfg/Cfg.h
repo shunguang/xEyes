@@ -46,6 +46,19 @@ namespace xeyes {
 			}
 			return ret;
 		}
+
+		//<camIdx> must start from 0 for the flowing 3 funcs;
+		void updateRecFlag(int camIdx, bool isRecording);
+		void updateDispFlag(int camIdx, bool isDisp);
+		void updateCamName(int camIdx, std::string name);
+
+		int increaseDispImgPyrL();
+		void updateDispImgPryLevel(const int newL) {
+			boost::mutex::scoped_lock lock(m_mutex);
+			m_localView->dispPyrLev_ = newL ;
+		}
+
+
 	private:
 		boost::property_tree::ptree toPropertyTree();
 		void fromPropertyTree(const boost::property_tree::ptree &pt) ;

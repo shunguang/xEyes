@@ -6,8 +6,10 @@
 
   <cams>
     <cam>
-      <cameraId>1</cameraId>
+      <!-- cameraId must start from 0 -->
+      <cameraId>0</cameraId>
       <cameraName>Front Door</cameraName>
+      <ip>192.168.10.1</ip>
 	    <imgW>1920</imgW>
 	    <imgH>1080</imgH>
 	    <fpsNum>25</fpsNum>
@@ -18,9 +20,10 @@
 	    <rtspUrl>unkn</rtspUrl>
     </cam>
     <cam>
-      <cameraId>2</cameraId>
+      <cameraId>1</cameraId>
       <cameraName>Back Door</cameraName>
-	    <imgW>1920</imgW>
+      <ip>192.168.10.2</ip>
+      <imgW>1920</imgW>
 	    <imgH>1080</imgH>
 	    <fpsNum>25</fpsNum>
 	    <fpsDen>1</fpsDen>

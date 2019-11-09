@@ -48,14 +48,17 @@
 namespace xeyes {
 	enum GrpBox{
 		//----------do not chg order beg -----	
-		GRP_BOX_CAM0 = 0,
-		GRP_BOX_CAM1,
-		GRP_BOX_CAM2,
-		GRP_BOX_CAM3,
+		GRP_BOX_IMG_WIN0 = 0,
+		GRP_BOX_IMG_WIN1,
+		GRP_BOX_IMG_WIN2,
+		GRP_BOX_IMG_WIN3,
 		//----------do not chg order end -----	
-		GRP_BOX_CTRL,
+		GRP_BOX_LOGO,    //left 
+		GRP_BOX_CTRL_M,  //middle
+		GRP_BOX_CTRL_R,  //right
 		GRP_BOX_CUNT,
 	};
+	static std::vector<std::string> g_grpBoxName = {"imgWin0", "imgWin1", "imgWin2", "imgWin3", "logo", "ctrlM", "ctrlR" };
 
 	enum ResImg {
 		RES_IMG_RED_BOX = 0,
@@ -78,14 +81,37 @@ namespace xeyes {
 		void showImg( const int camId, const QPixmap &x );
 
 		const QRect &getGuiRect();
-		void resizeGuiWin();
 
+		void resetGui();
+
+		void setStartExitState(const char s) {
+			m_startExitState = s;
+			m_pushButtonStartExit->setText("Exit");
+		}
+		char getStartExitState() const {
+			return m_startExitState;
+		}
+
+		int dispIdx2PyrL( int idx ) {
+			int L = idx;
+			return L;
+		}
+		int pyrL2dispIdx(int L) {
+			int idx = L;
+			return idx;
+		}
+
+		void setDispIdx(int L) {
+			int idx = pyrL2dispIdx(L);
+			m_comboBoxDspCamImgSz->setCurrentIndex(idx);
+		}
 	private:
 		void setupMenu();
 		void setupGuiTexts();
 		void initSettings();
 		void setupGroupBoxs();
-		void resizeCtrlPanel();
+		void resizeGuiWin();
+		void resizeLogoAndCtrlPanel();
 
 	public:
 		//main window and menu bar
@@ -96,7 +122,7 @@ namespace xeyes {
 		QMenu		*m_menuHelp;
 		QAction		*m_actionExit;
 		QAction		*m_actionHelp;
-		QAction		*m_actionPreviousSz;
+		QAction		*m_actionDecreaseSz;
 		QAction		*m_actionAbout;
 
 		QGroupBox	*m_vGrpBox[GRP_BOX_CUNT];
@@ -115,8 +141,7 @@ namespace xeyes {
 		QLabel	    *m_labelLogo;
 		QLabel	    *m_labelDspCamImgSz;
 		QComboBox   *m_comboBoxDspCamImgSz;
-		QPushButton *m_pushButtonExit;
-
+		QPushButton *m_pushButtonStartExit;
 	private:
 		CfgPtr			m_cfg;		//shared data pointer
 		CfgLocalView	m_lv;		//a hard cp from m_cfg, only used in gui thread
@@ -125,6 +150,7 @@ namespace xeyes {
 
 		QRect			m_rectMainWin;
 		QRect			m_vRectGrpBox[GRP_BOX_CUNT];
+		char			m_startExitState;
 	};
 
 } // namespace Ui

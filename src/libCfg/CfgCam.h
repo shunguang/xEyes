@@ -18,6 +18,8 @@ namespace xeyes {
 	public:
 		int			cameraId_;
 		std::string cameraName_;
+		uint32_t	ip_;
+
 		ImgSize		imgSz_;	
 		VideoFps    fps_;
 
@@ -26,8 +28,9 @@ namespace xeyes {
 
 		int 		detQueSz_;      //detection output que size
 		int 		detPyrLev_;    		//detetcion pyamid level
-		
 		std::string rtspUrl_;
+		bool		isRec_;
+		bool		isDisp_;
 	};
 	typedef std::shared_ptr<CfgCam>		CfgCamPtr;
 }
