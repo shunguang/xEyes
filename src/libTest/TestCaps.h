@@ -11,9 +11,10 @@ namespace xeyes {
 	public:
 		TestCaps(CfgPtr &cfg);
 		~TestCaps();
+		void runAllThreads();
 
-		void startThreads();
-		void quitThreads();
+	protected:	
+		void quitAllThreads();
 
 	private:
 		CfgPtr	m_cfg;	//accessed by multi-threads

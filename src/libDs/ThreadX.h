@@ -13,19 +13,23 @@ namespace xeyes {
 
 		void start();            //start thread
 		void forceQuit();        //force thread quit from its inifinity loop
-		void wakeupToWork();     //wake up thread to  procNextTask()
-		void goToSleep();        //ask thread go to sleep
 
-		bool isExitedLoop();
-		bool isSleepMode();
+		inline void wakeupToWork();     //wake up thread to  procNextTask()
+		inline void goToSleep();        //ask thread go to sleep
+		inline bool isExitedLoop();
+		inline bool isSleepMode();
 
 		void setCfg( CfgPtr  &cfg );
 		void setDcUI( DcUIPtr &dcUI );
 
 	protected:
+		inline void setExitedLoopFlag(const bool f);
+		inline void setRcvdExitLoopCmdFlag(const bool f);
+		inline bool isRcvdExitLoopCmd();
+
 		virtual void procNextTask() = 0;
 		virtual bool procInit() = 0;
-		bool isRcvdExitLoopCmd();
+
 		void runLoop();
 		void initFrmFreq2Log( const ThreadTaskId id );
 
@@ -46,6 +50,7 @@ namespace xeyes {
 		std::shared_ptr<boost::thread>	 m_threadX;
 		boost::mutex					 m_mutex4Working;
 		boost::condition_variable		 m_condition4Working;
+		boost::mutex					 m_mutexLocal;
 	};
 	typedef std::shared_ptr<ThreadX>		ThreadXPtr;
 }

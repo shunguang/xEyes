@@ -33,4 +33,4 @@ namespace xeyes {
 	};
 	typedef std::shared_ptr<RunCapBase> RunCapBasePtr;
 }
-#endif // CLIENTGUI_H
+#endif 

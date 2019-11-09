@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_xeyes__TestGui_t {
-    QByteArrayData data[23];
-    char stringdata0[557];
+    QByteArrayData data[26];
+    char stringdata0[587];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,30 +34,34 @@ static const qt_meta_stringdata_xeyes__TestGui_t qt_meta_stringdata_xeyes__TestG
 QT_MOC_LITERAL(0, 0, 14), // "xeyes::TestGui"
 QT_MOC_LITERAL(1, 15, 23), // "on_actionExit_triggered"
 QT_MOC_LITERAL(2, 39, 0), // ""
-QT_MOC_LITERAL(3, 40, 23), // "on_actionHelp_triggered"
-QT_MOC_LITERAL(4, 64, 24), // "on_actionAbout_triggered"
-QT_MOC_LITERAL(5, 89, 36), // "on_actionDecreaseDispImgSz_tr..."
-QT_MOC_LITERAL(6, 126, 31), // "on_pushButton_startExit_clicked"
-QT_MOC_LITERAL(7, 158, 42), // "on_comboBoxDspCamImgSz_curren..."
-QT_MOC_LITERAL(8, 201, 3), // "idx"
-QT_MOC_LITERAL(9, 205, 29), // "on_checkBox_camRec0_stateChgd"
-QT_MOC_LITERAL(10, 235, 5), // "state"
-QT_MOC_LITERAL(11, 241, 29), // "on_checkBox_camRec1_stateChgd"
-QT_MOC_LITERAL(12, 271, 29), // "on_checkBox_camRec2_stateChgd"
-QT_MOC_LITERAL(13, 301, 29), // "on_checkBox_camRec3_stateChgd"
-QT_MOC_LITERAL(14, 331, 27), // "on_checkBox_disp0_stateChgd"
-QT_MOC_LITERAL(15, 359, 27), // "on_checkBox_disp1_stateChgd"
-QT_MOC_LITERAL(16, 387, 27), // "on_checkBox_disp2_stateChgd"
-QT_MOC_LITERAL(17, 415, 27), // "on_checkBox_disp3_stateChgd"
-QT_MOC_LITERAL(18, 443, 27), // "on_lineEdit_camName0_edited"
-QT_MOC_LITERAL(19, 471, 1), // "s"
-QT_MOC_LITERAL(20, 473, 27), // "on_lineEdit_camName1_edited"
-QT_MOC_LITERAL(21, 501, 27), // "on_lineEdit_camName2_edited"
-QT_MOC_LITERAL(22, 529, 27) // "on_lineEdit_camName3_edited"
+QT_MOC_LITERAL(3, 40, 10), // "closeEvent"
+QT_MOC_LITERAL(4, 51, 12), // "QCloseEvent*"
+QT_MOC_LITERAL(5, 64, 5), // "event"
+QT_MOC_LITERAL(6, 70, 23), // "on_actionHelp_triggered"
+QT_MOC_LITERAL(7, 94, 24), // "on_actionAbout_triggered"
+QT_MOC_LITERAL(8, 119, 36), // "on_actionDecreaseDispImgSz_tr..."
+QT_MOC_LITERAL(9, 156, 31), // "on_pushButton_startExit_clicked"
+QT_MOC_LITERAL(10, 188, 42), // "on_comboBoxDspCamImgSz_curren..."
+QT_MOC_LITERAL(11, 231, 3), // "idx"
+QT_MOC_LITERAL(12, 235, 29), // "on_checkBox_camRec0_stateChgd"
+QT_MOC_LITERAL(13, 265, 5), // "state"
+QT_MOC_LITERAL(14, 271, 29), // "on_checkBox_camRec1_stateChgd"
+QT_MOC_LITERAL(15, 301, 29), // "on_checkBox_camRec2_stateChgd"
+QT_MOC_LITERAL(16, 331, 29), // "on_checkBox_camRec3_stateChgd"
+QT_MOC_LITERAL(17, 361, 27), // "on_checkBox_disp0_stateChgd"
+QT_MOC_LITERAL(18, 389, 27), // "on_checkBox_disp1_stateChgd"
+QT_MOC_LITERAL(19, 417, 27), // "on_checkBox_disp2_stateChgd"
+QT_MOC_LITERAL(20, 445, 27), // "on_checkBox_disp3_stateChgd"
+QT_MOC_LITERAL(21, 473, 27), // "on_lineEdit_camName0_edited"
+QT_MOC_LITERAL(22, 501, 1), // "s"
+QT_MOC_LITERAL(23, 503, 27), // "on_lineEdit_camName1_edited"
+QT_MOC_LITERAL(24, 531, 27), // "on_lineEdit_camName2_edited"
+QT_MOC_LITERAL(25, 559, 27) // "on_lineEdit_camName3_edited"
 
     },
     "xeyes::TestGui\0on_actionExit_triggered\0"
-    "\0on_actionHelp_triggered\0"
+    "\0closeEvent\0QCloseEvent*\0event\0"
+    "on_actionHelp_triggered\0"
     "on_actionAbout_triggered\0"
     "on_actionDecreaseDispImgSz_triggered\0"
     "on_pushButton_startExit_clicked\0"
@@ -83,7 +87,7 @@ static const uint qt_meta_data_xeyes__TestGui[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -91,44 +95,46 @@ static const uint qt_meta_data_xeyes__TestGui[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  104,    2, 0x0a /* Public */,
-       3,    0,  105,    2, 0x0a /* Public */,
-       4,    0,  106,    2, 0x0a /* Public */,
-       5,    0,  107,    2, 0x0a /* Public */,
-       6,    0,  108,    2, 0x0a /* Public */,
-       7,    1,  109,    2, 0x0a /* Public */,
-       9,    1,  112,    2, 0x0a /* Public */,
-      11,    1,  115,    2, 0x0a /* Public */,
-      12,    1,  118,    2, 0x0a /* Public */,
-      13,    1,  121,    2, 0x0a /* Public */,
-      14,    1,  124,    2, 0x0a /* Public */,
-      15,    1,  127,    2, 0x0a /* Public */,
-      16,    1,  130,    2, 0x0a /* Public */,
-      17,    1,  133,    2, 0x0a /* Public */,
-      18,    1,  136,    2, 0x0a /* Public */,
-      20,    1,  139,    2, 0x0a /* Public */,
-      21,    1,  142,    2, 0x0a /* Public */,
-      22,    1,  145,    2, 0x0a /* Public */,
+       1,    0,  109,    2, 0x09 /* Protected */,
+       3,    1,  110,    2, 0x09 /* Protected */,
+       6,    0,  113,    2, 0x09 /* Protected */,
+       7,    0,  114,    2, 0x09 /* Protected */,
+       8,    0,  115,    2, 0x09 /* Protected */,
+       9,    0,  116,    2, 0x09 /* Protected */,
+      10,    1,  117,    2, 0x09 /* Protected */,
+      12,    1,  120,    2, 0x09 /* Protected */,
+      14,    1,  123,    2, 0x09 /* Protected */,
+      15,    1,  126,    2, 0x09 /* Protected */,
+      16,    1,  129,    2, 0x09 /* Protected */,
+      17,    1,  132,    2, 0x09 /* Protected */,
+      18,    1,  135,    2, 0x09 /* Protected */,
+      19,    1,  138,    2, 0x09 /* Protected */,
+      20,    1,  141,    2, 0x09 /* Protected */,
+      21,    1,  144,    2, 0x09 /* Protected */,
+      23,    1,  147,    2, 0x09 /* Protected */,
+      24,    1,  150,    2, 0x09 /* Protected */,
+      25,    1,  153,    2, 0x09 /* Protected */,
 
  // slots: parameters
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    8,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::Int,   10,
-    QMetaType::Void, QMetaType::QString,   19,
-    QMetaType::Void, QMetaType::QString,   19,
-    QMetaType::Void, QMetaType::QString,   19,
-    QMetaType::Void, QMetaType::QString,   19,
+    QMetaType::Void, QMetaType::Int,   11,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void, QMetaType::QString,   22,
+    QMetaType::Void, QMetaType::QString,   22,
+    QMetaType::Void, QMetaType::QString,   22,
+    QMetaType::Void, QMetaType::QString,   22,
 
        0        // eod
 };
@@ -140,23 +146,24 @@ void xeyes::TestGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_actionExit_triggered(); break;
-        case 1: _t->on_actionHelp_triggered(); break;
-        case 2: _t->on_actionAbout_triggered(); break;
-        case 3: _t->on_actionDecreaseDispImgSz_triggered(); break;
-        case 4: _t->on_pushButton_startExit_clicked(); break;
-        case 5: _t->on_comboBoxDspCamImgSz_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->on_checkBox_camRec0_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->on_checkBox_camRec1_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->on_checkBox_camRec2_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->on_checkBox_camRec3_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 10: _t->on_checkBox_disp0_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->on_checkBox_disp1_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->on_checkBox_disp2_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: _t->on_checkBox_disp3_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: _t->on_lineEdit_camName0_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 15: _t->on_lineEdit_camName1_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 16: _t->on_lineEdit_camName2_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 17: _t->on_lineEdit_camName3_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->closeEvent((*reinterpret_cast< QCloseEvent*(*)>(_a[1]))); break;
+        case 2: _t->on_actionHelp_triggered(); break;
+        case 3: _t->on_actionAbout_triggered(); break;
+        case 4: _t->on_actionDecreaseDispImgSz_triggered(); break;
+        case 5: _t->on_pushButton_startExit_clicked(); break;
+        case 6: _t->on_comboBoxDspCamImgSz_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: _t->on_checkBox_camRec0_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 8: _t->on_checkBox_camRec1_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->on_checkBox_camRec2_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: _t->on_checkBox_camRec3_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: _t->on_checkBox_disp0_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 12: _t->on_checkBox_disp1_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->on_checkBox_disp2_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->on_checkBox_disp3_stateChgd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->on_lineEdit_camName0_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 16: _t->on_lineEdit_camName1_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 17: _t->on_lineEdit_camName2_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 18: _t->on_lineEdit_camName3_edited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -187,13 +194,13 @@ int xeyes::TestGui::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 19)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 19;
     }
     return _id;
 }

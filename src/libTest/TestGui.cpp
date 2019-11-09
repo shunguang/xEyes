@@ -25,6 +25,7 @@ using namespace xeyes;
 TestGui::TestGui(CfgPtr& cfg, QWidget* parent)
 	: m_cfg(cfg)
 	, m_dcUI(0)
+	, m_quitProgDlg(0)
 	, m_guiReady(false)
 	, m_ui(new AppGui())
 {
@@ -102,28 +103,28 @@ void TestGui::closeEvent(QCloseEvent* event)
 	}
 }
 
-void TestGui::on_actionExit_triggered()
+void TestGui::createQuitDlg()
 {
 
-	std::shared_ptr<ProgDialog> progDlg(new ProgDialog( "Starting ...", 0, 0, 300, 100));
-	progDlg->setProgress(50, "Reading configuration file!");
+	m_quitProgDlg.reset(new ProgDialog("Starting ...", 0, 0, 300, 100));
+	m_quitProgDlg->reset();
+	m_quitProgDlg->resize(200, 100);
+	m_quitProgDlg->resetWinTitle("Preparing Quit");
+}
 
-	progDlg->setProgress(100, "Reading configuration file!");
-
-	progDlg->reset();
-	progDlg->resize(200, 100);
-	progDlg->resetWinTitle("Preparing Quit");
-
-	dumpLog("TestGui::on_actionExit_triggered()--B");
-
-	progDlg->setProgress(50, "Trerminal internal threads ...");
-
-	//clear up 
-	//m_runMgr->forceAllWorkersQuit();
-
-	progDlg->setProgress(100, "Successfully clean up!");
+void TestGui::closeQuitDlg()
+{
+	m_quitProgDlg->setProgress(100, "Successfully clean up!");
 	boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 	QApplication::quit();
+}
+
+void TestGui::on_actionExit_triggered()
+{
+	createQuitDlg();
+	m_quitProgDlg->setProgress(50, "Trerminal internal threads ...");
+	//todo: clear up other stuff for future extention
+	closeQuitDlg();
 }
 
 void TestGui::on_pushButton_startExit_clicked()

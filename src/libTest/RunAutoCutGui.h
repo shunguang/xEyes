@@ -175,5 +175,5 @@ boost::mutex m_runGuiMutex;
 
 };
 }
-#endif // CLIENTGUI_H
+#endif 
 

@@ -37,7 +37,7 @@ TestCaps::~TestCaps()
 {
 }
 
-void TestCaps::startThreads()
+void TestCaps::runAllThreads()
 {
 	m_exitMainLoop = false;
 	m_mainLoopExited = false;
@@ -62,13 +62,13 @@ void TestCaps::startThreads()
 		cin >> c;
 	}
 
-	quitThreads();
+	quitAllThreads();
 	m_mainLoopExited = true;
 	dumpLog("TestCaps::startThreads(): exited!");
 }
 
 
-void TestCaps::quitThreads()
+void TestCaps::quitAllThreads()
 {
 	for( auto &x : m_vRunCaps){
 		x->forceQuit();

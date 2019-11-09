@@ -12,12 +12,11 @@ namespace xeyes {
 	public:
 		TestDets(CfgPtr &cfg);
 		~TestDets();
-
-		void startThreads();
-		void quitThreads();
+		void startAllThreads();
 
     private:
-        void createCapThreads();
+		void quitAllThreads();
+		void createCapThreads();
         void createDetThreads();
         void startCapThreads();
         void startDetThreads();

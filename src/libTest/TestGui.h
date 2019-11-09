@@ -41,8 +41,9 @@ namespace xeyes {
 		TestGui(CfgPtr& cfg, QWidget* parent = 0);
 		~TestGui();
 
-	public slots:
-		void on_actionExit_triggered();
+	protected slots:
+		virtual void on_actionExit_triggered();
+		virtual void closeEvent(QCloseEvent* event);
 		void on_actionHelp_triggered();
 		void on_actionAbout_triggered();
 		void on_actionDecreaseDispImgSz_triggered();
@@ -65,19 +66,22 @@ namespace xeyes {
 		void on_lineEdit_camName2_edited(const QString &s);
 		void on_lineEdit_camName3_edited(const QString &s);
 
-	private:
-		virtual void closeEvent(QCloseEvent* event);
+	protected:
+		void createQuitDlg();
+		void closeQuitDlg();
 
-	private:
+	protected:
 		CfgPtr	m_cfg;                   //accessed by multi-threads
 		DcUIPtr	m_dcUI;
 
 		bool		m_guiReady;
 		std::shared_ptr<AppGui> m_ui;
 
+		std::shared_ptr<ProgDialog> m_quitProgDlg;
+
 		boost::mutex m_runGuiMutex;
 
 	};
 }
-#endif // CLIENTGUI_H
+#endif 
 

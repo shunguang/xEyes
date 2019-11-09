@@ -71,7 +71,7 @@
     <ProjectGuid>{23EFD1E5-2386-4144-8D13-F6224B42AF60}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libDs</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

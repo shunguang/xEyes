@@ -11,7 +11,7 @@ namespace xeyes {
 	{
 	public:
 		RunCapCamA(const int camId=0, const int threadId=0, const std::string &threadName="camA_Cap_thread");
-		~RunCapCamA();
+		virtual ~RunCapCamA();
 
 	protected:
 		virtual void procNextTask();
@@ -22,4 +22,4 @@ namespace xeyes {
 	};
 	typedef std::shared_ptr<RunCapCamA> RunCapCamAPtr;
 }
-#endif // CLIENTGUI_H
+#endif 

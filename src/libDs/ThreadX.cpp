@@ -9,11 +9,12 @@ ThreadX::ThreadX(const ThreadTaskId tid, const int threadId, const std::string &
 	, m_threadId( threadId )
 	, m_threadName(name)
 	, m_frmFreqToLog(100)
-	, m_isExitedLoop(false)
+	, m_isExitedLoop(true)
 	, m_isSleepMode(true)
 	, m_rcvdExitLoopCmd(false)
 	, m_threadX(0)
 	, m_mutex4Working()
+	, m_mutexLocal()
 	, m_condition4Working()
 {
 	//cout << "ThreadX::ThreadX(): called" << endl;
@@ -22,7 +23,9 @@ ThreadX::ThreadX(const ThreadTaskId tid, const int threadId, const std::string &
 
 ThreadX::~ThreadX()
 {
-	m_threadX->join();
+	if (m_threadX) {
+		m_threadX->join();
+	}
 }
 
 void ThreadX::setCfg(CfgPtr &cfg)
@@ -48,6 +51,7 @@ void ThreadX::start()
 
 void ThreadX::runLoop()
 {
+	setExitedLoopFlag(false);
 	bool quitLoop = false;
 	while (!quitLoop) {
 		{
@@ -69,19 +73,12 @@ void ThreadX::runLoop()
 		quitLoop = isRcvdExitLoopCmd();
 	}
 	dumpLog("ThreadX::run(): exit loop--%s", m_threadName.c_str());
-
-	{
-		boost::mutex::scoped_lock lock(m_mutex4Working);
-		m_isExitedLoop = true;
-	}
+	setExitedLoopFlag(true);
 }
 
 void ThreadX::forceQuit()
 {
-	{
-		boost::mutex::scoped_lock lock(m_mutex4Working);
-		m_rcvdExitLoopCmd = true;
-	}
+	setRcvdExitLoopCmdFlag(true);
 	if ( isSleepMode() ) {
 		wakeupToWork();
 	}
@@ -98,11 +95,17 @@ void ThreadX::forceQuit()
 
 }
 
+void ThreadX::setExitedLoopFlag( const bool f)
+{
+	boost::mutex::scoped_lock lock(m_mutexLocal);
+	m_isExitedLoop = f;
+}
+
 bool ThreadX::isExitedLoop()
 {
 	bool f;
 	{
-		boost::mutex::scoped_lock lock(m_mutex4Working);
+		boost::mutex::scoped_lock lock(m_mutexLocal);
 		f = m_isExitedLoop;
 	}
 	return f;
@@ -112,18 +115,24 @@ bool ThreadX::isRcvdExitLoopCmd()
 {
 	bool f;
 	{
-		boost::mutex::scoped_lock lock(m_mutex4Working);
+		boost::mutex::scoped_lock lock(m_mutexLocal);
 		f = m_rcvdExitLoopCmd;
 	}
 	return f;
+}
 
-	}
+void ThreadX::setRcvdExitLoopCmdFlag(const bool f)
+{
+	boost::mutex::scoped_lock lock(m_mutexLocal);
+	m_rcvdExitLoopCmd = true;
+}
 
 bool ThreadX::isSleepMode()
 {
 	bool f;
 	{
-		boost::mutex::scoped_lock lock(m_mutex4Working);
+		//boost::mutex::scoped_lock lock(m_mutex4Working);
+		boost::mutex::scoped_lock lock(m_mutexLocal);
 		f = m_isSleepMode;
 	}
 	return f;
@@ -139,7 +148,8 @@ void ThreadX::wakeupToWork()
 
 void ThreadX::goToSleep()
 {
-	boost::mutex::scoped_lock lock(m_mutex4Working);
+	//boost::mutex::scoped_lock lock(m_mutex4Working);
+	boost::mutex::scoped_lock lock(m_mutexLocal);
 	m_isSleepMode = true;
 }
 

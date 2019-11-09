@@ -16,4 +16,4 @@ namespace xeyes {
 	};
 	typedef std::shared_ptr<RunDetBkgChg> RunDetBkgChgPtr;
 }
-#endif // CLIENTGUI_H
+#endif 

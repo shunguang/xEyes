@@ -4,6 +4,7 @@
 //#include "libDs/CudaUtil.h"
 #include "libTest/TestCaps.h"
 #include "libTest/TestGui.h"
+#include "libTest/TestXEyes.h"
 
 using namespace std;
 using namespace xeyes;
@@ -32,18 +33,30 @@ int test_xEyes(int argc, char **argv)
 	
 	//cudaDeviceInit(0, NULL);
 
-	//TestCaps x(cfg);
-	//x.startThreads();
 
+	int appRet = 0;
 	QApplication app(argc, argv);
 	QFont font;
 	font.setFamily(font.defaultFamily());
 	font.setPointSize(9);
 	app.setFont(font);
 
-	TestGui runGui(cfg);
-	runGui.show();
-	int ret = app.exec();
+	int testFlag = 3;
+	if (testFlag == 1) {
+		TestCaps x(cfg);
+		x.runAllThreads();
+	}
+	else if (testFlag == 2) {
+		TestGui x(cfg);
+		x.show();
+		appRet = app.exec();
+	}
+	else if (testFlag == 3) {
+		TestXEyes x(cfg);
+		x.show();
+		appRet = app.exec();
+	}
+
 
 	endLogThread();
 	return 0;

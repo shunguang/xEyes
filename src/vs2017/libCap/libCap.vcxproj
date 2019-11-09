@@ -32,7 +32,7 @@
     <ProjectGuid>{FB164C16-DC5F-4E4C-8590-6E861AEEEA19}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libCap</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

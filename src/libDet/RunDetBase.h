@@ -33,4 +33,4 @@ namespace xeyes {
 	};
 	typedef std::shared_ptr<RunDetBase> RunDetBasePtr;
 }
-#endif // CLIENTGUI_H
+#endif 

@@ -36,7 +36,7 @@ TestDets::~TestDets()
 {
 }
 
-void TestDets::startThreads()
+void TestDets::startAllThreads()
 {
 	m_exitMainLoop = false;
 	m_mainLoopExited = false;
@@ -51,13 +51,13 @@ void TestDets::startThreads()
 		cin >> c;
 	}
 
-	quitThreads();
+	quitAllThreads();
 	m_mainLoopExited = true;
 	dumpLog("TestDets::startThreads(): exited!");
 }
 
 
-void TestDets::quitThreads()
+void TestDets::quitAllThreads()
 {
 	for( auto &x : m_vRunCaps){
 		x->forceQuit();
