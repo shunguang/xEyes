@@ -24,10 +24,9 @@ namespace xeyes {
 		VideoFps    fps_;
 
 		//todo: add more
-		int 		capQueSz_;      //image capture que size
+		int 		frmQueSz_;      //que size for FrmInfo
 
-		int 		detQueSz_;      //detection output que size
-		int 		detPyrLev_;    		//detetcion pyamid level
+		int 		detPyrLev_;    	//detetcion pyamid level
 		std::string rtspUrl_;
 		bool		isRec_;
 		bool		isDisp_;

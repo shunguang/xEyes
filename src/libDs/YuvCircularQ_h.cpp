@@ -60,7 +60,7 @@ void YuvCircularQ_h::allocQ(const uint32_t nTotItems)
 	dumpLog("YuvCircularQ_h::allocQ(), m_w=%d, m_h=%d, m_items=%d, m_name=%s", m_w, m_h, m_items, m_name.c_str());
 	m_q.clear();
 	for (uint32_t i = 0; i < m_items; ++i) {
-		Yuv420Frm_hPtr p( new Yuv420Frm_h(m_w, m_h, 0) );
+		YuvFrm_hPtr p( new YuvFrm_h(m_w, m_h, 0) );
 		p->fn_ = i;
 		m_q.push_back( p );
 	}
@@ -71,7 +71,7 @@ void YuvCircularQ_h::allocQ(const uint32_t nTotItems)
 }
 
 //wrt from host
-bool YuvCircularQ_h::wrt(const Yuv420Frm_h *src)
+bool YuvCircularQ_h::wrt(const YuvFrm_h *src)
 {
 	static int wrtDropCnt = 0;
 	bool sucWrt = false;
@@ -80,7 +80,7 @@ bool YuvCircularQ_h::wrt(const Yuv420Frm_h *src)
 		uint32_t &idx = m_headW;
 		int   &cnt = m_v[idx];
 		if (cnt == 0) {
-			Yuv420Frm_h  *dst = m_q[idx].get();			
+			YuvFrm_h  *dst = m_q[idx].get();			
 			myAssert( src->sz_ == dst->sz_, "YuvCircularQ_h::wrt(): A- size does not match!" );
 			dst->hdCopyFrom(src);	  //hard copy
 			cnt = cnt + 1;
@@ -106,7 +106,7 @@ bool YuvCircularQ_h::wrt(const Yuv420Frm_h *src)
 
 //wrt from dev
 #if APP_USE_CUDA
-bool YuvCircularQ_h::wrt(const Yuv420Frm_d *src)
+bool YuvCircularQ_h::wrt(const YuvFrm_d *src)
 {
 	static int wrtDropCnt = 0;
 	bool sucWrt = false;
@@ -115,7 +115,7 @@ bool YuvCircularQ_h::wrt(const Yuv420Frm_d *src)
 		uint32_t &idx = m_headW;
 		int   &cnt = m_v[idx];
 		if (cnt == 0) {
-			Yuv420Frm_h  *dst = m_q[idx].get();			
+			YuvFrm_h  *dst = m_q[idx].get();			
 			myAssert(dst->w_ == src->size_.width && dst->h_ == src->size_.height, "YuvCircularQ_h::wrt(): B- size does not match!" );
 			src->hdCopyTo( dst );
 			cnt = cnt + 1;
@@ -139,7 +139,7 @@ bool YuvCircularQ_h::wrt(const Yuv420Frm_d *src)
 #endif
 
 //the consumer read  <x> from que
-bool YuvCircularQ_h::read( Yuv420Frm_h *dst )
+bool YuvCircularQ_h::read( YuvFrm_h *dst )
 {
 	bool hasData = false;
 	{
@@ -148,7 +148,7 @@ bool YuvCircularQ_h::read( Yuv420Frm_h *dst )
 		uint32_t &idx = m_headR;
 		int   &cnt = m_v[idx];
 		if (cnt > 0) {
-			Yuv420Frm_h  *src = m_q[idx].get();			
+			YuvFrm_h  *src = m_q[idx].get();			
 			myAssert(src->sz_ == dst->sz_, "YuvCircularQ_h::read(): A- size does not match!" );
 			src->hdCopyTo( dst );		//hd copy the poiter
 			cnt = 0;
@@ -164,7 +164,7 @@ bool YuvCircularQ_h::read( Yuv420Frm_h *dst )
 }
 
 #if APP_USE_CUDA
-bool YuvCircularQ_h::read(Yuv420Frm_d *dst)
+bool YuvCircularQ_h::read(YuvFrm_d *dst)
 {
 	bool hasData = false;
 	{
@@ -173,7 +173,7 @@ bool YuvCircularQ_h::read(Yuv420Frm_d *dst)
 		uint32_t &idx = m_headR;
 		int   &cnt = m_v[idx];
 		if (cnt > 0) {
-			const Yuv420Frm_h  *src = m_q[idx].get();			
+			const YuvFrm_h  *src = m_q[idx].get();			
 			myAssert(src->w_ == dst->size_.width && src->h_ == dst->size_.height, "YuvCircularQ_h::read(): B- size does not match!" );
 			dst->hdCopyFrom( src ); //only copy image data
 

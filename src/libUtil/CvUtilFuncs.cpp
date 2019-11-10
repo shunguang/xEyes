@@ -218,33 +218,36 @@ bool xeyes::getCvImgRowStep(const IplImage *img, int &rowStep, int &row0)
 }
 
 
+std::string xeyes::genImgFilePath(const string &myPath, const string &fileNameWoExt, const uint64_t fn, const int L)
+{
+	char fileName[1024];
+	snprintf(fileName, 1024, "%s/%s-%05d-L%d.png", myPath.c_str(), fileNameWoExt.c_str(), fn, L);
+	return std::string(fileName);
+}
+
 void xeyes::myImgWrite(const cv::Mat &x, const std::string &dir, const std::string &fname, const size_t fn, const size_t L)
 {
-	char buf[1024];
-	snprintf(buf, 1024, "%s/%s-fn%05d-L%d.png", dir.c_str(), fname.c_str(), fn, L);
 
-	printf("!!! Writting file: %s\n", buf);
-
-	cv::imwrite(buf, x);
+	std::string f = genImgFilePath( dir, fname, fn, L);
+	printf("!!! Writting file: %s\n", f.c_str() );
+	cv::imwrite(f, x);
 }
 
 
 void xeyes::myImgWrite(const IplImage* cvTrkImg, const string &myPath, const string &fileNameWoExt, const size_t &fn)
 {
-	char fileName[1024];
-	snprintf(fileName, 1024, "%s/%s-%05d.png", myPath.c_str(), fileNameWoExt.c_str(), fn);
-
+	std::string fileName = genImgFilePath(myPath, fileNameWoExt, fn);
 	if (!folderExists(myPath)) {
 		printf("xeyes::myCvImgSave(): Path: %s is not exist!\n", myPath.c_str());
-		printf("xeyes::myCvImgSave(): ould not save file: %s\n", fileName);
+		printf("xeyes::myCvImgSave(): could not save file: %s\n", fileName.c_str());
 		return;
 	}
 
-	if (!cvSaveImage(fileName, cvTrkImg)) {
-		printf("xeyes::myCvImgSave():  Could not save: %s\n", fileName);
+	if (!cvSaveImage(fileName.c_str(), cvTrkImg)) {
+		printf("xeyes::myCvImgSave():  Could not save: %s\n", fileName.c_str());
 	}
 	else {
-		printf("xeyes::myCvImgSave():  File saved: %s\n", fileName);
+		printf("xeyes::myCvImgSave():  File saved: %s\n", fileName.c_str());
 	}
 }
 

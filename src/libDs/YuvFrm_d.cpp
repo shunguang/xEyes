@@ -1,11 +1,11 @@
 
 //this thread capture Bayer images from camera and store them into a circluar que
-#include "Yuv420Frm_d.h"
+#include "YuvFrm_d.h"
 #if APP_USE_CUDA
 
 using namespace std;
 using namespace xeyes;
-Yuv420Frm_d::Yuv420Frm_d(int w, int h)
+YuvFrm_d::YuvFrm_d(int w, int h)
 	: pImg_(0)
 	, fn_(0)
 	, ip_(0)
@@ -15,14 +15,14 @@ Yuv420Frm_d::Yuv420Frm_d(int w, int h)
 	create(w,h);
 }
 
-Yuv420Frm_d::~Yuv420Frm_d()
+YuvFrm_d::~YuvFrm_d()
 {
 	if (pImg_) {
 		cudaFree(pImg_);
 	}
 }
 
-void Yuv420Frm_d::create(int w, int h)
+void YuvFrm_d::create(int w, int h)
 {
 	if (w*h>0){
 		cudaMalloc((void **)&pImg_, w*h * 3 / 2);
@@ -42,7 +42,7 @@ void Yuv420Frm_d::create(int w, int h)
 	nBufSz_[0] = w*h; nBufSz_[1] = w*h / 4; nBufSz_[2] = w*h / 4;
 }
 
-void Yuv420Frm_d::resize(int w, int h)
+void YuvFrm_d::resize(int w, int h)
 {
 	if (pImg_) {
 		cudaFree(pImg_);
@@ -51,7 +51,7 @@ void Yuv420Frm_d::resize(int w, int h)
 }
 
 //copy from dev
-void Yuv420Frm_d::hdCopyFrom(const Yuv420Frm_d *src)
+void YuvFrm_d::hdCopyFrom(const YuvFrm_d *src)
 {
 	int w = src->size_.width;
 	int h = src->size_.height;
@@ -64,7 +64,7 @@ void Yuv420Frm_d::hdCopyFrom(const Yuv420Frm_d *src)
 }
 
 //copy from host
-void Yuv420Frm_d::hdCopyFrom(const Yuv420Frm_h *src)
+void YuvFrm_d::hdCopyFrom(const YuvFrm_h *src)
 {
 	if (src->w_ != size_.width || src->h_ != size_.height) {
 		myExit("hdCopyFrom(): size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", size_.width, size_.height, src->w_, src->h_);
@@ -73,7 +73,7 @@ void Yuv420Frm_d::hdCopyFrom(const Yuv420Frm_h *src)
 	cudaMemcpy(pImg_, src->v_.data(), src->sz_, cudaMemcpyHostToDevice);
 }
 
-void Yuv420Frm_d::hdCopyFromRgb_d(const RgbFrm_d *src) {
+void YuvFrm_d::hdCopyFromRgb_d(const RgbFrm_d *src) {
 	//assert(I.size_.width >= size_.width &&  I.size_.height >= size_.height);
 	if (src->size_.width < size_.width || src->size_.height < size_.height ) {
 		myExit("hdCopyFromRgb_d(): size_ does not match, RGB[w=%d,h=%d], YUV[w=%d,h=%d]", src->size_.width, src->size_.height, size_.width, size_.height);
@@ -90,13 +90,13 @@ void Yuv420Frm_d::hdCopyFromRgb_d(const RgbFrm_d *src) {
 	fn_  = src->fn_;
 }
 
-void Yuv420Frm_d::hdCopyTo(Yuv420Frm_d *dst) const
+void YuvFrm_d::hdCopyTo(YuvFrm_d *dst) const
 {
 	const int w = dst->size_.width;
 	const int h = dst->size_.height;
 	if (w != size_.width || h != size_.height) {
-		//myExit("Yuv420Frm_d::hdCopyTo_dev() size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", w, h, size_.width, size_.height);
-		dumpLog("Yuv420Frm_d::hdCopyTo_dev(): warning -- size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", w, h, size_.width, size_.height);
+		//myExit("YuvFrm_d::hdCopyTo_dev() size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", w, h, size_.width, size_.height);
+		dumpLog("YuvFrm_d::hdCopyTo_dev(): warning -- size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", w, h, size_.width, size_.height);
 		return;
 	}
 	dst->fn_ = fn_;
@@ -105,11 +105,11 @@ void Yuv420Frm_d::hdCopyTo(Yuv420Frm_d *dst) const
 }
 
 //hd copy to for same size_ image at host memoery
-void Yuv420Frm_d::hdCopyTo(Yuv420Frm_h *dst) const
+void YuvFrm_d::hdCopyTo(YuvFrm_h *dst) const
 {
 	if (dst->w_ != size_.width || dst->h_ != size_.height) {
-		//myExit("Yuv420Frm_d::hdCopyTo_host(): size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", dst->w_, dst->h_, size_.width, size_.height);
-		dumpLog("Yuv420Frm_d::hdCopyTo(): warning --size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", dst->w_, dst->h_, size_.width, size_.height);
+		//myExit("YuvFrm_d::hdCopyTo_host(): size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", dst->w_, dst->h_, size_.width, size_.height);
+		dumpLog("YuvFrm_d::hdCopyTo(): warning --size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", dst->w_, dst->h_, size_.width, size_.height);
 		return;
 	}
 
@@ -118,7 +118,7 @@ void Yuv420Frm_d::hdCopyTo(Yuv420Frm_h *dst) const
 }
 
 //hd copy to <dst>: for dst size_ > src size_ becasue RTSP need special image sizes
-void Yuv420Frm_d::hdCopyTo2(Yuv420Frm_h *dst) const {
+void YuvFrm_d::hdCopyTo2(YuvFrm_h *dst) const {
 	if (dst->w_ < size_.width || dst->h_ < size_.height) {
 		myExit("hdCopyTo2(): size_ does not match, dst[w=%d,h=%d], src[w=%d,h=%d]", dst->w_, dst->h_, size_.width, size_.height);
 	}
@@ -143,14 +143,14 @@ void Yuv420Frm_d::hdCopyTo2(Yuv420Frm_h *dst) const {
 }
 
 
-void Yuv420Frm_d::dump(const std::string &tag, int L)
+void YuvFrm_d::dump(const std::string &tag, int L)
 {
-	Yuv420Frm_h f(size_.width, size_.height, fn_);
+	YuvFrm_h f(size_.width, size_.height, fn_);
 	cudaMemcpy(f.v_.data(), pImg_, f.sz_, cudaMemcpyDeviceToHost);
 	f.dump(".", tag, roi_.width, roi_.height, L);
 }
 
-void Yuv420Frm_d::print(const std::string &msg)
+void YuvFrm_d::print(const std::string &msg)
 {
 	printf("%s, nSteps_=[%d,%d,%d], size_(w=%d,h=%d)\n", msg.c_str(), nSteps_[0], nSteps_[1], nSteps_[2], size_.width, size_.height);
 }

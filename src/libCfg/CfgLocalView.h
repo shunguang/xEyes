@@ -32,7 +32,7 @@ namespace xeyes {
 
 		int 		dispQueSz_;      //disp frm que size
 		int 		dispPyrLev_;     //disp pyramid level		
-		int 		maxPyrLev_;     //disp pyramid level		
+		int 		maxPyrLev_;      //disp pyramid level		
 		int			nNumOfCams_;
 
 		ImgSize			 imgSz_L0_;	         //disp single camera image sz

@@ -3,9 +3,8 @@ using namespace std;
 using namespace xeyes;
 
 
-DetFrm_h::DetFrm_h( const int camId, const int L, const uint64_t fn)
-: m_camId( camId )
-, m_L (L)            //detetcion pyramid level 
+DetFrm_h::DetFrm_h( const int L, const uint64_t fn)
+: m_L (L)            //detetcion pyramid level 
 , m_fn (fn)			//frm # in file
 , m_vRois()
 {

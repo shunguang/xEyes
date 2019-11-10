@@ -64,7 +64,7 @@ bool RunDetBkgChg::procInit()
 	//init currrent camera capture params
 	m_detPyrL = L;
 	m_camName = camCfg.cameraName_;
-	m_yuvFrm_h.reset( new Yuv420Frm_h( w0, h0 ) );
+	m_yuvFrm_h.reset( new YuvFrm_h( w0, h0 ) );
 	m_rgbFrm_h.reset( new RgbFrm_h( w0>>L, h0>>L, L) );
 
 	return true;

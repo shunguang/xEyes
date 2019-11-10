@@ -34,6 +34,7 @@ namespace xeyes {
 	void UTIL_EXPORT rectPyrLevelUpDown(const cv::Rect &in, const int dL, cv::Rect &out);
 
 	//assume the channel order in <x> is BGR, since we call cv::imwrite()
+	std::string UTIL_EXPORT genImgFilePath(const std::string &myPath, const std::string &fileNameWoExt, const uint64_t fn, const int L=0);
 	void UTIL_EXPORT myImgWrite(const cv::Mat &x, const std::string &dir, const std::string &fname, const size_t fn, const size_t L = 0);
 	void UTIL_EXPORT myImgWrite(const IplImage* cvTrkImg, const std::string &myPath, const std::string &fileNameWoExt, const size_t &fn);
 	void UTIL_EXPORT dumpCvImgToTextFile(const IplImage *J, const std::string &fileName);

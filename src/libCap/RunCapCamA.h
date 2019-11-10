@@ -3,7 +3,7 @@
 #define __RUN_CAP_CAM_A_H__
 #include "libUtil/util.h"
 #include "libDs/ThreadX.h"
-#include "libDs/Yuv420Frm_h.h"
+#include "libDs/YuvFrm_h.h"
 
 #include "RunCapBase.h"
 namespace xeyes {

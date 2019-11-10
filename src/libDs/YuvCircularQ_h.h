@@ -2,8 +2,8 @@
 #ifndef _YUV_CIRCULAR_Q_H_H_
 #define _YUV_CIRCULAR_Q_H_H_
 
-#include "Yuv420Frm_h.h"
-#include "Yuv420Frm_d.h"
+#include "YuvFrm_h.h"
+#include "YuvFrm_d.h"
 namespace xeyes {
 	class  YuvCircularQ_h {
 	public:
@@ -18,12 +18,12 @@ namespace xeyes {
 		void reset();
 
 		//HD copy <x> into q[m_headW]
-		bool wrt(const Yuv420Frm_h *src);  	//host interface
+		bool wrt(const YuvFrm_h *src);  	//host interface
 #if APP_USE_CUDA
-		bool wrt(const Yuv420Frm_d *src);  	//dev interface
-		bool read(Yuv420Frm_d* dst);		//dev interface
+		bool wrt(const YuvFrm_d *src);  	//dev interface
+		bool read(YuvFrm_d* dst);		//dev interface
 #endif
-		bool read(Yuv420Frm_h *dst);       	//host interface 
+		bool read(YuvFrm_h *dst);       	//host interface 
 	protected:
 		void allocQ(const uint32_t nTotItems);
 		void freeQ();
@@ -36,7 +36,7 @@ namespace xeyes {
 		uint32_t		m_headW;	//the index to write	
 		uint32_t		m_headR;	//the index to write	
 
-		std::vector<Yuv420Frm_hPtr>	m_q;
+		std::vector<YuvFrm_hPtr>	m_q;
 		std::vector<int>	m_v;        //count the wrt (++) / read(--) activities in m_q[i]
 
 

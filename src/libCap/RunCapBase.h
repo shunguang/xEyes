@@ -3,7 +3,7 @@
 #define __RUN_CAP_BASE_H__
 #include "libUtil/util.h"
 #include "libDs/ThreadX.h"
-#include "libDs/Yuv420Frm_h.h"
+#include "libDs/YuvFrm_h.h"
 #include "CapDefs.h"
 namespace xeyes {
 	class RunDetBase;
@@ -26,7 +26,7 @@ namespace xeyes {
 		uint64			m_frmNum;
 		int				m_frmInterval_ms;
 
-		Yuv420Frm_hPtr	m_yuvFrm_h;   //output/captured frm from this camera
+		YuvFrm_hPtr	m_yuvFrm_h;   //output/captured frm from this camera
 		DcPtr 			m_camDc;      //shared data container of this camera
 		CfgCam			m_camCfg;     //hd copy this camera cfg
 		RunDetBase*		m_detPtr;

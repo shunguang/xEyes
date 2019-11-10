@@ -25,7 +25,7 @@ namespace xeyes {
 		std::vector<int> m_vCamId;
 
 		//class tmp variable
-		RgbFrm_hPtr		m_dispFrm_h;    //a frm come from multi-camera
+		RgbFrm_hPtr		m_DspFrm_h;    //a frm come from multi-camera
 		RgbFrm_hPtr		m_camFrm_h;     //1 frm from once camera
 	};
 	typedef std::shared_ptr<RunDisp> RunDispPtr;

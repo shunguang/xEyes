@@ -4,26 +4,26 @@
 #include "libUtil/util.h"
 #include "DsDefs.h"
 namespace xeyes {
-	class DS_EXPORT Yuv420Frm_h {
+	class DS_EXPORT YuvFrm_h {
 	public:
-		Yuv420Frm_h(const int w=0, const int h=0, const uint64_t fn=0 );  //sz = w*h*3/2
-		Yuv420Frm_h(const cv::Size &imgSz, const uint64_t fn);
-		Yuv420Frm_h(const cv::Mat &bgr, const uint64_t fn=0);
+		YuvFrm_h(const int w=0, const int h=0, const uint64_t fn=0 );  //sz = w*h*3/2
+		YuvFrm_h(const cv::Size &imgSz, const uint64_t fn);
+		YuvFrm_h(const cv::Mat &bgr, const uint64_t fn=0);
 		//soft copy, assert(bufSz == w*h*3/2)
-		//Yuv420Frm_h(const int w, const int h, uint8_t *buf_, uint32_t bufSz, const uint64_t fn );
+		//YuvFrm_h(const int w, const int h, uint8_t *buf_, uint32_t bufSz, const uint64_t fn );
 
 		//copy construct
-		Yuv420Frm_h(const Yuv420Frm_h &x);
-		~Yuv420Frm_h()=default;
+		YuvFrm_h(const YuvFrm_h &x);
+		~YuvFrm_h()=default;
 
-		Yuv420Frm_h& operator = (const Yuv420Frm_h &x);
+		YuvFrm_h& operator = (const YuvFrm_h &x);
 		void resetSz(const int w, const int h );
 
-		void hdCopyTo(Yuv420Frm_h *des) const;			//same size copy
-		void hdCopyToLargerDst(Yuv420Frm_h *dst) const;	//dst.sz_ > src.sz_ copy
+		void hdCopyTo(YuvFrm_h *des) const;			//same size copy
+		void hdCopyToLargerDst(YuvFrm_h *dst) const;	//dst.sz_ > src.sz_ copy
 		void hdCopyToBGR(cv::Mat *dstBGR) const;
 
-		void hdCopyFrom( const Yuv420Frm_h *src );
+		void hdCopyFrom( const YuvFrm_h *src );
 		void hdCopyFromBuf(const uint8_t *buf, const uint32_t bufSz, const uint64_t fn = 0);
 		void hdCopyFromBGR(const cv::Mat *srcBGR, const uint64_t fn=0);
 
@@ -51,6 +51,6 @@ namespace xeyes {
 		uint32_t	nBufSz_[3];       	//nBufSz_[0] = w_*h_; nBufSz_[1] = w_*h_/4; nBufSz_[2] = w_*h_/4
 
 	};
-	typedef std::shared_ptr<Yuv420Frm_h>		Yuv420Frm_hPtr;
+	typedef std::shared_ptr<YuvFrm_h>		YuvFrm_hPtr;
 }
 #endif

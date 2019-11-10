@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\libDs\DetFrm_h.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libDs\DispFrm_h.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\libDs\JpegFrm_h.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,13 +42,22 @@
     <ClCompile Include="..\..\libDs\ThreadX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libDs\Yuv420Frm_d.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libDs\Yuv420Frm_h.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\libDs\YuvCircularQ_h.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDs\DspFrm_h.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDs\YuvFrm_d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDs\YuvFrm_h.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDs\FrmInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDs\FrmInfoCircularQ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,9 +72,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libDs\DetFrm_h.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libDs\DispFrm_h.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libDs\DsDefs.h">
@@ -95,13 +98,22 @@
     <ClInclude Include="..\..\libDs\ThreadX.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libDs\Yuv420Frm_d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libDs\Yuv420Frm_h.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\libDs\YuvCircularQ_h.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libDs\FrmInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libDs\DspFrm_h.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libDs\YuvFrm_d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libDs\YuvFrm_h.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libDs\FrmInfoCircularQ.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

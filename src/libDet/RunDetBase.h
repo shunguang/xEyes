@@ -3,7 +3,7 @@
 #define __RUN_DET_BASE_H__
 #include "libUtil/util.h"
 #include "libDs/ThreadX.h"
-#include "libDs/Yuv420Frm_h.h"
+#include "libDs/YuvFrm_h.h"
 #include "libDs/RgbFrm_h.h"
 #include "DetDefs.h"
 namespace xeyes {
@@ -26,7 +26,7 @@ namespace xeyes {
 		uint64			m_frmNum;
 		int             m_detPyrL;
 		  
-		Yuv420Frm_hPtr	m_yuvFrm_h;   //input/captured frm to process
+		YuvFrm_hPtr	m_yuvFrm_h;   //input/captured frm to process
 		RgbFrm_hPtr		m_rgbFrm_h;   //output frm after detetcion processing
 
 		DcPtr 			m_camDc;      //shared data container of this camera

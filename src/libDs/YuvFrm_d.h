@@ -7,27 +7,27 @@
 #include <cuda_runtime.h>
 #include <npp.h>
 #include <nppi.h>
-#include "Yuv420Frm_h.h"
+#include "YuvFrm_h.h"
 #include "RgbFrm_d.h"
 
 namespace xeyes {
-	class Yuv420Frm_d {
+	class YuvFrm_d {
 	public:
-		Yuv420Frm_d(int w=0, int h=0);
-		~Yuv420Frm_d();
+		YuvFrm_d(int w=0, int h=0);
+		~YuvFrm_d();
 
 		void create(int w, int h);
 		void resize(int w, int h);
 
 		//note: we keep poiters as unified interface which can handle smartpointers, regular YUV or RGB Frms efficently
-		void hdCopyFrom(const Yuv420Frm_d *src); 	//frem YUV dev
-		void hdCopyFrom(const Yuv420Frm_h *src); 	//from YUV host
+		void hdCopyFrom(const YuvFrm_d *src); 	//frem YUV dev
+		void hdCopyFrom(const YuvFrm_h *src); 	//from YUV host
 		void hdCopyFromRgb_d(const RgbFrm_d *src);	//from RGB dev
 
 		//hd copy to for same szie image
-		void hdCopyTo(Yuv420Frm_d *dst) const;   //copy to device
-		void hdCopyTo(Yuv420Frm_h *dst) const;   //copy host same size
-		void hdCopyTo2(Yuv420Frm_h *dst) const;  //copy to for dst size > src size becasue RTSP need special image sizes
+		void hdCopyTo(YuvFrm_d *dst) const;   //copy to device
+		void hdCopyTo(YuvFrm_h *dst) const;   //copy host same size
+		void hdCopyTo2(YuvFrm_h *dst) const;  //copy to for dst size > src size becasue RTSP need special image sizes
 
 		void dump(const std::string &tag, int L);
 		void print(const std::string &msg);
@@ -42,7 +42,7 @@ namespace xeyes {
 		int			nSteps_[3];
 		uint32_t	nBufSz_[3];
 	};
-	typedef std::shared_ptr<Yuv420Frm_d> Yuv420Frm_dPtr;
+	typedef std::shared_ptr<YuvFrm_d> YuvFrm_dPtr;
 }
 #endif
 #endif

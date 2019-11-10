@@ -14,8 +14,7 @@
 	    <imgH>1080</imgH>
 	    <fpsNum>25</fpsNum>
 	    <fpsDen>1</fpsDen>
-	    <capQueSz>50</capQueSz>
-		  <detQueSz>50</detQueSz>
+      <frmQueSz>50</frmQueSz>
 		  <detPyrLev>1</detPyrLev>
 	    <rtspUrl>unkn</rtspUrl>
     </cam>
@@ -27,8 +26,7 @@
 	    <imgH>1080</imgH>
 	    <fpsNum>25</fpsNum>
 	    <fpsDen>1</fpsDen>
-	    <capQueSz>50</capQueSz>
-		  <detQueSz>50</detQueSz>
+      <frmQueSz>50</frmQueSz>
 		  <detPyrLev>1</detPyrLev>
 	    <rtspUrl>unkn</rtspUrl>
     </cam>

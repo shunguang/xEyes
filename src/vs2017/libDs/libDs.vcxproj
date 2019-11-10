@@ -23,20 +23,25 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\libDs\Dc.cpp" />
+    <ClCompile Include="..\..\libDs\Dc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\libDs\DcUI.cpp" />
     <ClCompile Include="..\..\libDs\DetFrm_h.cpp" />
-    <ClCompile Include="..\..\libDs\DispFrm_h.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    <ClCompile Include="..\..\libDs\DspFrm_h.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\libDs\FrmInfo.cpp" />
+    <ClCompile Include="..\..\libDs\FrmInfoCircularQ.cpp" />
     <ClCompile Include="..\..\libDs\JpegFrm_h.cpp" />
     <ClCompile Include="..\..\libDs\RgbCircularQ_h.cpp" />
     <ClCompile Include="..\..\libDs\RgbFrm_d.cpp" />
     <ClCompile Include="..\..\libDs\RgbFrm_h.cpp" />
     <ClCompile Include="..\..\libDs\ThreadX.cpp" />
-    <ClCompile Include="..\..\libDs\Yuv420Frm_d.cpp" />
-    <ClCompile Include="..\..\libDs\Yuv420Frm_h.cpp" />
+    <ClCompile Include="..\..\libDs\YuvFrm_d.cpp" />
+    <ClCompile Include="..\..\libDs\YuvFrm_h.cpp" />
     <ClCompile Include="..\..\libDs\YuvCircularQ_h.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -44,14 +49,18 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\libDs\Dc.h" />
+    <ClInclude Include="..\..\libDs\Dc.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\libDs\DcUI.h" />
     <ClInclude Include="..\..\libDs\DetFrm_h.h" />
-    <ClInclude Include="..\..\libDs\DispFrm_h.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    <ClInclude Include="..\..\libDs\DspFrm_h.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\..\libDs\DsDefs.h" />
+    <ClInclude Include="..\..\libDs\FrmInfoCircularQ.h" />
     <ClInclude Include="..\..\libDs\helper_cuda.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -62,8 +71,9 @@
     <ClInclude Include="..\..\libDs\RgbFrm_d.h" />
     <ClInclude Include="..\..\libDs\RgbFrm_h.h" />
     <ClInclude Include="..\..\libDs\ThreadX.h" />
-    <ClInclude Include="..\..\libDs\Yuv420Frm_d.h" />
-    <ClInclude Include="..\..\libDs\Yuv420Frm_h.h" />
+    <ClInclude Include="..\..\libDs\FrmInfo.h" />
+    <ClInclude Include="..\..\libDs\YuvFrm_d.h" />
+    <ClInclude Include="..\..\libDs\YuvFrm_h.h" />
     <ClInclude Include="..\..\libDs\YuvCircularQ_h.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

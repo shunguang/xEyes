@@ -4,18 +4,17 @@ using namespace xeyes;
 Dc::Dc(const int camId,  CfgPtr &cfg)
 : m_camId( camId )
 , m_cfg( cfg )
-, m_capYuvFrmQ()
-, m_detRgbFrmQ()
+, m_frmInfoQ(0)
 {
-	CfgCam cam = cfg->getCam( camId );
-	
+	CfgCam cam		= cfg->getCam(camId);
+	CfgLocalView lv = cfg->getLocalView();
 	cout << cam.toString() << endl;
-	//reset capture que
-	m_capYuvFrmQ.resetName( cam.cameraName_ +  "YUV capture Que" );
-	m_capYuvFrmQ.resetSize( cam.imgSz_.w, cam.imgSz_.h, cam.capQueSz_);
+
+	std::string name = "FrmInfoQ_" + std::to_string(camId);
+	m_frmInfoQ.reset( new FrmInfoCircularQ(cam, lv, name) );
 
 	//reset detection que
-	m_detRgbFrmQ.resetName( cam.cameraName_ +  "YUV capture Que" );
-	m_detRgbFrmQ.resetSize( cam.imgSz_.w, cam.imgSz_.h, cam.capQueSz_, cam.detPyrLev_);
+	//m_detRgbFrmQ.resetName( cam.cameraName_ +  "YUV capture Que" );
+	//m_detRgbFrmQ.resetSize( cam.imgSz_.w, cam.imgSz_.h, cam.capQueSz_, cam.detPyrLev_);
 }
 

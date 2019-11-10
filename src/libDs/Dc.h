@@ -8,6 +8,7 @@
 #include "libCfg/Cfg.h"
 #include "YuvCircularQ_h.h"
 #include "RgbCircularQ_h.h"
+#include "FrmInfoCircularQ.h"
 
 namespace xeyes {
 	class DS_EXPORT Dc{
@@ -18,10 +19,9 @@ namespace xeyes {
 		~Dc() = default;
 
 	public:
-		int 				m_camId;
-		CfgPtr 				m_cfg;
-		YuvCircularQ_h		m_capYuvFrmQ;       //capture results
-		RgbCircularQ_h		m_detRgbFrmQ;       //detection results
+		int 					m_camId;
+		CfgPtr 					m_cfg;
+		FrmInfoCircularQPtr		m_frmInfoQ;       //capture results
 	};
 	typedef std::shared_ptr<Dc> DcPtr;
 }

@@ -10,8 +10,8 @@ namespace xeyes {
 	class DS_EXPORT DcUI{
 	public:
 		DcUI( CfgPtr &cfg );
-		DcUI( const Dc &x) = delete;
-		DcUI& operator=(Dc const&) = delete;
+		DcUI( const DcUI &x) = delete;
+		DcUI& operator=(DcUI const&) = delete;
 		~DcUI() = default;
 		
 	protected:
@@ -22,7 +22,6 @@ namespace xeyes {
 		CfgPtr 					m_cfg;
 		int						m_nTotCams; 
 		std::map<int, DcPtr> 	m_dcMap;          //assert(m_dcMap.size() == m_nTotCams )
-		RgbCircularQ_h			m_dispRgbFrmQ;    //Final display frm que
 	};
 	typedef std::shared_ptr<DcUI> DcUIPtr;
 }

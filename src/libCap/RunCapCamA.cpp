@@ -53,7 +53,7 @@ bool RunCapCamA::procInit()
 	//init currrent camera capture params
 	m_frmInterval_ms = floor( 1000.0/m_camCfg.fps_.getFps() );
 	m_camName = m_camCfg.cameraName_;
-	m_yuvFrm_h.reset( new Yuv420Frm_h( w, h ) );
+	m_yuvFrm_h.reset( new YuvFrm_h( w, h ) );
 	//dumpLog( "Yuv: (w=%d,h=%d)", m_yuvFrm_h->w_, m_yuvFrm_h->h_);
 
 	//read the synthetic frame
