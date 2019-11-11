@@ -51,7 +51,8 @@ namespace xeyes {
 	void UTIL_EXPORT deleteFilesInFolder( const std::string &folderPath );
 	void UTIL_EXPORT myCreateDir(const std::string &p);
 	void UTIL_EXPORT splitExt(const std::string &fPath, std::string &head, std::string &ext);
-
+	bool UTIL_EXPORT isVideoFile(const std::string &filePath);
+	bool UTIL_EXPORT isImgeFile(const std::string &filePath);
 }
 
 #endif

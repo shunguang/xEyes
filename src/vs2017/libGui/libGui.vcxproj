@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\libGui\AppGui.h" />
     <ClInclude Include="..\..\libGui\GuiDefs.h" />
-    <ClInclude Include="..\..\libGui\GuiUtil.h" />
     <CustomBuild Include="..\..\libGui\ImgLabel.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QT_DIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QT_DIR)\include\QtCore" "-I$(QT_DIR)\include\QtGui" "-I$(QT_DIR)\include\QtWidgets"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Mocing %(Filename).h ...</Message>
@@ -51,18 +50,15 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\moc_%(Filename).cpp</Outputs>
     </CustomBuild>
     <ClInclude Include="..\..\libGui\QtHeaders.h" />
-    <ClInclude Include="..\..\libGui\RunDisp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libGui\AppGui.cpp" />
-    <ClCompile Include="..\..\libGui\GuiUtil.cpp" />
     <ClCompile Include="..\..\libGui\ImgLabel.cpp" />
     <ClCompile Include="..\..\libGui\MsgBox.cpp" />
     <ClCompile Include="..\..\libGui\PlayerControls.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\libGui\RunDisp.cpp" />
     <ClCompile Include="GeneratedFiles\moc_ImgLabel.cpp" />
     <ClCompile Include="GeneratedFiles\moc_MsgBox.cpp" />
     <ClCompile Include="GeneratedFiles\moc_ProgDialog.cpp" />

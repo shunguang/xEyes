@@ -21,13 +21,7 @@
     <ClInclude Include="..\..\libGui\GuiDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libGui\RunDisp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\libGui\AppGui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libGui\GuiUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libGui\PlayerControls.h">
@@ -38,13 +32,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libGui\RunDisp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\libGui\AppGui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libGui\GuiUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\libGui\ImgLabel.cpp">

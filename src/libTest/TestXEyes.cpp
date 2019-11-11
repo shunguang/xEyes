@@ -12,6 +12,17 @@ TestXEyes::TestXEyes(CfgPtr& cfg, QWidget* parent)
 	createDetectionThreads();
 	createDisplayThreads();
 
+	std::vector<int> vCamIds;
+	m_cfg->getCamIds(vCamIds);
+	for (auto &id : vCamIds) {
+		m_vDcPtr.push_back( m_dcUI->m_dcMap[id].get() );
+	}
+
+	QObject::connect(m_vRunDsps[0].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg0(const uint64_t)), MY_QT_CONN);
+	QObject::connect(m_vRunDsps[1].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg1(const uint64_t)), MY_QT_CONN);
+	QObject::connect(m_vRunDsps[2].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg2(const uint64_t)), MY_QT_CONN);
+	QObject::connect(m_vRunDsps[3].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg3(const uint64_t)), MY_QT_CONN);
+
 	runAllThreads();
 }
 
@@ -103,4 +114,28 @@ void TestXEyes::on_actionExit_triggered()
 	quitAllThreads();
 	closeQuitDlg();
 	dumpLog("TestXEyes::on_actionExit_triggered(): exited!");
+}
+
+void TestXEyes::respns_dispImg0(const uint64_t fn)
+{
+	m_vDcPtr[0]->m_frmInfoQ->readDsp( m_dspFrm_h.get() );
+	m_ui->showImg(0, m_dspFrm_h->m_img);
+}
+
+void TestXEyes::respns_dispImg1(const uint64_t fn)
+{
+	m_vDcPtr[1]->m_frmInfoQ->readDsp(m_dspFrm_h.get());
+	m_ui->showImg(1, m_dspFrm_h->m_img);
+}
+
+void TestXEyes::respns_dispImg2(const uint64_t fn)
+{
+	m_vDcPtr[2]->m_frmInfoQ->readDsp(m_dspFrm_h.get());
+	m_ui->showImg(2, m_dspFrm_h->m_img);
+}
+
+void TestXEyes::respns_dispImg3(const uint64_t fn)
+{
+	m_vDcPtr[3]->m_frmInfoQ->readDsp(m_dspFrm_h.get());
+	m_ui->showImg(3, m_dspFrm_h->m_img);
 }

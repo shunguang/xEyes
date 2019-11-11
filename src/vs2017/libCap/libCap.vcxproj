@@ -22,10 +22,12 @@
     <ClInclude Include="..\..\libCap\CapDefs.h" />
     <ClInclude Include="..\..\libCap\RunCapBase.h" />
     <ClInclude Include="..\..\libCap\RunCapCamA.h" />
+    <ClInclude Include="..\..\libCap\RunCapSynthetic.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libCap\RunCapBase.cpp" />
     <ClCompile Include="..\..\libCap\RunCapCamA.cpp" />
+    <ClCompile Include="..\..\libCap\RunCapSynthetic.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

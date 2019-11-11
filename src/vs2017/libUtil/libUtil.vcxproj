@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\libUtil\AppEnums.h" />
     <ClInclude Include="..\..\libUtil\AppLog.h" />
+    <ClInclude Include="..\..\libUtil\CvQtUtil.h" />
     <ClInclude Include="..\..\libUtil\CvUtilFuncs.h" />
     <ClInclude Include="..\..\libUtil\cxxopts.hpp" />
     <ClInclude Include="..\..\libUtil\DataTypes.h" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libUtil\AppLog.cpp" />
+    <ClCompile Include="..\..\libUtil\CvQtUtil.cpp" />
     <ClCompile Include="..\..\libUtil\CvUtilFuncs.cpp" />
     <ClCompile Include="..\..\libUtil\FileUtil.cpp" />
     <ClCompile Include="..\..\libUtil\Roi.cpp" />

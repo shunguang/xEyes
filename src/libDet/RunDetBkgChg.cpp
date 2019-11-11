@@ -1,3 +1,4 @@
+#include "libDsp/RunDsp.h"
 #include "RunDetBkgChg.h"
 
 using namespace std;
@@ -20,7 +21,7 @@ void RunDetBkgChg::procNextTask()
 	const boost::posix_time::ptime start = APP_LOCAL_TIME;
 
 	//read new frm from capture Q
-	bool hasNewFrm = m_camDc->m_capYuvFrmQ.read( m_yuvFrm_h.get() ); 
+	bool hasNewFrm = m_camDc->m_frmInfoQ->readYuv( m_yuvFrm_h.get(), READ_YUV_4_DET);
 	if(hasNewFrm){
 		this->goToSleep();
 	}
@@ -29,7 +30,8 @@ void RunDetBkgChg::procNextTask()
 	bool suc = doChgDet();
 
 	//wrt results into output queue
-	m_camDc->m_detRgbFrmQ.wrt( m_rgbFrm_h.get() );
+	m_camDc->m_frmInfoQ->wrtDet( m_detFrm_h.get() );
+	m_dspPtr->wakeupToWork();
 
 	if (m_yuvFrm_h->fn_ % m_frmFreqToLog == 0) {
 		uint32_t dt = timeIntervalMillisec(start);
@@ -42,13 +44,19 @@ bool RunDetBkgChg::doChgDet()
 {
 	cv::Mat I0;
 	m_yuvFrm_h->hdCopyToBGR( &I0 );
-
 	int w = I0.cols >> m_detPyrL;
 	int h = I0.rows >> m_detPyrL;
+	//down sizing the original image
 
-	cv::resize( I0, m_rgbFrm_h->I_, cv::Size(w, h) );
-	m_rgbFrm_h->fn_ = m_yuvFrm_h->fn_;
-	m_rgbFrm_h->L_ = m_detPyrL;
+	//do detection
+
+	//prepare results
+	m_detFrm_h->m_vRois.clear();
+	m_detFrm_h->m_fn = m_yuvFrm_h->fn_;
+	m_detFrm_h->m_L = m_detPyrL;
+	if (m_detFrm_h->m_fn % 200) {
+		m_detFrm_h->m_vRois.push_back(Roi(10, 10, 50, 70));
+	}
 	return true;
 }
 
@@ -63,9 +71,8 @@ bool RunDetBkgChg::procInit()
 	
 	//init currrent camera capture params
 	m_detPyrL = L;
-	m_camName = camCfg.cameraName_;
 	m_yuvFrm_h.reset( new YuvFrm_h( w0, h0 ) );
-	m_rgbFrm_h.reset( new RgbFrm_h( w0>>L, h0>>L, L) );
+	m_detFrm_h.reset( new DetFrm_h( L ) );
 
 	return true;
 }

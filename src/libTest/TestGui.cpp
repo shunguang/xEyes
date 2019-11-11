@@ -20,8 +20,6 @@
 #include "TestGui.h"
 using namespace std;
 using namespace xeyes;
-#define POPUP_MSG_WIN_TITLE "xEyes"
-#define MY_QT_CONN		Qt::UniqueConnection
 TestGui::TestGui(CfgPtr& cfg, QWidget* parent)
 	: m_cfg(cfg)
 	, m_dcUI(0)
@@ -47,10 +45,21 @@ TestGui::TestGui(CfgPtr& cfg, QWidget* parent)
 	
 	QObject::connect(m_ui->m_pushButtonStartExit, SIGNAL(clicked()), this, SLOT(on_pushButton_startExit_clicked()), MY_QT_CONN);
 	QObject::connect(m_ui->m_comboBoxDspCamImgSz, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBoxDspCamImgSz_currentIndexChanged(int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vLineEditCamName[0], SIGNAL(textEdited(const QString &)), this, SLOT(on_lineEdit_camName0_edited(const QString &)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vLineEditCamName[1], SIGNAL(textEdited(const QString &)), this, SLOT(on_lineEdit_camName1_edited(const QString &)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vLineEditCamName[2], SIGNAL(textEdited(const QString &)), this, SLOT(on_lineEdit_camName2_edited(const QString &)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vLineEditCamName[3], SIGNAL(textEdited(const QString &)), this, SLOT(on_lineEdit_camName3_edited(const QString &)), MY_QT_CONN);
 
-	QLineEdit	*m_vLineEditCamName[NUM_OF_CAMS];
-	QCheckBox	*m_vChkBoxCamRec[NUM_OF_CAMS];
-	QCheckBox	*m_vChkBoxCamDisp[NUM_OF_CAMS];
+	QObject::connect(m_ui->m_vChkBoxCamRec[0], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_camRec0_stateChgd(const int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vChkBoxCamRec[1], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_camRec1_stateChgd(const int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vChkBoxCamRec[2], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_camRec2_stateChgd(const int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vChkBoxCamRec[3], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_camRec3_stateChgd(const int)), MY_QT_CONN);
+
+	QObject::connect(m_ui->m_vChkBoxCamDisp[0], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_disp0_stateChgd(const int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vChkBoxCamDisp[1], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_disp1_stateChgd(const int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vChkBoxCamDisp[2], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_disp2_stateChgd(const int)), MY_QT_CONN);
+	QObject::connect(m_ui->m_vChkBoxCamDisp[3], SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_disp3_stateChgd(const int)), MY_QT_CONN);
+
 
 	THREAD_SLEEP(100);
 	m_guiReady = true;

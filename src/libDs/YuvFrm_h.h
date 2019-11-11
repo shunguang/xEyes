@@ -19,7 +19,7 @@ namespace xeyes {
 		YuvFrm_h& operator = (const YuvFrm_h &x);
 		void resetSz(const int w, const int h );
 
-		void hdCopyTo(YuvFrm_h *des) const;			//same size copy
+		void hdCopyTo(YuvFrm_h *des) const;				//same size copy
 		void hdCopyToLargerDst(YuvFrm_h *dst) const;	//dst.sz_ > src.sz_ copy
 		void hdCopyToBGR(cv::Mat *dstBGR) const;
 

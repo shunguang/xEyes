@@ -22,11 +22,10 @@ namespace xeyes {
 
 	protected:
 		int 			m_camId;
-		std::string 	m_camName;	
 		uint64			m_frmNum;
 		int				m_frmInterval_ms;
 
-		YuvFrm_hPtr	m_yuvFrm_h;   //output/captured frm from this camera
+		YuvFrm_hPtr		m_yuvFrm_h;   //output/captured frm from this camera
 		DcPtr 			m_camDc;      //shared data container of this camera
 		CfgCam			m_camCfg;     //hd copy this camera cfg
 		RunDetBase*		m_detPtr;

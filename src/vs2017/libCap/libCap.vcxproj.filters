@@ -24,12 +24,18 @@
     <ClInclude Include="..\..\libCap\RunCapCamA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libCap\RunCapSynthetic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libCap\RunCapBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\libCap\RunCapCamA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libCap\RunCapSynthetic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

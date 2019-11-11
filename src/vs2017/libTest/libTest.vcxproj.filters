@@ -30,9 +30,6 @@
     <ClCompile Include="GeneratedFiles\moc_TestGui.cpp">
       <Filter>QtGeneratedFiles</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libTest\RunAutoCutGui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\libTest\TestXEyes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libTest\TestDets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libTest\RunAutoCutGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

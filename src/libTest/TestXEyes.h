@@ -22,6 +22,7 @@
 
 #include "libCap/RunCapCamA.h"
 #include "libDet/RunDetBkgChg.h"
+#include "libDsp/RunDsp.h"
 
 #include "TestGui.h"
 
@@ -37,7 +38,10 @@ namespace xeyes {
 
 	protected slots:
 		virtual void on_actionExit_triggered();
-
+		void		 respns_dispImg0(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg1(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg2(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg3(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
 	protected:
 		void runAllThreads();
 		void startCaptureThreads();
@@ -53,8 +57,12 @@ namespace xeyes {
 	protected:
 		std::vector<RunCapBasePtr>	m_vRunCaps;	//caprture thread
 		std::vector<RunDetBasePtr>	m_vRunDets;	//detection threads
+		std::vector<RunDspPtr>		m_vRunDsps;	//detection threads
 
-		std::vector<int> m_vCamIds;             //camera IDs, cannot be changed after luanched
+		std::vector<int>			m_vCamIds;             //camera IDs, cannot be changed after luanched
+		std::vector<Dc*>			m_vDcPtr;
+		
+		DspFrm_hPtr					m_dspFrm_h;
 		int				 m_threadIdCnt;
 
 	};

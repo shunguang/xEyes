@@ -1,4 +1,4 @@
-#include "GuiUtil.h"
+#include "CvQtUtil.h"
 
 using namespace std;
 using namespace cv;
@@ -89,68 +89,3 @@ cv::Mat xeyes::QImage2cvMat(const QImage &image)
 	return mat;
 }
 
-bool xeyes::isVideoFile(const std::string &filePath)
-{
-	std::string  head, ext;
-
-	splitExt2(filePath, head, ext);
-
-	if (0 == ext.compare("AVI")) {
-		return true;
-	}
-	if (0 == ext.compare("MP4")) {
-		return true;
-	}
-
-	return false;
-}
-
-bool xeyes::isImgeFile(const std::string &filePath)
-{
-	std::string  head, ext;
-
-	splitExt2(filePath, head, ext);
-
-	if (0 == ext.compare("BMP")) {
-		return true;
-	}
-	if (0 == ext.compare("JPG")) {
-		return true;
-	}
-	if (0 == ext.compare("PNG")) {
-		return true;
-	}
-	if (0 == ext.compare("GIF")) {
-		return true;
-	}
-	if (0 == ext.compare("JPEG")) {
-		return true;
-	}
-	if (0 == ext.compare("PBM")) {
-		return true;
-	}
-	if (0 == ext.compare("PGM")) {
-		return true;
-	}
-	if (0 == ext.compare("PPM")) {
-		return true;
-	}
-	if (0 == ext.compare("XBM")) {
-		return true;
-	}
-	if (0 == ext.compare("XPM")) {
-		return true;
-	}
-
-	return false;
-}
-
-
-void xeyes::splitExt2(const std::string& fPath, std::string& head, std::string& ext)
-{
-	int id = fPath.find_last_of('.');
-	if (id == std::string::npos) return;
-
-	head = fPath.substr(0, id);
-	ext = fPath.substr(id + 1);
-}

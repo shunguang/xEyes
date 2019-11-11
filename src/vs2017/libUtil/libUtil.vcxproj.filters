@@ -51,6 +51,9 @@
     <ClInclude Include="..\..\libUtil\UtilFuncs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libUtil\CvQtUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libUtil\AppLog.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\libUtil\UtilFuncs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libUtil\CvQtUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
