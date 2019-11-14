@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'TestXEyes.h'
+** Meta object code from reading C++ file 'RunXEyes.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../libTest/TestXEyes.h"
+#include "../../../libTest/RunXEyes.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'TestXEyes.h' doesn't include <QObject>."
+#error "The header file 'RunXEyes.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.9.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_xeyes__TestXEyes_t {
-    QByteArrayData data[9];
-    char stringdata0[118];
+    QByteArrayData data[7];
+    char stringdata0[106];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -31,21 +31,18 @@ struct qt_meta_stringdata_xeyes__TestXEyes_t {
     )
 static const qt_meta_stringdata_xeyes__TestXEyes_t qt_meta_stringdata_xeyes__TestXEyes = {
     {
-QT_MOC_LITERAL(0, 0, 16), // "xeyes::TestXEyes"
+QT_MOC_LITERAL(0, 0, 16), // "xeyes::RunXEyes"
 QT_MOC_LITERAL(1, 17, 23), // "on_actionExit_triggered"
 QT_MOC_LITERAL(2, 41, 0), // ""
 QT_MOC_LITERAL(3, 42, 15), // "respns_dispImg0"
-QT_MOC_LITERAL(4, 58, 8), // "uint64_t"
-QT_MOC_LITERAL(5, 67, 2), // "fn"
-QT_MOC_LITERAL(6, 70, 15), // "respns_dispImg1"
-QT_MOC_LITERAL(7, 86, 15), // "respns_dispImg2"
-QT_MOC_LITERAL(8, 102, 15) // "respns_dispImg3"
+QT_MOC_LITERAL(4, 58, 15), // "respns_dispImg1"
+QT_MOC_LITERAL(5, 74, 15), // "respns_dispImg2"
+QT_MOC_LITERAL(6, 90, 15) // "respns_dispImg3"
 
     },
-    "xeyes::TestXEyes\0on_actionExit_triggered\0"
-    "\0respns_dispImg0\0uint64_t\0fn\0"
-    "respns_dispImg1\0respns_dispImg2\0"
-    "respns_dispImg3"
+    "xeyes::RunXEyes\0on_actionExit_triggered\0"
+    "\0respns_dispImg0\0respns_dispImg1\0"
+    "respns_dispImg2\0respns_dispImg3"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,59 +61,60 @@ static const uint qt_meta_data_xeyes__TestXEyes[] = {
 
  // slots: name, argc, parameters, tag, flags
        1,    0,   39,    2, 0x09 /* Protected */,
-       3,    1,   40,    2, 0x09 /* Protected */,
-       6,    1,   43,    2, 0x09 /* Protected */,
-       7,    1,   46,    2, 0x09 /* Protected */,
-       8,    1,   49,    2, 0x09 /* Protected */,
+       3,    0,   40,    2, 0x09 /* Protected */,
+       4,    0,   41,    2, 0x09 /* Protected */,
+       5,    0,   42,    2, 0x09 /* Protected */,
+       6,    0,   43,    2, 0x09 /* Protected */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    5,
-    QMetaType::Void, 0x80000000 | 4,    5,
-    QMetaType::Void, 0x80000000 | 4,    5,
-    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
 
-void xeyes::TestXEyes::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void xeyes::RunXEyes::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        TestXEyes *_t = static_cast<TestXEyes *>(_o);
+        RunXEyes *_t = static_cast<RunXEyes *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_actionExit_triggered(); break;
-        case 1: _t->respns_dispImg0((*reinterpret_cast< const uint64_t(*)>(_a[1]))); break;
-        case 2: _t->respns_dispImg1((*reinterpret_cast< const uint64_t(*)>(_a[1]))); break;
-        case 3: _t->respns_dispImg2((*reinterpret_cast< const uint64_t(*)>(_a[1]))); break;
-        case 4: _t->respns_dispImg3((*reinterpret_cast< const uint64_t(*)>(_a[1]))); break;
+        case 1: _t->respns_dispImg0(); break;
+        case 2: _t->respns_dispImg1(); break;
+        case 3: _t->respns_dispImg2(); break;
+        case 4: _t->respns_dispImg3(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
-const QMetaObject xeyes::TestXEyes::staticMetaObject = {
-    { &TestGui::staticMetaObject, qt_meta_stringdata_xeyes__TestXEyes.data,
+const QMetaObject xeyes::RunXEyes::staticMetaObject = {
+    { &RunGui::staticMetaObject, qt_meta_stringdata_xeyes__TestXEyes.data,
       qt_meta_data_xeyes__TestXEyes,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *xeyes::TestXEyes::metaObject() const
+const QMetaObject *xeyes::RunXEyes::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *xeyes::TestXEyes::qt_metacast(const char *_clname)
+void *xeyes::RunXEyes::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_xeyes__TestXEyes.stringdata0))
-        return static_cast<void*>(const_cast< TestXEyes*>(this));
-    return TestGui::qt_metacast(_clname);
+        return static_cast<void*>(const_cast< RunXEyes*>(this));
+    return RunGui::qt_metacast(_clname);
 }
 
-int xeyes::TestXEyes::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int xeyes::RunXEyes::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = TestGui::qt_metacall(_c, _id, _a);
+    _id = RunGui::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

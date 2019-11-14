@@ -1,10 +1,10 @@
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
 
-//#include "libDs/CudaUtil.h"
-#include "libTest/TestCaps.h"
-#include "libTest/TestGui.h"
-#include "libTest/TestXEyes.h"
+//#include "libDc/CudaUtil.h"
+#include "libRun/RunCap.h"
+#include "libRun/RunGui.h"
+#include "libRun/RunXEyes.h"
 
 using namespace std;
 using namespace xeyes;
@@ -43,16 +43,16 @@ int test_xEyes(int argc, char **argv)
 
 	int testFlag = 3;
 	if (testFlag == 1) {
-		TestCaps x(cfg);
+		RunCap x(cfg);
 		x.runAllThreads();
 	}
 	else if (testFlag == 2) {
-		TestGui x(cfg);
+		RunGui x(cfg);
 		x.show();
 		appRet = app.exec();
 	}
 	else if (testFlag == 3) {
-		TestXEyes x(cfg);
+		RunXEyes x(cfg);
 		x.show();
 		appRet = app.exec();
 	}

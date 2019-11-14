@@ -123,8 +123,7 @@ bool ThreadQt::isSleepMode()
 {
 	bool f;
 	{
-		//boost::mutex::scoped_lock lock(m_mutex4Working);
-		boost::mutex::scoped_lock lock(m_mutexLocal);
+		boost::mutex::scoped_lock lock(m_mutex4Working);
 		f = m_isSleepMode;
 	}
 	return f;
@@ -140,8 +139,7 @@ void ThreadQt::wakeupToWork()
 
 void ThreadQt::goToSleep()
 {
-	//boost::mutex::scoped_lock lock(m_mutex4Working);
-	boost::mutex::scoped_lock lock(m_mutexLocal);
+	boost::mutex::scoped_lock lock(m_mutex4Working);
 	m_isSleepMode = true;
 }
 

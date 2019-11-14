@@ -1,6 +1,6 @@
 /*
 *-------------------------------------------------------------------
-* TestGui.h
+* RunGui.h
 * Copyright(c) 2019, The RgbVideoEditor Author (Shunguang Wu).
 * All Rights Reserved.
 * You may not use this file except in compliance with the License:
@@ -35,14 +35,14 @@
 #define MY_QT_CONN		Qt::UniqueConnection
 
 namespace xeyes {
-	class TestGui : public QMainWindow
+	class RunGui : public QMainWindow
 	{
 		Q_OBJECT
 
 	public:
 		//all the threads share the same cfg located at only one physical address
-		TestGui(CfgPtr& cfg, QWidget* parent = 0);
-		~TestGui();
+		RunGui(CfgPtr& cfg, QWidget* parent = 0);
+		~RunGui();
 
 	protected slots:
 		virtual void on_actionExit_triggered();

@@ -22,7 +22,7 @@
     <MY_QT_LIBS>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5OpenGL.lib</MY_QT_LIBS>
     <MY_QT_LIBS_D>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5OpenGLd.lib</MY_QT_LIBS_D>
     <MY_FFMPEG_LIBS>avformat.lib;avutil.lib;avcodec.lib;swscale.lib;swresample.lib</MY_FFMPEG_LIBS>
-    <MY_PROJ_LIBS>libUtil.lib;libyuv.lib;libCfg.lib;libDs.lib;libCap.lib;libDet.lib;libGui.lib;libTest.lib</MY_PROJ_LIBS>
+    <MY_PROJ_LIBS>libUtil.lib;libyuv.lib;libCfg.lib;libDs.lib;libCap.lib;libDet.lib;libGui.lib;libRun.lib</MY_PROJ_LIBS>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(PROJ_EXPORT)\$(Configuration)\</OutDir>

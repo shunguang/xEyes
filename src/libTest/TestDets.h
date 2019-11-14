@@ -5,13 +5,13 @@
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
 #include "libDs/DcUI.h"
-#include "libCap/RunCapCamA.h"
-#include "libDet/RunDetBkgChg.h"
+#include "libCap/CapThreadCamTemp.h"
+#include "libDet/DetThreadBkgChg.h"
 namespace xeyes {
-	class TestDets {
+	class RunDet {
 	public:
-		TestDets(CfgPtr &cfg);
-		~TestDets();
+		RunDet(CfgPtr &cfg);
+		~RunDet();
 		void startAllThreads();
 
     private:
@@ -25,8 +25,8 @@ namespace xeyes {
 		CfgPtr	m_cfg;	//accessed by multi-threads
 		DcUIPtr	m_dcUI;	//shared data containers among threads
 
-		std::vector<RunCapBasePtr>	m_vRunCaps;   //capture threads
-		std::vector<RunDetBasePtr>	m_vRunDets;   //detection threads
+		std::vector<CapThreadBasePtr>	m_vCapThreads;   //capture threads
+		std::vector<DetThreadBasePtr>	m_vDetThreads;   //detection threads
 
 		bool	m_exitMainLoop;
 		bool	m_mainLoopExited;

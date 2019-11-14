@@ -18,18 +18,18 @@
     <ClInclude Include="..\..\libDet\DetDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libDet\RunDetBase.h">
+    <ClInclude Include="..\..\libDet\DetThreadBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libDet\RunDetBkgChg.h">
+    <ClInclude Include="..\..\libDet\DetThreadBkgChg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libDet\RunDetBase.cpp">
+    <ClCompile Include="..\..\libDet\DetThreadBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libDet\RunDetBkgChg.cpp">
+    <ClCompile Include="..\..\libDet\DetThreadBkgChg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,76 +1,118 @@
-#include "TestXEyes.h"
+#include "RunXEyes.h"
 using namespace std;
 using namespace xeyes;
 
-TestXEyes::TestXEyes(CfgPtr& cfg, QWidget* parent)
-	: TestGui(cfg, parent)
-	, m_vRunCaps()
+RunXEyes::RunXEyes(CfgPtr& cfg, QWidget* parent)
+	: RunGui(cfg, parent)
+	, m_vCapThreads()
+	, m_vDetThreads()
+	, m_vDspThreads()
+	, m_vCamIds()
+	, m_vDspFrm()
 	, m_threadIdCnt(0)
 {
-	//gui initialized at this point 
-	createCaptureThreads();
-	createDetectionThreads();
-	createDisplayThreads();
-
-	std::vector<int> vCamIds;
-	m_cfg->getCamIds(vCamIds);
-	for (auto &id : vCamIds) {
-		m_vDcPtr.push_back( m_dcUI->m_dcMap[id].get() );
+	//init short cut to access <m_dcUI->m_dcMap[id]>
+	m_cfg->getCamIds(m_vCamIds);
+	for (auto &id : m_vCamIds) {
+		cv::Size sz = m_cfg->getDspImgSz(id);
+		DspFrm_hPtr dspFrm(new DspFrm_h(sz.width, sz.height) );
+		m_vDspFrm.push_back(dspFrm);
 	}
 
-	QObject::connect(m_vRunDsps[0].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg0(const uint64_t)), MY_QT_CONN);
-	QObject::connect(m_vRunDsps[1].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg1(const uint64_t)), MY_QT_CONN);
-	QObject::connect(m_vRunDsps[2].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg2(const uint64_t)), MY_QT_CONN);
-	QObject::connect(m_vRunDsps[3].get(), SIGNAL(sigReady2Disp(const uint64_t)), this, SLOT(respns_dispImg3(const uint64_t)), MY_QT_CONN);
+	//gui initialized at this point
+
+	//create threads: order matters: do not chg 
+	createDisplayThreads();
+	createDetectionThreads();
+	createCaptureThreads();
+
+
+	int n = m_vCamIds.size();
+	if (n >= 1) {
+		QObject::connect(m_vDspThreads[0].get(), SIGNAL(sigReady2Disp()), this, SLOT(respns_dispImg0()), MY_QT_CONN);
+	}
+	if (n >= 2) {
+		QObject::connect(m_vDspThreads[1].get(), SIGNAL(sigReady2Disp()), this, SLOT(respns_dispImg1()), MY_QT_CONN);
+	}
+	if (n >= 3) {
+		QObject::connect(m_vDspThreads[2].get(), SIGNAL(sigReady2Disp()), this, SLOT(respns_dispImg2()), MY_QT_CONN);
+	}
+	if (n >= 4) {
+		QObject::connect(m_vDspThreads[3].get(), SIGNAL(sigReady2Disp()), this, SLOT(respns_dispImg3()), MY_QT_CONN);
+	}
 
 	runAllThreads();
 }
 
 
-TestXEyes::~TestXEyes()
+RunXEyes::~RunXEyes()
 {
 }
 
-void TestXEyes::runAllThreads()
+void RunXEyes::runAllThreads()
 {
-	startCaptureThreads();
-	startDetectionThreads();
 	startDisplayThreads();
+	startDetectionThreads();
+	startCaptureThreads();  //put capture as last in on purpose
 }
 
 
-void TestXEyes::createCaptureThreads()
+void RunXEyes::createCaptureThreads()
 {
-	//get cam ids from cfg
-	std::vector<int> vCamIds;
-	m_cfg->getCamIds(vCamIds);
-
 	//create capture threads
-	for (auto &id : vCamIds) {
+	m_vCapThreads.clear();
+	for (int i = 0; i < m_vCamIds.size(); ++i ) {
+		int id = m_vCamIds[i];
 		CfgCam currCfg = m_cfg->getCam(id);
 		const string threadName = "CapThread4" + currCfg.cameraName_;
-		RunCapBasePtr capA(new RunCapCamA(id, m_threadIdCnt, threadName));
+		
+		CapThreadBasePtr cap(new CapThreadSyn(id, m_threadIdCnt, threadName));
+		cap->setCfg(m_cfg);
+		cap->setDcUI(m_dcUI);
+		cap->setDetPtr(m_vDetThreads[i].get());
 
-		capA->setCfg(m_cfg);
-		capA->setDcUI(m_dcUI);
-		m_vRunCaps.push_back(capA);
+		m_vCapThreads.push_back(cap);
 		m_threadIdCnt++;
 	}
 }
 
-void TestXEyes::createDetectionThreads()
+void RunXEyes::createDetectionThreads()
 {
+	m_vDetThreads.clear();
+	for (int i = 0; i < m_vCamIds.size(); ++i) {
+		int id = m_vCamIds[i];
+		CfgCam currCfg = m_cfg->getCam(id);
+		const string threadName = "DetThread4" + currCfg.cameraName_;
+
+		DetThreadBasePtr det(new DetThreadBkgChg(id, m_threadIdCnt, threadName));
+		det->setCfg(m_cfg);
+		det->setDcUI(m_dcUI);
+		det->setDspPtr(m_vDspThreads[i].get());
+
+		m_vDetThreads.push_back(det);
+		m_threadIdCnt++;
+	}
 }
 
-void TestXEyes::createDisplayThreads()
+void RunXEyes::createDisplayThreads()
 {
+	m_vDspThreads.clear();
+	for (auto &id : m_vCamIds) {
+		CfgCam currCfg = m_cfg->getCam(id);
+		const string threadName = "DspThread4" + currCfg.cameraName_;
+		DspThreadPtr dsp(new DspThread(id, m_threadIdCnt, threadName));
+
+		dsp->setCfg(m_cfg);
+		dsp->setDcUI(m_dcUI);
+		m_vDspThreads.push_back(dsp);
+		m_threadIdCnt++;
+	}
 }
 
 
-void TestXEyes::startCaptureThreads()
+void RunXEyes::startCaptureThreads()
 {
-	return;
-	for (auto &x : m_vRunCaps) {
+	for (auto &x : m_vCapThreads) {
 		x->start();
 		//make sure every capture thread was initialized
 		while (1) {
@@ -80,62 +122,105 @@ void TestXEyes::startCaptureThreads()
 			}
 		}
 		x->wakeupToWork();
-		dumpLog("TestCaps::startThreads(): ThreadId=%d, name=%s started.", x->m_threadId, x->m_threadName.c_str());
+		dumpLog("RunXEyes::startCaptureThreads(): ThreadId=%d, name=%s started.", x->m_threadId, x->m_threadName.c_str());
 	}
 }
 
-void TestXEyes::startDetectionThreads()
+void RunXEyes::startDetectionThreads()
 {
+	for (auto &x : m_vDetThreads) {
+		x->start();
+		//make sure every capture thread was initialized
+		while (1) {
+			THREAD_SLEEP(10);
+			if (x->isSleepMode()) {
+				break;
+			}
+		}
+		//x->wakeupToWork();
+		dumpLog("RunXEyes::startDetectionThreads(): ThreadId=%d, name=%s started.", x->m_threadId, x->m_threadName.c_str());
+	}
 }
 
-void TestXEyes::startDisplayThreads()
+void RunXEyes::startDisplayThreads()
 {
+	for (auto &x : m_vDspThreads) {
+		x->start();
+		//make sure every capture thread was initialized
+		while (1) {
+			THREAD_SLEEP(10);
+			if (x->isSleepMode()) {
+				break;
+			}
+		}
+		//x->wakeupToWork();
+		dumpLog("RunXEyes::startDisplayThreads(): ThreadId=%d, name=%s started.", x->m_threadId, x->m_threadName.c_str());
+	}
 }
 
 
-void TestXEyes::quitAllThreads()
+void RunXEyes::quitAllThreads()
 {
 	m_quitProgDlg->setProgress(20, "Quit capture threads ...");
-	for (auto &x : m_vRunCaps) {
+	for (auto &x : m_vCapThreads) {
 		x->forceQuit();
 		dumpLog("Thread: id=%d, name=%s quited!", x->m_threadId, x->m_threadName.c_str());
 	}
 
-	m_quitProgDlg->setProgress(40, "Quit detetcion threads ...");
+	m_quitProgDlg->setProgress(50, "Quit detetcion threads ...");
+	for (auto &x : m_vDetThreads) {
+		x->forceQuit();
+		dumpLog("Thread: id=%d, name=%s quited!", x->m_threadId, x->m_threadName.c_str());
+	}
 
 	m_quitProgDlg->setProgress(80, "Quit didsplay threads ...");
+	for (auto &x : m_vDspThreads) {
+		x->forceQuit();
+		dumpLog("Thread: id=%d, name=%s quited!", x->m_threadId, x->m_threadName.c_str());
+	}
 
+	m_quitProgDlg->setProgress(90, "all Quited ...");
 }
 
 
-void TestXEyes::on_actionExit_triggered()
+void RunXEyes::on_actionExit_triggered()
 {
 	createQuitDlg();
 	quitAllThreads();
 	closeQuitDlg();
-	dumpLog("TestXEyes::on_actionExit_triggered(): exited!");
+	dumpLog("RunXEyes::on_actionExit_triggered(): exited!");
 }
 
-void TestXEyes::respns_dispImg0(const uint64_t fn)
+void RunXEyes::respns_dispImg0()
 {
-	m_vDcPtr[0]->m_frmInfoQ->readDsp( m_dspFrm_h.get() );
-	m_ui->showImg(0, m_dspFrm_h->m_img);
+	dispImg(0);
 }
 
-void TestXEyes::respns_dispImg1(const uint64_t fn)
+void RunXEyes::respns_dispImg1()
 {
-	m_vDcPtr[1]->m_frmInfoQ->readDsp(m_dspFrm_h.get());
-	m_ui->showImg(1, m_dspFrm_h->m_img);
+	dispImg(1);
 }
 
-void TestXEyes::respns_dispImg2(const uint64_t fn)
+void RunXEyes::respns_dispImg2()
 {
-	m_vDcPtr[2]->m_frmInfoQ->readDsp(m_dspFrm_h.get());
-	m_ui->showImg(2, m_dspFrm_h->m_img);
+	dispImg(2);
 }
 
-void TestXEyes::respns_dispImg3(const uint64_t fn)
+void RunXEyes::respns_dispImg3()
 {
-	m_vDcPtr[3]->m_frmInfoQ->readDsp(m_dspFrm_h.get());
-	m_ui->showImg(3, m_dspFrm_h->m_img);
+	dispImg(3);
+}
+
+inline void RunXEyes::dispImg(const int camIdx)
+{
+	//shared data container of corresponding camera
+	int camId = m_vCamIds[camIdx];
+	Dc *pDC = m_dcUI->m_dcMap[camId].get();
+
+	//read dspImg from shared DC
+	DspFrm_h *p = m_vDspFrm[camIdx].get();
+	bool suc = pDC->m_frmInfoQ->readDspFrmByGuiThread( p );
+	if (suc) {
+		m_ui->showImg(0, p->m_img);
+	}
 }

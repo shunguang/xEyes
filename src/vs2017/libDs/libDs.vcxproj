@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,69 +19,70 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libDs\CudaUtil.cpp">
+    <ClCompile Include="..\..\libDc\CudaUtil.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\libDs\Dc.cpp">
+    <ClCompile Include="..\..\libDc\Dc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\libDs\DcUI.cpp" />
-    <ClCompile Include="..\..\libDs\DetFrm_h.cpp" />
-    <ClCompile Include="..\..\libDs\DspFrm_h.cpp">
+    <ClCompile Include="..\..\libDc\DcUI.cpp" />
+    <ClCompile Include="..\..\libDc\DetFrm_h.cpp" />
+    <ClCompile Include="..\..\libDc\DspFrm_h.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\libDs\FrmInfo.cpp" />
-    <ClCompile Include="..\..\libDs\FrmInfoCircularQ.cpp" />
-    <ClCompile Include="..\..\libDs\JpegFrm_h.cpp" />
-    <ClCompile Include="..\..\libDs\RgbCircularQ_h.cpp" />
-    <ClCompile Include="..\..\libDs\RgbFrm_d.cpp" />
-    <ClCompile Include="..\..\libDs\RgbFrm_h.cpp" />
-    <ClCompile Include="..\..\libDs\ThreadX.cpp" />
-    <ClCompile Include="..\..\libDs\YuvFrm_d.cpp" />
-    <ClCompile Include="..\..\libDs\YuvFrm_h.cpp" />
-    <ClCompile Include="..\..\libDs\YuvCircularQ_h.cpp" />
+    <ClCompile Include="..\..\libDc\FrmInfo.cpp" />
+    <ClCompile Include="..\..\libDc\FrmInfoCircularQ.cpp" />
+    <ClCompile Include="..\..\libDc\JpegFrm_h.cpp" />
+    <ClCompile Include="..\..\libDc\RgbCircularQ_h.cpp" />
+    <ClCompile Include="..\..\libDc\RgbFrm_d.cpp" />
+    <ClCompile Include="..\..\libDc\RgbFrm_h.cpp" />
+    <ClCompile Include="..\..\libDc\ThreadX.cpp" />
+    <ClCompile Include="..\..\libDc\YuvFrm_d.cpp" />
+    <ClCompile Include="..\..\libDc\YuvFrm_h.cpp" />
+    <ClCompile Include="..\..\libDc\YuvCircularQ_h.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\libDs\CudaUtil.h">
+    <ClInclude Include="..\..\libDc\CudaUtil.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\libDs\Dc.h">
+    <ClInclude Include="..\..\libDc\Dc.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\libDs\DcUI.h" />
-    <ClInclude Include="..\..\libDs\DetFrm_h.h" />
-    <ClInclude Include="..\..\libDs\DspFrm_h.h">
+    <ClInclude Include="..\..\libDc\DcUI.h" />
+    <ClInclude Include="..\..\libDc\DetFrm_h.h" />
+    <ClInclude Include="..\..\libDc\DspFrm_h.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\libDs\DsDefs.h" />
-    <ClInclude Include="..\..\libDs\FrmInfoCircularQ.h" />
-    <ClInclude Include="..\..\libDs\helper_cuda.h">
+    <ClInclude Include="..\..\libDc\DsDefs.h" />
+    <ClInclude Include="..\..\libDc\FrmInfoCircularQ.h" />
+    <ClInclude Include="..\..\libDc\helper_cuda.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\libDs\helper_string.h" />
-    <ClInclude Include="..\..\libDs\JpegFrm_h.h" />
-    <ClInclude Include="..\..\libDs\RgbCircularQ_h.h" />
-    <ClInclude Include="..\..\libDs\RgbFrm_d.h" />
-    <ClInclude Include="..\..\libDs\RgbFrm_h.h" />
-    <ClInclude Include="..\..\libDs\ThreadX.h" />
-    <ClInclude Include="..\..\libDs\FrmInfo.h" />
-    <ClInclude Include="..\..\libDs\YuvFrm_d.h" />
-    <ClInclude Include="..\..\libDs\YuvFrm_h.h" />
-    <ClInclude Include="..\..\libDs\YuvCircularQ_h.h" />
+    <ClInclude Include="..\..\libDc\helper_string.h" />
+    <ClInclude Include="..\..\libDc\JpegFrm_h.h" />
+    <ClInclude Include="..\..\libDc\RgbCircularQ_h.h" />
+    <ClInclude Include="..\..\libDc\RgbFrm_d.h" />
+    <ClInclude Include="..\..\libDc\RgbFrm_h.h" />
+    <ClInclude Include="..\..\libDc\ThreadX.h" />
+    <ClInclude Include="..\..\libDc\FrmInfo.h" />
+    <ClInclude Include="..\..\libDc\YuvFrm_d.h" />
+    <ClInclude Include="..\..\libDc\YuvFrm_h.h" />
+    <ClInclude Include="..\..\libDc\YuvCircularQ_h.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{23EFD1E5-2386-4144-8D13-F6224B42AF60}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>libDs</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <RootNamespace>libDc</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>libDc</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

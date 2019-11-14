@@ -47,6 +47,8 @@ namespace xeyes {
 			return ret;
 		}
 
+		cv::Size getDspImgSz(int camId);
+
 		//<camIdx> must start from 0 for the flowing 3 funcs;
 		void updateRecFlag(int camIdx, bool isRecording);
 		void updateDispFlag(int camIdx, bool isDisp);

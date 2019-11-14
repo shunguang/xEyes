@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'TestGui.h'
+** Meta object code from reading C++ file 'RunGui.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../libTest/TestGui.h"
+#include "../../../libTest/RunGui.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'TestGui.h' doesn't include <QObject>."
+#error "The header file 'RunGui.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.9.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -31,7 +31,7 @@ struct qt_meta_stringdata_xeyes__TestGui_t {
     )
 static const qt_meta_stringdata_xeyes__TestGui_t qt_meta_stringdata_xeyes__TestGui = {
     {
-QT_MOC_LITERAL(0, 0, 14), // "xeyes::TestGui"
+QT_MOC_LITERAL(0, 0, 14), // "xeyes::RunGui"
 QT_MOC_LITERAL(1, 15, 23), // "on_actionExit_triggered"
 QT_MOC_LITERAL(2, 39, 0), // ""
 QT_MOC_LITERAL(3, 40, 10), // "closeEvent"
@@ -59,7 +59,7 @@ QT_MOC_LITERAL(24, 531, 27), // "on_lineEdit_camName2_edited"
 QT_MOC_LITERAL(25, 559, 27) // "on_lineEdit_camName3_edited"
 
     },
-    "xeyes::TestGui\0on_actionExit_triggered\0"
+    "xeyes::RunGui\0on_actionExit_triggered\0"
     "\0closeEvent\0QCloseEvent*\0event\0"
     "on_actionHelp_triggered\0"
     "on_actionAbout_triggered\0"
@@ -139,10 +139,10 @@ static const uint qt_meta_data_xeyes__TestGui[] = {
        0        // eod
 };
 
-void xeyes::TestGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void xeyes::RunGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        TestGui *_t = static_cast<TestGui *>(_o);
+        RunGui *_t = static_cast<RunGui *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_actionExit_triggered(); break;
@@ -169,26 +169,26 @@ void xeyes::TestGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
     }
 }
 
-const QMetaObject xeyes::TestGui::staticMetaObject = {
+const QMetaObject xeyes::RunGui::staticMetaObject = {
     { &QMainWindow::staticMetaObject, qt_meta_stringdata_xeyes__TestGui.data,
       qt_meta_data_xeyes__TestGui,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *xeyes::TestGui::metaObject() const
+const QMetaObject *xeyes::RunGui::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *xeyes::TestGui::qt_metacast(const char *_clname)
+void *xeyes::RunGui::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_xeyes__TestGui.stringdata0))
-        return static_cast<void*>(const_cast< TestGui*>(this));
+        return static_cast<void*>(const_cast< RunGui*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 
-int xeyes::TestGui::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int xeyes::RunGui::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)

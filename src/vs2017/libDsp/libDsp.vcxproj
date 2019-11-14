@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -26,7 +26,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\moc_%(Filename).cpp</Outputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\libDsp\RunDsp.h">
+    <CustomBuild Include="..\..\libDsp\DspThread.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QT_DIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QT_DIR)\include\QtCore" "-I$(QT_DIR)\include\QtGui" "-I$(QT_DIR)\include\QtWidgets"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QT_DIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QT_DIR)\include\QtCore" "-I$(QT_DIR)\include\QtGui" "-I$(QT_DIR)\include\QtWidgets"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\moc_%(Filename).cpp</Outputs>
@@ -36,9 +36,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libDsp\RunDsp.cpp" />
+    <ClCompile Include="..\..\libDsp\DspThread.cpp" />
     <ClCompile Include="..\..\libDsp\ThreadQt.cpp" />
-    <ClCompile Include="GeneratedFiles\moc_RunDsp.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_DspThread.cpp" />
     <ClCompile Include="GeneratedFiles\moc_ThreadQt.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -46,7 +46,7 @@
     <ProjectGuid>{1C03E840-D828-4115-AECF-D80A591C94E8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libDsp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -108,6 +108,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(PROJ_LIB);</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

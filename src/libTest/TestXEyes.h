@@ -1,6 +1,6 @@
 /*
 *-------------------------------------------------------------------
-* TestGui.h
+* RunGui.h
 * Copyright(c) 2019, The RgbVideoEditor Author (Shunguang Wu).
 * All Rights Reserved.
 * You may not use this file except in compliance with the License:
@@ -20,28 +20,28 @@
 #ifndef __TEST_XEYES_H__
 #define __TEST_XEYES_H__
 
-#include "libCap/RunCapCamA.h"
-#include "libDet/RunDetBkgChg.h"
-#include "libDsp/RunDsp.h"
+#include "libCap/CapThreadSyn.h"
+#include "libDet/DetThreadBkgChg.h"
+#include "libDsp/DspThread.h"
 
-#include "TestGui.h"
+#include "RunGui.h"
 
 namespace xeyes {
-	class TestXEyes : public TestGui
+	class RunXEyes : public RunGui
 	{
 		Q_OBJECT
 
 	public:
 		//all the threads share the same cfg located at only one physical address
-		TestXEyes(CfgPtr& cfg, QWidget* parent = 0);
-		virtual ~TestXEyes();
+		RunXEyes(CfgPtr& cfg, QWidget* parent = 0);
+		virtual ~RunXEyes();
 
 	protected slots:
 		virtual void on_actionExit_triggered();
-		void		 respns_dispImg0(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
-		void		 respns_dispImg1(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
-		void		 respns_dispImg2(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
-		void		 respns_dispImg3(const uint64_t fn);  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg0();  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg1();  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg2();  //disp img from shared data: <m_sharedDC>
+		void		 respns_dispImg3();  //disp img from shared data: <m_sharedDC>
 	protected:
 		void runAllThreads();
 		void startCaptureThreads();
@@ -53,16 +53,16 @@ namespace xeyes {
 		void createDisplayThreads();
 
 		void quitAllThreads();
+		void dispImg( const int camIdx );
 
 	protected:
-		std::vector<RunCapBasePtr>	m_vRunCaps;	//caprture thread
-		std::vector<RunDetBasePtr>	m_vRunDets;	//detection threads
-		std::vector<RunDspPtr>		m_vRunDsps;	//detection threads
+		std::vector<CapThreadBasePtr>	m_vCapThreads;	//caprture thread
+		std::vector<DetThreadBasePtr>	m_vDetThreads;	//detection threads
+		std::vector<DspThreadPtr>		m_vDspThreads;	//detection threads
 
 		std::vector<int>			m_vCamIds;             //camera IDs, cannot be changed after luanched
-		std::vector<Dc*>			m_vDcPtr;
 		
-		DspFrm_hPtr					m_dspFrm_h;
+		std::vector<DspFrm_hPtr>	m_vDspFrm;
 		int				 m_threadIdCnt;
 
 	};

@@ -21,28 +21,27 @@
     <ClInclude Include="..\..\libDsp\DspDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libDsp\RunDsp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libDsp\RunDsp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libDsp\ThreadQt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\moc_RunDsp.cpp">
-      <Filter>QtGeneratedFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libDsp\RunDsp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\libDsp\ThreadQt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\moc_ThreadQt.cpp">
       <Filter>QtGeneratedFiles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\libDsp\DspThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_DspThread.cpp">
+      <Filter>QtGeneratedFiles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\libDsp\ThreadQt.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\libDsp\DspThread.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

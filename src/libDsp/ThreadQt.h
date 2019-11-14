@@ -34,18 +34,18 @@ namespace xeyes {
 
 		void forceQuit();        //force thread quit from its inifinity loop
 
-		inline void wakeupToWork();     //wake up thread to  procNextTask()
-		inline void goToSleep();        //ask thread go to sleep
-		inline bool isExitedLoop();
-		inline bool isSleepMode();
+		void wakeupToWork();     //wake up thread to  procNextTask()
+		void goToSleep();        //ask thread go to sleep
+		bool isExitedLoop();
+		bool isSleepMode();
 
 		void setCfg( CfgPtr  &cfg );
 		void setDcUI( DcUIPtr &dcUI );
 
 	protected:
-		inline void setExitedLoopFlag(const bool f);
-		inline void setRcvdExitLoopCmdFlag(const bool f);
-		inline bool isRcvdExitLoopCmd();
+		void setExitedLoopFlag(const bool f);
+		void setRcvdExitLoopCmdFlag(const bool f);
+		bool isRcvdExitLoopCmd();
 
 		virtual void procNextTask() = 0;
 		virtual bool procInit() = 0;

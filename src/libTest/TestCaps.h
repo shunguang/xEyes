@@ -5,12 +5,12 @@
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
 #include "libDs/DcUI.h"
-#include "libCap/RunCapCamA.h"
+#include "libCap/CapThreadCamTemp.h"
 namespace xeyes {
-	class TestCaps {
+	class RunCap {
 	public:
-		TestCaps(CfgPtr &cfg);
-		~TestCaps();
+		RunCap(CfgPtr &cfg);
+		~RunCap();
 		void runAllThreads();
 
 	protected:	
@@ -20,7 +20,7 @@ namespace xeyes {
 		CfgPtr	m_cfg;	//accessed by multi-threads
 		DcUIPtr	m_dcUI;	//shared data containers among threads
 
-		std::vector<RunCapBasePtr>	m_vRunCaps;
+		std::vector<CapThreadBasePtr>	m_vCapThreads;
 
 		bool	m_exitMainLoop;
 		bool	m_mainLoopExited;

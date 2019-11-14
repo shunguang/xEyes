@@ -98,3 +98,14 @@ void Cfg::updateCamName(int camIdx, std::string name)
 	boost::mutex::scoped_lock lock(m_mutex);
 	m_camMap[camIdx]->cameraName_ = name;
 }
+
+cv::Size Cfg::getDspImgSz(int camId)
+{
+	CfgCam camCfg = getCam( camId );
+	CfgLocalView lv = getLocalView();
+
+	const int &w0 = camCfg.imgSz_.w;
+	const int &h0 = camCfg.imgSz_.h;
+	cv::Size dspSz( w0 >> lv.dispPyrLev_, h0 >> lv.dispPyrLev_);
+	return dspSz;
+}
