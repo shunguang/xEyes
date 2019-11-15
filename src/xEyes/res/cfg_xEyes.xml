@@ -12,7 +12,7 @@
       <ip>192.168.10.1</ip>
 	    <imgW>1920</imgW>
 	    <imgH>1080</imgH>
-	    <fpsNum>10</fpsNum>
+	    <fpsNum>5</fpsNum>
 	    <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
 		  <detPyrLev>1</detPyrLev>
@@ -25,7 +25,7 @@
       <ip>192.168.10.2</ip>
       <imgW>1920</imgW>
       <imgH>1080</imgH>
-      <fpsNum>15</fpsNum>
+      <fpsNum>10</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
@@ -38,7 +38,7 @@
       <ip>192.168.10.3</ip>
       <imgW>1920</imgW>
       <imgH>1080</imgH>
-      <fpsNum>20</fpsNum>
+      <fpsNum>15</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
@@ -51,7 +51,7 @@
       <ip>192.168.10.4</ip>
       <imgW>1920</imgW>
       <imgH>1080</imgH>
-      <fpsNum>25</fpsNum>
+      <fpsNum>20</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>

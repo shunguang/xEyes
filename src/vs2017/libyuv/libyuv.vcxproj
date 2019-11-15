@@ -95,7 +95,7 @@
     <ProjectGuid>{F2FEBFC0-5FE9-46EA-8022-4330A1121A4E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libyuv</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
