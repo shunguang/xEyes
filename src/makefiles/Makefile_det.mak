@@ -3,8 +3,8 @@
 PROJ_NAME=libDet
 include Makefile_app_header.mak
 
-OBJS = 	$(ODIR_PROJ)/RunDetBase.o \
-	$(ODIR_PROJ)/RunDetBkgChg.o
+OBJS = 	$(ODIR_PROJ)/DetThreadBase.o \
+	$(ODIR_PROJ)/DetThreadBkgChg.o
 	
 default:  directories $(TARGETFILE)
 
@@ -16,11 +16,11 @@ directories:
 $(TARGETFILE) : $(OBJS)
 	ar rcs $(TARGETFILE) $(OBJS)
 	
-$(ODIR_PROJ)/RunDetBase.o: $(SDIR_PROJ)/RunDetBase.cpp $(SDIR_PROJ)/RunDetBase.h
-	$(CXX) -o $(ODIR_PROJ)/RunDetBase.o $(CFLAGS) $(SDIR_PROJ)/RunDetBase.cpp
+$(ODIR_PROJ)/DetThreadBase.o: $(SDIR_PROJ)/DetThreadBase.cpp $(SDIR_PROJ)/DetThreadBase.h
+	$(CXX) -o $(ODIR_PROJ)/DetThreadBase.o $(CFLAGS) $(SDIR_PROJ)/DetThreadBase.cpp
     
-$(ODIR_PROJ)/RunDetBkgChg.o: $(SDIR_PROJ)/RunDetBkgChg.cpp $(SDIR_PROJ)/RunDetBkgChg.h
-	$(CXX) -o $(ODIR_PROJ)/RunDetBkgChg.o $(CFLAGS) $(SDIR_PROJ)/RunDetBkgChg.cpp
+$(ODIR_PROJ)/DetThreadBkgChg.o: $(SDIR_PROJ)/DetThreadBkgChg.cpp $(SDIR_PROJ)/DetThreadBkgChg.h
+	$(CXX) -o $(ODIR_PROJ)/DetThreadBkgChg.o $(CFLAGS) $(SDIR_PROJ)/DetThreadBkgChg.cpp
 
 clean:
 	\rm -r $(ODIR_PROJ)/*.o $(TARGETFILE)

@@ -7,6 +7,7 @@ OBJS = 	$(ODIR_PROJ)/CvUtilFuncs.o \
 	$(ODIR_PROJ)/AppLog.o \
 	$(ODIR_PROJ)/FileUtil.o \
 	$(ODIR_PROJ)/Roi.o \
+	$(ODIR_PROJ)/CvQtUtil.o \
 	$(ODIR_PROJ)/UtilFuncs.o
 	
 default:  directories $(TARGETFILE)
@@ -30,6 +31,9 @@ $(ODIR_PROJ)/AppLog.o: $(SDIR_PROJ)/AppLog.cpp $(SDIR_PROJ)/AppLog.h
 
 $(ODIR_PROJ)/Roi.o: $(SDIR_PROJ)/Roi.cpp $(SDIR_PROJ)/Roi.h
 	$(CXX) -o $(ODIR_PROJ)/Roi.o $(CFLAGS) $(SDIR_PROJ)/Roi.cpp
+
+$(ODIR_PROJ)/CvQtUtil.o: $(SDIR_PROJ)/CvQtUtil.cpp $(SDIR_PROJ)/CvQtUtil.h
+	$(CXX) -o $(ODIR_PROJ)/CvQtUtil.o $(CFLAGS) $(SDIR_PROJ)/CvQtUtil.cpp
 
 $(ODIR_PROJ)/UtilFuncs.o: $(SDIR_PROJ)/UtilFuncs.cpp $(SDIR_PROJ)/UtilFuncs.h
 	$(CXX) -o $(ODIR_PROJ)/UtilFuncs.o $(CFLAGS) $(SDIR_PROJ)/UtilFuncs.cpp

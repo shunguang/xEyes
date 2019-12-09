@@ -26,7 +26,7 @@ CV_LIB=$$PKG_ROOT/opencv_3_3_install/lib
 QT_INC=$$PKG_ROOT/qt_5_9/include
 QT_LIB=$$PKG_ROOT/qt_5_9/lib
 
-TEMPLATE = lib   # build a static lib
+TEMPLATE = lib   # build a static oR SHARED  lib
 CONFIG += debug 
 #CONFIG += release
 #CONFIG += dll

@@ -6,7 +6,7 @@ include Makefile_app_header.mak
 OBJS = 	$(ODIR_PROJ)/Cfg.o \
     $(ODIR_PROJ)/CfgBase.o \
 	$(ODIR_PROJ)/CfgLog.o \
-	$(ODIR_PROJ)/CfgDisp.o \
+	$(ODIR_PROJ)/CfgLocalView.o \
 	$(ODIR_PROJ)/CfgCam.o
 	
 default:  directories $(TARGETFILE)
@@ -22,8 +22,8 @@ $(TARGETFILE) : $(OBJS)
 $(ODIR_PROJ)/CfgBase.o: $(SDIR_PROJ)/CfgBase.cpp $(SDIR_PROJ)/CfgBase.h
 	$(CXX) -o $(ODIR_PROJ)/CfgBase.o $(CFLAGS) $(SDIR_PROJ)/CfgBase.cpp
 
-$(ODIR_PROJ)/CfgDisp.o: $(SDIR_PROJ)/CfgDisp.cpp $(SDIR_PROJ)/CfgDisp.h
-	$(CXX) -o $(ODIR_PROJ)/CfgDisp.o $(CFLAGS) $(SDIR_PROJ)/CfgDisp.cpp
+$(ODIR_PROJ)/CfgLocalView.o: $(SDIR_PROJ)/CfgLocalView.cpp $(SDIR_PROJ)/CfgLocalView.h
+	$(CXX) -o $(ODIR_PROJ)/CfgLocalView.o $(CFLAGS) $(SDIR_PROJ)/CfgLocalView.cpp
 
 $(ODIR_PROJ)/CfgCam.o: $(SDIR_PROJ)/CfgCam.cpp $(SDIR_PROJ)/CfgCam.h
 	$(CXX) -o $(ODIR_PROJ)/CfgCam.o $(CFLAGS) $(SDIR_PROJ)/CfgCam.cpp
