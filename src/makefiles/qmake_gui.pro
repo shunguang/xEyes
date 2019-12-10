@@ -52,6 +52,7 @@ INCLUDEPATH += $$SDIR_PROJ
 
 OBJECTS_DIR = $$ODIR_PROJ 			#Intermediate object files directory
 MOC_DIR = $$ODIR_PROJ 				#Intermediate moc files directory
+RCC_DIR = $$ODIR_PROJ 				#Intermediate resource files directory
 DESTDIR = $$ODIR_LIB
 #---------------------------------------------------------
 # END: don not change  my nano evn
@@ -71,7 +72,7 @@ SOURCES = \
 	$$SDIR_PROJ/MsgBox.cpp \
 	$$SDIR_PROJ/appGui.cpp
 
-RESOURCES=$$SDIR_PROJ/appGui.qrc
+RESOURCES = $$SDIR_PROJ/appGuiRc.qrc
 
 msg = $$QMAKE_MAKEFILE
 msg += "will be created!"

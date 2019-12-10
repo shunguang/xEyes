@@ -7,8 +7,8 @@ AppGui::AppGui()
 	: m_cfg(0)
 	, m_startExitState('S')
 {
-	//defined in appGui.qrc
-	Q_INIT_RESOURCE(appGui);
+	//defined in appGuiRc.qrc
+	//Q_INIT_RESOURCE(appGuiRc);
 	//and pre gnerated by coustom-buid tools
 	m_vQPixmap[RES_IMG_RED_BOX]	= QPixmap(QString::fromUtf8(":/Resource/red_box.png"));
 	m_vQPixmap[RES_IMG_GRN_BOX]	= QPixmap(QString::fromUtf8(":/Resource/green_box.png"));

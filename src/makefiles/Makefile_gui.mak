@@ -49,14 +49,14 @@ OBJECTS_DIR   = /home/swu/projects/xEyes/build/libGui/
 
 SOURCES       = /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp \
 		/home/swu/projects/xEyes/src/libGui/MsgBox.cpp \
-		/home/swu/projects/xEyes/src/libGui/AppGui.cpp qrc_appGui.cpp \
+		/home/swu/projects/xEyes/src/libGui/AppGui.cpp /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp \
 		/home/swu/projects/xEyes/build/libGui/moc_ImgLabel.cpp \
 		/home/swu/projects/xEyes/build/libGui/moc_MsgBox.cpp \
 		/home/swu/projects/xEyes/build/libGui/moc_ProgDialog.cpp
 OBJECTS       = /home/swu/projects/xEyes/build/libGui/ImgLabel.o \
 		/home/swu/projects/xEyes/build/libGui/MsgBox.o \
 		/home/swu/projects/xEyes/build/libGui/AppGui.o \
-		/home/swu/projects/xEyes/build/libGui/qrc_appGui.o \
+		/home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.o \
 		/home/swu/projects/xEyes/build/libGui/moc_ImgLabel.o \
 		/home/swu/projects/xEyes/build/libGui/moc_MsgBox.o \
 		/home/swu/projects/xEyes/build/libGui/moc_ProgDialog.o
@@ -430,7 +430,7 @@ staticlib: /home/swu/projects/xEyes/build/libs/$(TARGET)
 		/usr/local/Qt-5.9.2/mkspecs/features/yacc.prf \
 		/usr/local/Qt-5.9.2/mkspecs/features/lex.prf \
 		qmake_gui.pro \
-		/home/swu/projects/xEyes/src/libGui/appGui.qrc \
+		/home/swu/projects/xEyes/src/libGui/appGuiRc.qrc \
 		/usr/local/Qt-5.9.2/lib/libQt5Gui.prl \
 		/usr/local/Qt-5.9.2/lib/libQt5Core.prl
 	$(QMAKE) qmake_gui.pro
@@ -608,7 +608,7 @@ staticlib: /home/swu/projects/xEyes/build/libs/$(TARGET)
 /usr/local/Qt-5.9.2/mkspecs/features/yacc.prf:
 /usr/local/Qt-5.9.2/mkspecs/features/lex.prf:
 qmake_gui.pro:
-/home/swu/projects/xEyes/src/libGui/appGui.qrc:
+/home/swu/projects/xEyes/src/libGui/appGuiRc.qrc:
 /usr/local/Qt-5.9.2/lib/libQt5Gui.prl:
 /usr/local/Qt-5.9.2/lib/libQt5Core.prl:
 qmake: FORCE
@@ -625,7 +625,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents /home/swu/projects/xEyes/src/libGui/appGui.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents /home/swu/projects/xEyes/src/libGui/ImgLabel.h /home/swu/projects/xEyes/src/libGui/MsgBox.h /home/swu/projects/xEyes/src/libGui/ProgDialog.h /home/swu/projects/xEyes/src/libGui/AppGui.h $(DISTDIR)/
 	$(COPY_FILE) --parents /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp /home/swu/projects/xEyes/src/libGui/MsgBox.cpp /home/swu/projects/xEyes/src/libGui/AppGui.cpp $(DISTDIR)/
@@ -652,10 +652,10 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_appGui.cpp
+compiler_rcc_make_all: /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_appGui.cpp
-qrc_appGui.cpp: /home/swu/projects/xEyes/src/libGui/appGui.qrc \
+	-$(DEL_FILE) /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp
+/home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp: /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc \
 		/usr/local/Qt-5.9.2/bin/rcc \
 		/home/swu/projects/xEyes/src/libGui/Resource/initScreen.jpg \
 		/home/swu/projects/xEyes/src/libGui/Resource/exit_icon.jpg \
@@ -666,7 +666,7 @@ qrc_appGui.cpp: /home/swu/projects/xEyes/src/libGui/appGui.qrc \
 		/home/swu/projects/xEyes/src/libGui/Resource/defaultImg.jpg \
 		/home/swu/projects/xEyes/src/libGui/Resource/gray_box.png \
 		/home/swu/projects/xEyes/src/libGui/Resource/About_xEyes.txt
-	/usr/local/Qt-5.9.2/bin/rcc -name appGui /home/swu/projects/xEyes/src/libGui/appGui.qrc -o qrc_appGui.cpp
+	/usr/local/Qt-5.9.2/bin/rcc -name appGuiRc /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc -o /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp
 
 compiler_moc_predefs_make_all: /home/swu/projects/xEyes/build/libGui/moc_predefs.h
 compiler_moc_predefs_clean:
@@ -2525,8 +2525,8 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 		/home/swu/projects/xEyes/src/libGui/GuiDefs.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/xEyes/build/libGui/AppGui.o /home/swu/projects/xEyes/src/libGui/AppGui.cpp
 
-/home/swu/projects/xEyes/build/libGui/qrc_appGui.o: qrc_appGui.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/xEyes/build/libGui/qrc_appGui.o qrc_appGui.cpp
+/home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.o: /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.o /home/swu/projects/xEyes/build/libGui/qrc_appGuiRc.cpp
 
 /home/swu/projects/xEyes/build/libGui/moc_ImgLabel.o: /home/swu/projects/xEyes/build/libGui/moc_ImgLabel.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/xEyes/build/libGui/moc_ImgLabel.o /home/swu/projects/xEyes/build/libGui/moc_ImgLabel.cpp
