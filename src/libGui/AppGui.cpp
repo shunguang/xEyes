@@ -9,6 +9,7 @@ AppGui::AppGui()
 {
 	//defined in appGuiRc.qrc
 	//Q_INIT_RESOURCE(appGuiRc);
+	initMyResource();  //this way solve the name space issue
 	//and pre gnerated by coustom-buid tools
 	m_vQPixmap[RES_IMG_RED_BOX]	= QPixmap(QString::fromUtf8(":/Resource/red_box.png"));
 	m_vQPixmap[RES_IMG_GRN_BOX]	= QPixmap(QString::fromUtf8(":/Resource/green_box.png"));

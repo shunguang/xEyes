@@ -1,0 +1,14 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource>
+    <file>Resource/red_box.png</file>
+    <file>Resource/gray_box.png</file>
+    <file>Resource/green_box.png</file>
+    <file>Resource/yellow_box.png</file>
+    <file>Resource/About_xEyes.txt</file>
+    <file>Resource/exit_icon.jpg</file>
+    <file>Resource/defaultImg.jpg</file>
+    <file>Resource/initScreen.jpg</file>
+    <file>Resource/appLogo.png</file>
+  </qresource>
+</RCC>

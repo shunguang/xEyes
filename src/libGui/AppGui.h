@@ -45,6 +45,9 @@
 #include "PlayerControls.h"
 
 #include "GuiDefs.h"
+
+inline void initMyResource() { Q_INIT_RESOURCE(appGuiRc); }
+
 namespace xeyes {
 	enum GrpBox{
 		//----------do not chg order beg -----	

@@ -65,14 +65,15 @@ HEADERS = \
 	$$SDIR_PROJ/ImgLabel.h \
 	$$SDIR_PROJ/MsgBox.h \
 	$$SDIR_PROJ/ProgDialog.h \
-	$$SDIR_PROJ/appGui.h
+	$$SDIR_PROJ/AppGui.h
 
 SOURCES = \
 	$$SDIR_PROJ/ImgLabel.cpp \
 	$$SDIR_PROJ/MsgBox.cpp \
-	$$SDIR_PROJ/appGui.cpp
+	$$SDIR_PROJ/AppGui.cpp
 
-RESOURCES = $$SDIR_PROJ/appGuiRc.qrc
+RESOURCES = \
+	$$SDIR_PROJ/appGuiRc.qrc
 
 msg = $$QMAKE_MAKEFILE
 msg += "will be created!"
