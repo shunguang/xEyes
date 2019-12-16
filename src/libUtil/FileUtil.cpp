@@ -205,6 +205,17 @@ void xeyes::splitExt(const std::string &fPath, std::string &head, std::string &e
 	ext = fPath.substr(id + 1);
 }
 
+void xeyes::splitFolder(const std::string &fPath, std::string &fDir, std::string &fName)
+{
+	boost::filesystem::path p(fPath);
+	boost::filesystem::path dir = p.parent_path();
+	boost::filesystem::path name = p.filename();
+
+	fDir = dir.generic_string();
+	fName = name.generic_string();
+}
+
+
 
 bool xeyes::isVideoFile(const std::string &filePath)
 {

@@ -50,7 +50,11 @@ namespace xeyes {
 	std::string UTIL_EXPORT getCurDir();
 	void UTIL_EXPORT deleteFilesInFolder( const std::string &folderPath );
 	void UTIL_EXPORT myCreateDir(const std::string &p);
+	//fPath="c:/temp/f1.txt" ---> head = "c:/temp/f1", ext="txt" 
 	void UTIL_EXPORT splitExt(const std::string &fPath, std::string &head, std::string &ext);
+	//fPath="c:/temp/f1.txt" ---> fDir = "c:/temp", fName="f1.txt" 
+	void UTIL_EXPORT splitFolder(const std::string &fPath, std::string &fDir, std::string &fName);
+
 	bool UTIL_EXPORT isVideoFile(const std::string &filePath);
 	bool UTIL_EXPORT isImgeFile(const std::string &filePath);
 }
