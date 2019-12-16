@@ -38,5 +38,10 @@
 *.ipch
 *.db*
 
+#QT generated files
+moc_*.cpp
+qrc_*.cpp
+
+
 
 
