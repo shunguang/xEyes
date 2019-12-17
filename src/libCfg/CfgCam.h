@@ -18,6 +18,7 @@ namespace xeyes {
 	public:
 		int			cameraId_;
 		std::string cameraName_;
+		bool		valid_;  
 		uint32_t	ip_;
 
 		ImgSize		imgSz_;	

@@ -39,12 +39,14 @@ void Cfg::fromPropertyTree(const boost::property_tree::ptree &pt0)
 {
 	const boost::property_tree::ptree pt = pt0.get_child("cams");
 	m_camIdVec.clear();
-  BOOST_FOREACH(const boost::property_tree::ptree::value_type &g, pt) {
+    BOOST_FOREACH(const boost::property_tree::ptree::value_type &g, pt) {
 		CfgCamPtr curr( new CfgCam() );
 		curr->fromPropertyTree( g.second );
-		int camId = curr->cameraId_;
-		m_camMap[camId] = curr; 
-		m_camIdVec.push_back( camId );
+		if( curr->valid_ ){
+			int camId = curr->cameraId_;
+			m_camMap[camId] = curr; 
+			m_camIdVec.push_back( camId );
+		}
 	}
 	m_localView->fromPropertyTree(pt0.get_child("disp"));
 	m_log->fromPropertyTree(pt0.get_child("log"));

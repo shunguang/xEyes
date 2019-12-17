@@ -109,5 +109,4 @@
 #   define APP_LOCAL_TIME	    std::chrono::system_clock::now()
 #   define APP_UNIVERSAL_TIME   std::chrono::system_clock::now()
 #endif
-#define LOG_MAX_MSG_LEN         2048
 #endif

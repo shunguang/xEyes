@@ -1,0 +1,147 @@
+----start----
+12/16-21:17:56 (545460846592)->----------cfg----------------
+12/16-21:17:56 (545460846592)-><?xml version="1.0" encoding="utf-8"?>
+12/16-21:17:56 (545460846592)-><cfg>
+12/16-21:17:56 (545460846592)->    <cams>
+12/16-21:17:56 (545460846592)->        <cam>
+12/16-21:17:56 (545460846592)->            <cameraId>0</cameraId>
+12/16-21:17:56 (545460846592)->            <cameraName>FrontDoor</cameraName>
+12/16-21:17:56 (545460846592)->            <ip>192.168.10.1</ip>
+12/16-21:17:56 (545460846592)->            <imgW>1920</imgW>
+12/16-21:17:56 (545460846592)->            <imgH>1080</imgH>
+12/16-21:17:56 (545460846592)->            <fpsNum>5</fpsNum>
+12/16-21:17:56 (545460846592)->            <fpsDen>1</fpsDen>
+12/16-21:17:56 (545460846592)->            <frmQueSz>50</frmQueSz>
+12/16-21:17:56 (545460846592)->            <detPyrLev>1</detPyrLev>
+12/16-21:17:56 (545460846592)->            <rtspUrl>unkn</rtspUrl>
+12/16-21:17:56 (545460846592)->        </cam>
+12/16-21:17:56 (545460846592)->        <cam>
+12/16-21:17:56 (545460846592)->            <cameraId>1</cameraId>
+12/16-21:17:56 (545460846592)->            <cameraName>BackDoor</cameraName>
+12/16-21:17:56 (545460846592)->            <ip>192.168.10.2</ip>
+12/16-21:17:56 (545460846592)->            <imgW>1920</imgW>
+12/16-21:17:56 (545460846592)->            <imgH>1080</imgH>
+12/16-21:17:56 (545460846592)->            <fpsNum>10</fpsNum>
+12/16-21:17:56 (545460846592)->            <fpsDen>1</fpsDen>
+12/16-21:17:56 (545460846592)->            <frmQueSz>50</frmQueSz>
+12/16-21:17:56 (545460846592)->            <detPyrLev>1</detPyrLev>
+12/16-21:17:56 (545460846592)->            <rtspUrl>unkn</rtspUrl>
+12/16-21:17:56 (545460846592)->        </cam>
+12/16-21:17:56 (545460846592)->        <cam>
+12/16-21:17:56 (545460846592)->            <cameraId>2</cameraId>
+12/16-21:17:56 (545460846592)->            <cameraName>camC</cameraName>
+12/16-21:17:56 (545460846592)->            <ip>192.168.10.3</ip>
+12/16-21:17:56 (545460846592)->            <imgW>1920</imgW>
+12/16-21:17:56 (545460846592)->            <imgH>1080</imgH>
+12/16-21:17:56 (545460846592)->            <fpsNum>15</fpsNum>
+12/16-21:17:56 (545460846592)->            <fpsDen>1</fpsDen>
+12/16-21:17:56 (545460846592)->            <frmQueSz>50</frmQueSz>
+12/16-21:17:56 (545460846592)->            <detPyrLev>1</detPyrLev>
+12/16-21:17:56 (545460846592)->            <rtspUrl>unkn</rtspUrl>
+12/16-21:17:56 (545460846592)->        </cam>
+12/16-21:17:56 (545460846592)->        <cam>
+12/16-21:17:56 (545460846592)->            <cameraId>3</cameraId>
+12/16-21:17:56 (545460846592)->            <cameraName>camD</cameraName>
+12/16-21:17:56 (545460846592)->            <ip>192.168.10.4</ip>
+12/16-21:17:56 (545460846592)->            <imgW>1920</imgW>
+12/16-21:17:56 (545460846592)->            <imgH>1080</imgH>
+12/16-21:17:56 (545460846592)->            <fpsNum>15</fpsNum>
+12/16-21:17:56 (545460846592)->            <fpsDen>1</fpsDen>
+12/16-21:17:56 (545460846592)->            <frmQueSz>50</frmQueSz>
+12/16-21:17:56 (545460846592)->            <detPyrLev>1</detPyrLev>
+12/16-21:17:56 (545460846592)->            <rtspUrl>unkn</rtspUrl>
+12/16-21:17:56 (545460846592)->        </cam>
+12/16-21:17:56 (545460846592)->    </cams>
+12/16-21:17:56 (545460846592)->    <disp>
+12/16-21:17:56 (545460846592)->        <dispQueSz>50</dispQueSz>
+12/16-21:17:56 (545460846592)->        <dispPyrLev>2</dispPyrLev>
+12/16-21:17:56 (545460846592)->    </disp>
+12/16-21:17:56 (545460846592)->    <log>
+12/16-21:17:56 (545460846592)->        <appRootFolder>/home/swu/projects/xEyes/build</appRootFolder>
+12/16-21:17:56 (545460846592)->        <logFolder>/home/swu/projects/xEyes/build</logFolder>
+12/16-21:17:56 (545460846592)->        <isDumpLog>1</isDumpLog>
+12/16-21:17:56 (545460846592)->        <ishowLogInConsole>1</ishowLogInConsole>
+12/16-21:17:56 (545460846592)->        <frameFreqsToLog>1000,1000,1000</frameFreqsToLog>
+12/16-21:17:56 (545460846592)->    </log>
+12/16-21:17:56 (545460846592)-></cfg>
+12/16-21:17:56 (545460846592)->-------start main program ---------
+12/16-21:17:56 (545460846592)->FrmInfoCircularQ::allocQ(),  m_name=FrmInfoQ_0,  m_items=50, m_w0=1920, m_h0=1080, m_detPyrL=1, m_dspPyrL=2
+12/16-21:17:56 (545460846592)->FrmInfoCircularQ::allocQ(),  m_name=FrmInfoQ_1,  m_items=50, m_w0=1920, m_h0=1080, m_detPyrL=1, m_dspPyrL=2
+12/16-21:17:57 (545460846593)->FrmInfoCircularQ::allocQ(),  m_name=FrmInfoQ_2,  m_items=50, m_w0=1920, m_h0=1080, m_detPyrL=1, m_dspPyrL=2
+12/16-21:17:57 (545460846593)->FrmInfoCircularQ::allocQ(),  m_name=FrmInfoQ_3,  m_items=50, m_w0=1920, m_h0=1080, m_detPyrL=1, m_dspPyrL=2
+12/16-21:17:57 (545460846593)->RunXEyes::startDisplayThreads(): ThreadId=0, name=DspThread4FrontDoor started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDisplayThreads(): ThreadId=1, name=DspThread4BackDoor started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDisplayThreads(): ThreadId=2, name=DspThread4camC started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDisplayThreads(): ThreadId=3, name=DspThread4camD started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDetectionThreads(): ThreadId=4, name=DetThread4FrontDoor started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDetectionThreads(): ThreadId=5, name=DetThread4BackDoor started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDetectionThreads(): ThreadId=6, name=DetThread4camC started.
+12/16-21:17:57 (545460846593)->RunXEyes::startDetectionThreads(): ThreadId=7, name=DetThread4camD started.
+12/16-21:17:57 (545460846593)->RunXEyes::startCaptureThreads(): ThreadId=8, name=CapThread4FrontDoor started.
+12/16-21:17:57 (545460846593)->RunXEyes::startCaptureThreads(): ThreadId=9, name=CapThread4BackDoor started.
+12/16-21:17:57 (545460846593)->RunXEyes::startCaptureThreads(): ThreadId=10, name=CapThread4camC started.
+12/16-21:17:57 (545460846593)->DetThreadBkgChg::procNextTask(): DetThread4BackDoor, fn=0, dt=25
+12/16-21:17:57 (545460846593)->DetThreadBkgChg::procNextTask(): DetThread4FrontDoor, fn=0, dt=79
+12/16-21:17:57 (545460846593)->CapThreadSyn::procNextTask(): CapThread4BackDoor, fn=0, dt=35
+12/16-21:17:57 (545460846593)->DspThread::procNextTask(): DspThread4BackDoor, fn=0, dt=72
+12/16-21:17:57 (545460846593)->CapThreadSyn::procNextTask(): CapThread4FrontDoor, fn=0, dt=26
+12/16-21:17:57 (545460846593)->CapThreadSyn::procNextTask(): CapThread4camC, fn=0, dt=138
+12/16-21:17:57 (545460846593)->DspThread::procNextTask(): DspThread4BackDoor, fn=0, dt=66
+12/16-21:17:57 (545460846593)->RunXEyes::startCaptureThreads(): ThreadId=11, name=CapThread4camD started.
+12/16-21:17:57 (545460846593)->DspThread::procNextTask(): DspThread4FrontDoor, fn=0, dt=168
+12/16-21:17:57 (545460846593)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=46
+12/16-21:17:57 (545460846593)->DspThread::procNextTask(): DspThread4camC, fn=0, dt=140
+12/16-21:17:58 (545460846594)->CapThreadSyn::procNextTask(): CapThread4camD, fn=0, dt=206
+12/16-21:17:58 (545460846594)->DspThread::procNextTask(): DspThread4FrontDoor, fn=0, dt=190
+12/16-21:17:58 (545460846594)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=132
+12/16-21:17:58 (545460846594)->DspThread::procNextTask(): DspThread4camC, fn=0, dt=345
+12/16-21:17:58 (545460846594)->DspThread::procNextTask(): DspThread4camD, fn=0, dt=402
+12/16-21:18:02 (545460846598)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=109
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=128
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=39
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=68
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=102
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=97
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=73
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=103
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=92
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=79
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=90
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=70
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camC, fn=0, dt=71
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=69
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=51
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=38
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=31
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=43
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=20
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=54
+12/16-21:18:03 (545460846599)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=49
+12/16-21:18:04 (545460846600)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=60
+12/16-21:18:04 (545460846600)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=33
+12/16-21:18:04 (545460846600)->DetThreadBkgChg::procNextTask(): DetThread4camD, fn=0, dt=32
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--CapThread4FrontDoor
+12/16-21:18:09 (545460846605)->Thread: id=8, name=CapThread4FrontDoor quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--CapThread4BackDoor
+12/16-21:18:09 (545460846605)->Thread: id=9, name=CapThread4BackDoor quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--CapThread4camC
+12/16-21:18:09 (545460846605)->Thread: id=10, name=CapThread4camC quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--CapThread4camD
+12/16-21:18:09 (545460846605)->Thread: id=11, name=CapThread4camD quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--DetThread4FrontDoor
+12/16-21:18:09 (545460846605)->Thread: id=4, name=DetThread4FrontDoor quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--DetThread4BackDoor
+12/16-21:18:09 (545460846605)->Thread: id=5, name=DetThread4BackDoor quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--DetThread4camC
+12/16-21:18:09 (545460846605)->Thread: id=6, name=DetThread4camC quited!
+12/16-21:18:09 (545460846605)->ThreadX::run(): exit loop--DetThread4camD
+12/16-21:18:09 (545460846605)->Thread: id=7, name=DetThread4camD quited!
+12/16-21:18:09 (545460846605)->ThreadQt::run(): exit loop--DspThread4FrontDoor
+12/16-21:18:09 (545460846605)->Thread: id=0, name=DspThread4FrontDoor quited!
+12/16-21:18:09 (545460846605)->ThreadQt::run(): exit loop--DspThread4BackDoor
+12/16-21:18:09 (545460846605)->Thread: id=1, name=DspThread4BackDoor quited!
+12/16-21:18:09 (545460846605)->ThreadQt::run(): exit loop--DspThread4camC
+12/16-21:18:09 (545460846605)->Thread: id=2, name=DspThread4camC quited!
+12/16-21:18:09 (545460846605)->ThreadQt::run(): exit loop--DspThread4camD
+12/16-21:18:09 (545460846605)->Thread: id=3, name=DspThread4camD quited!
+12/16-21:18:09 (545460846605)->RunXEyes::on_actionExit_triggered(): exited!

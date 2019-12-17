@@ -6,6 +6,7 @@ using namespace xeyes;
 CfgCam::CfgCam()
 : CfgBase()
 , cameraId_(0)
+, valid_(true)
 , cameraName_("unkn")
 , ip_(0)
 , imgSz_(0,0)
@@ -21,6 +22,7 @@ CfgCam::CfgCam()
 CfgCam::CfgCam( const CfgCam &x )
 : CfgBase		( x )
 , cameraId_		( x.cameraId_ )
+, valid_		( x.valid_ )			
 , cameraName_(x.cameraName_)
 , ip_			(x.ip_)
 , imgSz_		( x.imgSz_ )
@@ -40,6 +42,7 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 		CfgBase::operator=(x);
 		cameraId_ 	= x.cameraId_;
 		cameraName_ = x.cameraName_;
+		valid_		= x.valid_ ;
 		ip_			= x.ip_;
 		imgSz_		= x.imgSz_;
 		fps_		= x.fps_;
@@ -58,6 +61,8 @@ void CfgCam::fromPropertyTree(const boost::property_tree::ptree &pt)
 {
 	cameraId_	= pt.get<int>("cameraId");
 	cameraName_ = pt.get<std::string>("cameraName");
+	valid_		= pt.get<int>("valid");			
+
 	ip_			= ipConvertStr2Num(pt.get<std::string>("ip"));
 	imgSz_.w 	= pt.get<int>("imgW");
 	imgSz_.h 	= pt.get<int>("imgH");
@@ -73,8 +78,9 @@ boost::property_tree::ptree CfgCam::toPropertyTree()
 	boost::property_tree::ptree pt;
 
 	pt.put( "cameraId", 	cameraId_ );
-	pt.put("cameraName", cameraName_);
-	pt.put("ip", ipConvertNum2Str(ip_));
+	pt.put( "cameraName", cameraName_);
+	pt.put( "valid", (int)valid_);
+	pt.put( "ip", ipConvertNum2Str(ip_));
 	pt.put( "imgW", 		imgSz_.w );
 	pt.put( "imgH", 		imgSz_.h );
 	pt.put( "fpsNum", 		fps_.num );

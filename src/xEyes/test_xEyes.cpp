@@ -98,7 +98,7 @@ void   startLog( const CfgPtr cfg )
 	CfgLog log = cfg->getLog();
 	myCreateDir( log.logFolder );
 	string ymd0 = ""; // getPrettyTimeStamp();
-	string logFile = log.logFolder + "/logNgv" + ymd0 + ".txt";
+	string logFile = log.logFolder + "/log" + ymd0 + ".txt";
 	startLogThread(logFile, true, true);
 
 	//dump current cfg into log file

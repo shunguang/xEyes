@@ -1,4 +1,4 @@
-#include "RunCap.h"
+#include "TestCaps.h"
 
 using namespace std;
 using namespace xeyes;

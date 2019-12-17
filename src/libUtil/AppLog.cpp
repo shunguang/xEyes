@@ -155,9 +155,15 @@ void xeyes::endLogThread()
 
 	AppLog::m_logPtr->logMsg("-------Last log Msg : log thread prepare to exit -----");
 	AppLog::m_logPtr->setForceExit( true );
+	uint32_t cnt=0;
 	do {
 		boost::this_thread::sleep(boost::posix_time::milliseconds(50));
-	} while (AppLog::m_logPtr->isLoopExited());
+		cnt++;
+		if (cnt>100){
+			printf("xeyes::endLogThread(): cnt=%d\n", cnt);
+			cnt=0;
+		}
+	} while ( !AppLog::m_logPtr->isLoopExited() );
 
 	AppLog::m_logPtr = NULL;
 }
