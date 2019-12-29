@@ -4,6 +4,11 @@
 
 #include "libUtil/util.h"
 #include "YuvFrm_h.h"
+
+#if APP_USE_CUDA
+#include "YuvFrm_d.h"
+#endif
+
 #include "RgbFrm_h.h"
 #include "DetFrm_h.h"
 #include "DspFrm_h.h"
