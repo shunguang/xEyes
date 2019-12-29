@@ -2,8 +2,8 @@
 #ifndef __RUN_CAP_SYNTHETIC_A_H__
 #define __RUN_CAP_SYNTHETIC_A_H__
 #include "libUtil/util.h"
-#include "libDs/ThreadX.h"
-#include "libDs/YuvFrm_h.h"
+#include "libDc/ThreadX.h"
+#include "libDc/YuvFrm_h.h"
 
 #include "CapThreadBase.h"
 namespace xeyes {

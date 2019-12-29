@@ -29,7 +29,7 @@
 #include "libGui/MsgBox.h"
 #include "libGui/ProgDialog.h"
 
-#include "libDs/DcUI.h"
+#include "libDc/DcUI.h"
 
 #define POPUP_MSG_WIN_TITLE "xEyes"
 #define MY_QT_CONN		Qt::UniqueConnection

@@ -23,7 +23,7 @@
 #include <QtCore/qthread.h>
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
-#include "libDs/DcUI.h"
+#include "libDc/DcUI.h"
 #include "DspDefs.h"
 namespace xeyes {
 	class DSP_EXPORT ThreadQt : public QThread {

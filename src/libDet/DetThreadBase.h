@@ -2,9 +2,9 @@
 #ifndef __DET_THREAD_BASE_H__
 #define __DET_THREAD_BASE_H__
 #include "libUtil/util.h"
-#include "libDs/ThreadX.h"
-#include "libDs/YuvFrm_h.h"
-#include "libDs/RgbFrm_h.h"
+#include "libDc/ThreadX.h"
+#include "libDc/YuvFrm_h.h"
+#include "libDc/RgbFrm_h.h"
 #include "DetDefs.h"
 namespace xeyes {
 	class DspThread;

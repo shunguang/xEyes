@@ -3,10 +3,10 @@
 #define __DSP_THREAD_H__
 #include "libUtil/util.h"
 #include "libUtil/CvQtUtil.h"
-#include "libDs/ThreadX.h"
-#include "libDs/DetFrm_h.h"
-#include "libDs/DspFrm_h.h"
-#include "libDs/YuvFrm_h.h"
+#include "libDc/ThreadX.h"
+#include "libDc/DetFrm_h.h"
+#include "libDc/DspFrm_h.h"
+#include "libDc/YuvFrm_h.h"
 
 #include "ThreadQt.h"
 #include "DspDefs.h"

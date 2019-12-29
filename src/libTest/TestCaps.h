@@ -4,7 +4,7 @@
 
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
-#include "libDs/DcUI.h"
+#include "libDc/DcUI.h"
 #include "libCap/CapThreadCamTemp.h"
 namespace xeyes {
 	class RunCap {

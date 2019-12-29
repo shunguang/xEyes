@@ -2,8 +2,8 @@
 #ifndef __RUN_DISP_H__
 #define __RUN_DISP_H__
 #include "libUtil/util.h"
-#include "libDs/ThreadX.h"
-#include "libDs/RgbFrm_h.h"
+#include "libDc/ThreadX.h"
+#include "libDc/RgbFrm_h.h"
 #include "GuiDefs.h"
 namespace xeyes {
 	class GUI_EXPORT RunDisp : public ThreadX

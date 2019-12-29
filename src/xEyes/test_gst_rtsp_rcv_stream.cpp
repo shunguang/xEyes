@@ -10,8 +10,8 @@
 #include <thread>
 
 //capture to host or device
-#include "libDs/YuvFrm_h.h"
-#include "libDs/YuvFrm_d.h"
+#include "libDc/YuvFrm_h.h"
+#include "libDc/YuvFrm_d.h"
 
 using namespace std;
 using namespace xeyes;

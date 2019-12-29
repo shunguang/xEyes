@@ -2,8 +2,8 @@
 #ifndef __CAP_THREAD_BASE_H__
 #define __CAP_THREAD_BASE_H__
 #include "libUtil/util.h"
-#include "libDs/ThreadX.h"
-#include "libDs/YuvFrm_h.h"
+#include "libDc/ThreadX.h"
+#include "libDc/YuvFrm_h.h"
 #include "CapDefs.h"
 namespace xeyes {
 	class DetThreadBase;
