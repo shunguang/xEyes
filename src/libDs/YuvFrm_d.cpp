@@ -90,6 +90,13 @@ void YuvFrm_d::hdCopyFromRgb_d(const RgbFrm_d *src) {
 	fn_  = src->fn_;
 }
 
+void YuvFrm_d::hdCopyFromHostBuf(const uint8_t *buf, const uint32_t bufSz, const uint64_t fn)
+{
+	myAssert( bufSz == 3*(size_.width * size_.height)/2, "YuvFrm_d::hdCopyFromHostBuf(): buf sz doest match, data loss!");
+	cudaMemcpy(pImg_, buf, bufSz, cudaMemcpyHostToDevice);
+	fn_ = fn;
+}
+
 void YuvFrm_d::hdCopyTo(YuvFrm_d *dst) const
 {
 	const int w = dst->size_.width;
@@ -143,11 +150,11 @@ void YuvFrm_d::hdCopyTo2(YuvFrm_h *dst) const {
 }
 
 
-void YuvFrm_d::dump(const std::string &tag, int L)
+void YuvFrm_d::dump(const std::string &folder, const std::string &tag, int roiW, int roiH, int L)
 {
 	YuvFrm_h f(size_.width, size_.height, fn_);
 	cudaMemcpy(f.v_.data(), pImg_, f.sz_, cudaMemcpyDeviceToHost);
-	f.dump(".", tag, roi_.width, roi_.height, L);
+	f.dump( folder, tag, roi_.width, roi_.height, L);
 }
 
 void YuvFrm_d::print(const std::string &msg)

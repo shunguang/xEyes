@@ -23,13 +23,14 @@ namespace xeyes {
 		void hdCopyFrom(const YuvFrm_d *src); 	//frem YUV dev
 		void hdCopyFrom(const YuvFrm_h *src); 	//from YUV host
 		void hdCopyFromRgb_d(const RgbFrm_d *src);	//from RGB dev
+		void hdCopyFromHostBuf(const uint8_t *buf, const uint32_t bufSz, const uint64_t fn = 0);
 
 		//hd copy to for same szie image
 		void hdCopyTo(YuvFrm_d *dst) const;   //copy to device
 		void hdCopyTo(YuvFrm_h *dst) const;   //copy host same size
 		void hdCopyTo2(YuvFrm_h *dst) const;  //copy to for dst size > src size becasue RTSP need special image sizes
 
-		void dump(const std::string &tag, int L);
+		void dump(const std::string &folder, const std::string &tag = "", int roiW = 0, int roiH = 0, int L = 0);
 		void print(const std::string &msg);
 	public:
 		Npp8u*		pImg_;
