@@ -7,40 +7,52 @@
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="QtGeneratedFiles">
-      <UniqueIdentifier>{1d296a74-7b86-42cc-b5f4-1ce14ce3bf08}</UniqueIdentifier>
+      <UniqueIdentifier>{e85a1dd7-297b-4866-91e8-ccc211bbec87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libTest\TestCaps.cpp">
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\libRun\RunGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libTest\TestDets.cpp">
+    <ClCompile Include="..\..\libRun\RunXEyes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libTest\TestGui.cpp">
+    <ClCompile Include="..\..\libRun\RunCap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\moc_TestGui.cpp">
+    <ClCompile Include="..\..\libRun\RunDet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_RunGui.cpp">
+      <Filter>QtGeneratedFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_RunXEyes.cpp">
       <Filter>QtGeneratedFiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\libTest\TestCaps.h">
+    <ClInclude Include="..\..\libRun\RunCap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libTest\TestDets.h">
+    <ClInclude Include="..\..\libRun\RunDet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\libTest\TestGui.h">
+    <CustomBuild Include="..\..\libRun\RunGui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\libRun\RunXEyes.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

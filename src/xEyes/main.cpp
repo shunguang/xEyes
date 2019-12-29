@@ -10,7 +10,7 @@ using namespace xeyes;
 int main(int argc, char* argv[])
 {
 	int x = 0;
-#if 0
+#if 1
 	x = test_xEyes(argc, argv);
 #else
 	//developing test approaches
