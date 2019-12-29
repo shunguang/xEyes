@@ -16,7 +16,7 @@ LFLAGS	:= -Wall $(DEBUG) $(L_GST_LIB) -L$(QT_LIB) -L$(ODIR_LIB) -L$(CUDA_LIB) -L
 
 #link libs
 #L_GST_LIB=-lgstrtspserver-1.0
-LIBS	:= -lqmake_run -lqmake_gui -lqmake_dsp -lDet -lCap -lDs -lCfg -lUtil -lyuv \
+LIBS	:= -lqmake_run -lqmake_gui -lqmake_dsp -lDet -lCap -lDc -lCfg -lUtil -lyuv \
 	-lboost_timer -lboost_filesystem -lboost_system -lboost_date_time -lboost_regex \
 	-lboost_chrono -lboost_thread -pthread \
 	-lnppc_static -lnppif_static -lnppig_static -lnppial_static -lnppicc_static -lnppicom_static -lnppisu_static -lnppidei -lculibos -lcublas_static -lcudart_static \
