@@ -3,14 +3,15 @@
 int test_gpu_availability(int argc, char **argv);
 int test_xEyes(int argc, char **argv);
 //int test_appsrc_v2(int argc, char **argv);
-int test_gst_rtsp_rcv_stream(int argc, char** argv);
+int test_gst_rtsp_rcvH264_dec(int argc, char** argv);
+int test_gst_rtsp_rcvH264_dec_and_save(int argc, char** argv);
 
 using namespace std;
 using namespace xeyes;
 int main(int argc, char* argv[])
 {
 	int x = 0;
-#if 1
+#if 0
 	x = test_xEyes(argc, argv);
 #else
 	//developing test approaches
@@ -24,7 +25,8 @@ int main(int argc, char* argv[])
 	//x =test_appsrc_v2(argc, argv);
 	//x = test_gpu_availability(argc, argv);
 
-	x = test_gst_rtsp_rcv_stream( argc, argv);
+	//x = test_gst_rtsp_rcvH264_dec( argc, argv);
+	x = test_gst_rtsp_rcvH264_dec_and_save( argc, argv);
 
 	dumpLog("---endlog---");
 	endLogThread();

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfg>
+  <gui>
+  <todo>0</todo>
+  </gui>
+
+  <cams>
+    <cam>
+      <!-- cameraId must start from 0 -->
+      <cameraId>0</cameraId>
+      <cameraName>FrontDoor</cameraName>
+      <valid>1</valid>
+        <ip>192.168.10.1</ip>
+	<imgW>1920</imgW>
+	<imgH>1080</imgH>
+	<fpsNum>5</fpsNum>
+	<fpsDen>1</fpsDen>
+      	<frmQueSz>50</frmQueSz>
+	<detPyrLev>1</detPyrLev>
+	<rtspUrl>unkn</rtspUrl>
+    </cam>
+    <cam>
+      <!-- cameraId must start from 0 -->
+      <cameraId>1</cameraId>
+      <cameraName>BackDoor</cameraName>
+      <valid>1</valid>
+      <ip>192.168.10.2</ip>
+      <imgW>1920</imgW>
+      <imgH>1080</imgH>
+      <fpsNum>10</fpsNum>
+      <fpsDen>1</fpsDen>
+      <frmQueSz>50</frmQueSz>
+      <detPyrLev>1</detPyrLev>
+      <rtspUrl>unkn</rtspUrl>
+    </cam>
+    <cam>
+      <!-- cameraId must start from 0 -->
+      <cameraId>2</cameraId>
+      <cameraName>camC</cameraName>
+      <valid>0</valid>
+      <ip>192.168.10.3</ip>
+      <imgW>1920</imgW>
+      <imgH>1080</imgH>
+      <fpsNum>15</fpsNum>
+      <fpsDen>1</fpsDen>
+      <frmQueSz>50</frmQueSz>
+      <detPyrLev>1</detPyrLev>
+      <rtspUrl>unkn</rtspUrl>
+    </cam>
+
+    <cam>
+      <!-- cameraId must start from 0 -->
+      <cameraId>3</cameraId>
+      <cameraName>camD</cameraName>
+      <valid>0</valid>
+      <ip>192.168.10.4</ip>
+      <imgW>1920</imgW>
+      <imgH>1080</imgH>
+      <fpsNum>15</fpsNum>
+      <fpsDen>1</fpsDen>
+      <frmQueSz>50</frmQueSz>
+      <detPyrLev>1</detPyrLev>
+      <rtspUrl>unkn</rtspUrl>
+    </cam>
+  </cams>
+
+  <disp>
+	<imgW>1920</imgW>
+	<imgH>1080</imgH>
+    	<dispQueSz>50</dispQueSz>
+	<dispPyrLev>2</dispPyrLev>
+  </disp>
+
+  <!--dump and log -->
+  <log>
+    <logFolder>/home/swu/projects/xEyes/build</logFolder>
+    <appRootFolder>/home/swu/projects/xEyes/build</appRootFolder>
+    <isDumpLog>1</isDumpLog>
+    <isShowLogInConsole>1</isShowLogInConsole>
+    <!-- frameFreqsToLog[0] frm freq to log capture threads cpu time usage  -->
+    <!-- frameFreqsToLog[1] frm freq to log detection threads cpu time usage -->
+    <!-- frameFreqsToLog[2] to log disp thread cpu time usage -->
+    <frameFreqsToLog>1000,1000,1000,1000,1000</frameFreqsToLog>
+  </log>
+  <!-- cam>
+      <cameraId>1</cameraId>
+      <cameraName>Back Door</cameraName>
+      <ip>192.168.10.2</ip>
+      <imgW>1920</imgW>
+	    <imgH>1080</imgH>
+	    <fpsNum>25</fpsNum>
+	    <fpsDen>1</fpsDen>
+      <frmQueSz>50</frmQueSz>
+		  <detPyrLev>1</detPyrLev>
+	    <rtspUrl>unkn</rtspUrl>
+    </cam -->
+</cfg>
+
+
+

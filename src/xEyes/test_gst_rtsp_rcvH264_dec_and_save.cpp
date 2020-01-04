@@ -56,7 +56,7 @@ static GstFlowReturn new_buffer(GstAppSink *appsink, gpointer user_data)
         buffer = gst_sample_get_buffer (sample);
         gst_buffer_map (buffer, &map, GST_MAP_READ);
 
-        if(fn%100==0){
+        if(fn%2000==0){
 #if CAP_TO_HOST
             assert( g_yuv_h->sz_ == map.size );
             g_yuv_h->hdCopyFromBuf( map.data, map.size, fn);
@@ -81,7 +81,7 @@ static GstFlowReturn new_buffer(GstAppSink *appsink, gpointer user_data)
     return GST_FLOW_OK;
 }
 
-int test_gst_rtsp_rcv_stream(int argc, char** argv) {
+int test_gst_rtsp_rcvH264_dec_and_save(int argc, char** argv) {
     USE(argc);
     USE(argv);
 
@@ -90,8 +90,8 @@ int test_gst_rtsp_rcv_stream(int argc, char** argv) {
     GMainLoop *main_loop;
     main_loop = g_main_loop_new (NULL, FALSE);
     ostringstream launch_stream;
-    int w = 1920;
-    int h = 1080;
+    int w = 1920/4;
+    int h = 1080/4;
 #if CAP_TO_HOST
     g_yuv_h.reset( new YuvFrm_h(w,h) ) ;
 #else
@@ -100,32 +100,25 @@ int test_gst_rtsp_rcv_stream(int argc, char** argv) {
     
     GstAppSinkCallbacks callbacks = {appsink_eos, NULL, new_buffer};
 
-    //gst-launch-1.0 rtspsrc location="rtsp://192.168.1.5/11" ! rtph264depay ! h264parse ! omxh264dec ! 
-    //nveglglessink window-x=100 window-y=100 window-width=640 window-height=360
-#if 0
-    launch_stream
-    << "nvcamerasrc ! "
-    << "video/x-raw(memory:NVMM), width="<< w <<", height="<< h <<", framerate=30/1 ! " 
-    << "nvvidconv ! "
-    << "video/x-raw, format=I420, width="<< w <<", height="<< h <<" ! "
-    << "appsink name=mysink ";
-#else    
-    //launch_string = "gst-launch-1.0 rtspsrc location="rtsp://192.168.1.5/11" ! rtph264depay ! h264parse ! omxh264dec ! 
-    //nveglglessink window-x=100 window-y=100 window-width=640 window-height=360
-   
-    launch_stream
-    << "rtspsrc  location= rtsp://192.168.1.5/11 ! "
-    << "rtph264depay ! h264parse ! omxh264dec ! "
-#if CAP_TO_HOST    
-    << "nvvidconv ! "
-    << "video/x-raw, format=I420, width="<< w <<", height="<< h <<" ! "
-#else
-    << "video/x-raw(memory:NVMM), format=I420, width="<< w <<", height="<< h <<" ! "
-#endif
-    << "appsink name=mysink ";
-#endif
-    launch_string = launch_stream.str();
+    //rtph264depay-- Extracts H264 video from RTP packets
+    //splitmuxsink:
+    //max-size-bytes: max. amount of data per file (in bytes, 0=disable).
+    //max-size-time:  max. amount of time per file (in ns, 0=disable).
+    //max-files:      maximum number of files to keep on disk. Once the maximum is reached,old files start to be deleted to make room for new ones.
+    //send-keyframe-requests: request a keyframe every max-size-time ns to try splitting at that point. Needs max-size-bytes to be 0 in order to be effective.
 
+    launch_stream
+    << "-e -v rtspsrc  location= rtsp://192.168.1.5/11 ! "
+    << "tee name=tsplit ! "     //split into two parts
+    << "queue ! rtph264depay ! h264parse ! "   //Parses H.264 streams  
+    << "omxh264dec ! "          //hd decoder
+    << "nvvidconv ! "
+    << "video/x-raw, format=I420, width="<< w <<", height="<< h <<" ! "
+    << "appsink name=myYuvSink tsplit. ! "
+    << "queue ! rtph264depay ! h264parse ! "
+    << "splitmuxsink name=myMp4Sink location=test_save_%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE";
+
+    launch_string = launch_stream.str();
     g_print("Using launch string: %s\n", launch_string.c_str());
 
     GError *error = nullptr;
@@ -137,8 +130,8 @@ int test_gst_rtsp_rcv_stream(int argc, char** argv) {
     }
     if(error) g_error_free(error);
 
-    GstElement *appsink_ = gst_bin_get_by_name(GST_BIN(gst_pipeline), "mysink");
-    gst_app_sink_set_callbacks (GST_APP_SINK(appsink_), &callbacks, NULL, NULL);
+    GstElement *yuvSink_ = gst_bin_get_by_name(GST_BIN(gst_pipeline), "myYuvSink");
+    gst_app_sink_set_callbacks (GST_APP_SINK(yuvSink_), &callbacks, NULL, NULL);
 
     gst_element_set_state((GstElement*)gst_pipeline, GST_STATE_PLAYING); 
 

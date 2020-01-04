@@ -4,7 +4,7 @@
 SDIR_ROOT?=/home/swu/projects/xEyes/src
 SDIR_PROJ=$(SDIR_ROOT)/$(PROJ_NAME)
 
-ODIR_ROOT?=/home/swu/projects/xEyes/build
+ODIR_ROOT?=/home/swu/projects/build_xeyes
 ODIR_PROJ=$(ODIR_ROOT)/$(PROJ_NAME)
 ODIR_LIB=$(ODIR_ROOT)/libs
 

@@ -1,4 +1,0 @@
-1. SV3C camera
-gst-launch-1.0 rtspsrc location="rtsp://192.168.1.5/11" ! rtph264depay ! h264parse ! omxh264dec ! nveglglessink window-x=100 window-y=100 window-width=640 window-height=360
-
-

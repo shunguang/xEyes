@@ -28,7 +28,8 @@ LIBS	:= -lqmake_run -lqmake_gui -lqmake_dsp -lDet -lCap -lDc -lCfg -lUtil -lyuv 
 	-ldl -lm -lpthread -lrt 
 
 OBJS = $(ODIR_PROJ)/main.o \
-	$(ODIR_PROJ)/test_gst_rtsp_rcv_stream.o \
+	$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec.o \
+	$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.o \
 	$(ODIR_PROJ)/test_gpu_availability.o \
 	$(ODIR_PROJ)/test_xEyes.o
 
@@ -45,8 +46,11 @@ $(TARGETFILE)	:	$(OBJS)
 $(ODIR_PROJ)/main.o	:	$(SDIR_PROJ)/main.cpp
 	$(CXX) -o $(ODIR_PROJ)/main.o $(CFLAGS) $(SDIR_PROJ)/main.cpp
 
-$(ODIR_PROJ)/test_gst_rtsp_rcv_stream.o	:	$(SDIR_PROJ)/test_gst_rtsp_rcv_stream.cpp
-	$(CXX) -o $(ODIR_PROJ)/test_gst_rtsp_rcv_stream.o $(CFLAGS) $(SDIR_PROJ)/test_gst_rtsp_rcv_stream.cpp
+$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec.o	:	$(SDIR_PROJ)/test_gst_rtsp_rcvH264_dec.cpp
+	$(CXX) -o $(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec.o $(CFLAGS) $(SDIR_PROJ)/test_gst_rtsp_rcvH264_dec.cpp
+
+$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.o	:	$(SDIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.cpp
+	$(CXX) -o $(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.o $(CFLAGS) $(SDIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.cpp
 
 $(ODIR_PROJ)/test_gpu_availability.o	:	$(SDIR_PROJ)/test_gpu_availability.cpp
 	$(CXX) -o $(ODIR_PROJ)/test_gpu_availability.o $(CFLAGS) $(SDIR_PROJ)/test_gpu_availability.cpp
