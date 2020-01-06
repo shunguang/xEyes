@@ -18,9 +18,6 @@
     <ClCompile Include="..\..\xEyes\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\xEyes\test_appsrc_v2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\xEyes\test_gpu_availability.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,6 +28,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\xEyes\test_xEyes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xEyes\test_gst_rtsp_rcvH264_dec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xEyes\test_gst_rtsp_rcvH264_dec_and_save.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xEyes\test_bgSubtractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -149,11 +149,17 @@
     <ClCompile Include="..\..\libDc\FrmInfoCircularQ.cpp" />
     <ClCompile Include="..\..\libDc\JpegFrm_h.cpp" />
     <ClCompile Include="..\..\libDc\RgbCircularQ_h.cpp" />
-    <ClCompile Include="..\..\libDc\RgbFrm_d.cpp" />
+    <ClCompile Include="..\..\libDc\RgbFrm_d.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\libDc\RgbFrm_h.cpp" />
     <ClCompile Include="..\..\libDc\ThreadX.cpp" />
     <ClCompile Include="..\..\libDc\YuvCircularQ_h.cpp" />
-    <ClCompile Include="..\..\libDc\YuvFrm_d.cpp" />
+    <ClCompile Include="..\..\libDc\YuvFrm_d.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\libDc\YuvFrm_h.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,11 +184,17 @@
     </ClInclude>
     <ClInclude Include="..\..\libDc\JpegFrm_h.h" />
     <ClInclude Include="..\..\libDc\RgbCircularQ_h.h" />
-    <ClInclude Include="..\..\libDc\RgbFrm_d.h" />
+    <ClInclude Include="..\..\libDc\RgbFrm_d.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\libDc\RgbFrm_h.h" />
     <ClInclude Include="..\..\libDc\ThreadX.h" />
     <ClInclude Include="..\..\libDc\YuvCircularQ_h.h" />
-    <ClInclude Include="..\..\libDc\YuvFrm_d.h" />
+    <ClInclude Include="..\..\libDc\YuvFrm_d.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\libDc\YuvFrm_h.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

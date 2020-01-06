@@ -36,7 +36,7 @@
 #include <ctime>  
 
 //---------- boost ---------
-#define APP_USE_CUDA 9
+#define APP_USE_CUDA 0
 #define APP_USE_BOOST 1
 #if APP_USE_BOOST
 #include <boost/date_time.hpp>

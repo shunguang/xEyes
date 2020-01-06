@@ -141,11 +141,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\xEyes\main.cpp" />
-    <ClCompile Include="..\..\xEyes\test_appsrc_v2.cpp">
+    <ClCompile Include="..\..\xEyes\test_bgSubtractor.cpp" />
+    <ClCompile Include="..\..\xEyes\test_gpu_availability.cpp" />
+    <ClCompile Include="..\..\xEyes\test_gst_rtsp_rcvH264_dec.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\xEyes\test_gpu_availability.cpp" />
+    <ClCompile Include="..\..\xEyes\test_gst_rtsp_rcvH264_dec_and_save.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\xEyes\test_rtspsrc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

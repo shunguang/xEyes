@@ -53,7 +53,7 @@
     <ClCompile Include="GeneratedFiles\moc_ProgDialog.cpp">
       <Filter>QtGeneratedFiles</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_appGui.cpp">
+    <ClCompile Include="GeneratedFiles\qrc_appGuiRc.cpp">
       <Filter>QtGeneratedFiles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,7 +67,7 @@
     <CustomBuild Include="..\..\libGui\ProgDialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\libGui\appGui.qrc">
+    <CustomBuild Include="..\..\libGui\appGuiRc.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
