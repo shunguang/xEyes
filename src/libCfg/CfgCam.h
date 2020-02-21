@@ -15,22 +15,24 @@ namespace xeyes {
 		virtual void fromPropertyTree(const boost::property_tree::ptree &pt);
 		virtual std::string toString();
 
+		uint32_t	getIp() const;
+		std::string  getRecFolder() const;
 	public:
 		int			cameraId_;
 		std::string cameraName_;
-		bool		valid_;  
-		uint32_t	ip_;
+		std::string rtspUrl_;   //rtsp://192.168.1.5/11
+		bool		valid_;
 
-		ImgSize		imgSz_;	
+		ImgSize		imgSz_;	   //output image sz after H264 decoding regardless the original size from camera
 		VideoFps    fps_;
 
 		//todo: add more
 		int 		frmQueSz_;      //que size for FrmInfo
-
 		int 		detPyrLev_;    	//detetcion pyamid level
-		std::string rtspUrl_;
 		bool		isRec_;
-		bool		isDisp_;
+		bool		isDisp_;      
+		std::string mp4LocationAndPrefix_;
+
 	};
 	typedef std::shared_ptr<CfgCam>		CfgCamPtr;
 }

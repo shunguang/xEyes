@@ -16,7 +16,7 @@ namespace xeyes {
 	protected:
 		virtual void procNextTask();
 		virtual bool procInit();
-	
+		
 	protected:
 		cv::Mat		m_synBgrFrm;
 	};

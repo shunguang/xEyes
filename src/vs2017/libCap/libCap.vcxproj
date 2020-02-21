@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\libCap\CapDefs.h" />
+    <ClInclude Include="..\..\libCap\CapSaveRtspH264.h" />
     <ClInclude Include="..\..\libCap\CapThreadBase.h" />
     <ClInclude Include="..\..\libCap\CapThreadCamTemp.h" />
     <ClInclude Include="..\..\libCap\CapThreadSyn.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\libCap\CapSaveRtspH264.cpp" />
     <ClCompile Include="..\..\libCap\CapThreadBase.cpp" />
     <ClCompile Include="..\..\libCap\CapThreadCamTemp.cpp" />
     <ClCompile Include="..\..\libCap\CapThreadSyn.cpp" />

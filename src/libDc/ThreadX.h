@@ -40,7 +40,7 @@ namespace xeyes {
 
 	protected:
 		CfgPtr			m_cfg;			//cfg ptr
-		DcUIPtr			m_dcUI;			//shared data pointer
+		DcUIPtr			m_dcUI;			//shared data pointer for all threads
 		int             m_frmFreqToLog;
 
 		bool    		m_isExitedLoop;

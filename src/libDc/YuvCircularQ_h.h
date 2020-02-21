@@ -18,7 +18,8 @@ namespace xeyes {
 		void reset();
 
 		//HD copy <x> into q[m_headW]
-		bool wrt(const YuvFrm_h *src);  	//host interface
+		bool wrt(const YuvFrm_h *src);  				//host interface
+		bool wrt(const uint8_t *p, const uint32_t sz, const uint64_t fn=0); 	//host interface
 #if APP_USE_CUDA
 		bool wrt(const YuvFrm_d *src);  	//dev interface
 		bool read(YuvFrm_d* dst);		//dev interface

@@ -9,14 +9,17 @@
       <!-- cameraId must start from 0 -->
       <cameraId>0</cameraId>
       <cameraName>FrontDoor</cameraName>
-      <ip>192.168.10.1</ip>
 	    <imgW>1920</imgW>
 	    <imgH>1080</imgH>
 	    <fpsNum>5</fpsNum>
 	    <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
 		  <detPyrLev>1</detPyrLev>
-	    <rtspUrl>unkn</rtspUrl>
+	    <rtspUrl>192.168.1.5/11</rtspUrl>
+      <isRec>1</isRec>
+      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
+      <mp4LocationAndPrefix>/home/rec/FrontDoor/rec</mp4LocationAndPrefix>
+      <isDisp>1</isDisp>
     </cam>
     <cam>
       <!-- cameraId must start from 0 -->
@@ -30,6 +33,10 @@
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
       <rtspUrl>unkn</rtspUrl>
+      <isRec>1</isRec>
+      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
+      <mp4LocationAndPrefix>/home/cam2/rec</mp4LocationAndPrefix>
+      <isDisp>1</isDisp>
     </cam>
     <cam>
       <!-- cameraId must start from 0 -->
@@ -43,6 +50,10 @@
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
       <rtspUrl>unkn</rtspUrl>
+      <isRec>1</isRec>
+      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
+      <mp4LocationAndPrefix>/home/cam3/rec</mp4LocationAndPrefix>
+      <isDisp>1</isDisp>
     </cam>
     <cam>
       <!-- cameraId must start from 0 -->
@@ -56,6 +67,10 @@
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
       <rtspUrl>unkn</rtspUrl>
+      <isRec>1</isRec>
+      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
+      <mp4LocationAndPrefix>/home/cam4/rec</mp4LocationAndPrefix>
+      <isDisp>1</isDisp>
     </cam>
   </cams>
 

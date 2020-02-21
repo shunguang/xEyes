@@ -28,7 +28,7 @@ namespace xeyes {
 		YuvFrm_hPtr		m_yuvFrm_h;   //output/captured frm from this camera
 		DcPtr 			m_camDc;      //shared data container of this camera
 		CfgCam			m_camCfg;     //hd copy this camera cfg
-		DetThreadBase*		m_detPtr;
+		DetThreadBase*	m_detPtr;
 	};
 	typedef std::shared_ptr<CapThreadBase> CapThreadBasePtr;
 }
