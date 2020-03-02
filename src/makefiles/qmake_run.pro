@@ -13,9 +13,9 @@ PROJ_NAME=libRun
 SDIR_ROOT=/home/swu/projects/xEyes/src
 SDIR_PROJ=/home/swu/projects/xEyes/src/$$PROJ_NAME
 
-ODIR_ROOT?=/home/swu/projects/xEyes/build
-ODIR_PROJ=/home/swu/projects/xEyes/build/$$PROJ_NAME
-ODIR_LIB=/home/swu/projects/xEyes/build/libs
+ODIR_ROOT?=/home/swu/projects/build_xeyes
+ODIR_PROJ=/home/swu/projects/build_xeyes/$$PROJ_NAME
+ODIR_LIB=/home/swu/projects/build_xeyes/libs
 
 #include and lib paths
 PLTF_INC=/usr/include/c++/7
@@ -25,6 +25,10 @@ PLTF_LIB=/usr/lib
 #CV_LIB=/usr/lib
 #BOOST_INC=/usr/include
 #BOOST_LIB=/usr/lib
+GST_INC1=/usr/include/gstreamer-1.0 
+GST_INC2=/usr/include/glib-2.0
+GST_INC3=/usr/lib/aarch64-linux-gnu/glib-2.0/include
+GST_LIB=/usr/lib/aarch64-linux-gnu1
 
 QT_INC=/usr/local/Qt-5.9.2/include
 QT_LIB=/usr/local/Qt-5.9.2/lib
@@ -43,6 +47,9 @@ CONFIG += c++11
 CONFIG += plugin   
 
 INCLUDEPATH += $$PLTF_INC
+INCLUDEPATH += $$GST_INC1
+INCLUDEPATH += $$GST_INC2
+INCLUDEPATH += $$GST_INC3
 #INCLUDEPATH += $$BOOST_INC
 #INCLUDEPATH += $$CV_INC 
 INCLUDEPATH += $$QT_INC 

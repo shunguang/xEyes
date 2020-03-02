@@ -9,7 +9,7 @@ CapSaveRtspH264::CapSaveRtspH264( const int camId, const int threadId, const std
 , gst_pipeline_(nullptr)
 , mainLoopExited_( true )
 , mainLoopThreadRunning_(false)
-, m_localYuvFrmQ_h();
+, m_localYuvFrmQ_h()
 {
 	cout << "CapSaveRtspH264::CapSaveRtspH264(): called" << endl;
 }
@@ -31,20 +31,21 @@ void CapSaveRtspH264::procNextTask()
 		m_camDc->m_frmInfoQ->wrtYuvFrmByCapThread(m_yuvFrm_h.get());
 		//wakeup the consumer thread
 		m_detPtr->wakeupToWork();
-	}
 
-	//decide if need to sleep
-	uint32_t dt = timeIntervalMillisec(start);
-	if (dt < m_frmInterval_ms) {
-		THREAD_SLEEP(m_frmInterval_ms - dt);
+		//decide if need to sleep
+		int dt = timeIntervalMillisec(start);
+		if (dt < m_frmInterval_ms) {
+			THREAD_SLEEP(m_frmInterval_ms - dt);
+		}
+		//---- for next frm ------------
+		if (m_frmNum % m_frmFreqToLog == 0) {
+			dumpLog( "CapSaveRtspH264::procNextTask(): %s, fn=%lld, dt=%d, frmIntervals=%d(ms)", m_threadName.c_str(), m_frmNum, dt, m_frmInterval_ms);
+		}
+		m_frmNum++;		
 	}
-
-	if (m_frmNum % m_frmFreqToLog == 0) {
-		dumpLog( "CapSaveRtspH264::procNextTask(): %s, fn=%lld, dt=%d", m_threadName.c_str(), m_frmNum, dt);
+	else{
+		THREAD_SLEEP(m_frmInterval_ms);
 	}
-
-	//---- for next frm ------------
-	m_frmNum++;
 }
 
 bool CapSaveRtspH264::procInit()
@@ -80,12 +81,12 @@ bool CapSaveRtspH264::procInit()
 }
 
 
-void CapSaveRtspH264::appsink_eos_cb(GstAppSink * appsink, gpointer user_data)
+void CapSaveRtspH264::eos_cb(GstAppSink * appsink, gpointer user_data)
 {
 	//gateway to access this->xyz
 	CapSaveRtspH264 *pThis = reinterpret_cast<CapSaveRtspH264*>(user_data);
 
-	dumpLog("CapSaveRtspH264::appsink_eos_cb(): app sink receive eos!");
+	dumpLog("CapSaveRtspH264::eos_cb(): app sink receive eos!");
 	//force main loop quit and starover
 	//todo:
 	//g_main_loop_quit (hpipe->loop);
@@ -96,8 +97,10 @@ void CapSaveRtspH264::appsink_eos_cb(GstAppSink * appsink, gpointer user_data)
 // or
 //<m_localYuvFrmQ_d> if choose  gpu memory
 //-----------------------------------------------------------------------
-GstFlowReturn CapSaveRtspH264::new_frm_cb(GstAppSink *appsink, gpointer user_data)
+GstFlowReturn CapSaveRtspH264::new_sample_cb(GstAppSink *appsink, gpointer user_data)
 {
+	dumpLog("CapSaveRtspH264::new_sample_cb(): AAA.");
+
 	//gateway to access this->xyz
 	CapSaveRtspH264 *pThis = reinterpret_cast<CapSaveRtspH264*>(user_data);
 
@@ -110,7 +113,7 @@ GstFlowReturn CapSaveRtspH264::new_frm_cb(GstAppSink *appsink, gpointer user_dat
 
 		caps = gst_sample_get_caps(sample);
 		if (!caps){
-			dumpLog("CapSaveRtspH264::new_frm_cb(): could not get snapshot format.");
+			dumpLog("CapSaveRtspH264::new_sample_cb(): could not get snapshot format.");
 		}
 		gst_caps_get_structure(caps, 0);
 		buffer = gst_sample_get_buffer(sample);
@@ -120,29 +123,28 @@ GstFlowReturn CapSaveRtspH264::new_frm_cb(GstAppSink *appsink, gpointer user_dat
 
 #if 1	
 		//local dump and debug 
-		myAssert(pThis->m_yuvFrm_h->sz_ == map.size, "CapSaveRtspH264::new_frm_cb(): size does not match!");
+		myAssert(pThis->m_yuvFrm_h->sz_ == map.size, "CapSaveRtspH264::new_sample_cb(): size does not match!");
 		YuvFrm_h yuv(pThis->m_camCfg.imgSz_.w, pThis->m_camCfg.imgSz_.h);
 		yuv.hdCopyFromBuf(map.data, map.size, 0);
 		yuv.dump(".", "yuv_h");
 #endif
 
-		m_localYuvFrmQ_h->wrt(map.data, map.size, 0);
+		pThis->m_localYuvFrmQ_h.wrt(map.data, map.size, pThis->m_frmNum);
 
 #else            
-		myAssert(g_yuv_d->sz_ == map.size, "CapSaveRtspH264::new_frm_cb(): size does not match!");
+		myAssert(g_yuv_d->sz_ == map.size, "CapSaveRtspH264::new_sample_cb(): size does not match!");
 		g_yuv_d->hdCopyFromHostBuf(map.data, map.size, 0);
 		g_yuv_d->dump(".", "yuv_d");
 #endif
 
 		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 0) {
-			dumpLog("CapSaveRtspH264::new_frm_cb(): map.size = %lu, bufSz=%lu", map.size, gst_buffer_get_size(buffer));
+			dumpLog("CapSaveRtspH264::new_sample_cb(): map.size = %lu, bufSz=%lu", map.size, gst_buffer_get_size(buffer));
 		}
 		gst_buffer_unmap(buffer, &map);
 		gst_sample_unref(sample);
 	}
-
 	else{
-		dumpLog("CapSaveRtspH264::new_frm_cb(): could not make snapshot");
+		dumpLog("CapSaveRtspH264::new_sample_cb(): could not make snapshot");
 	}
 
 	return GST_FLOW_OK;
@@ -150,36 +152,44 @@ GstFlowReturn CapSaveRtspH264::new_frm_cb(GstAppSink *appsink, gpointer user_dat
 
 int CapSaveRtspH264 :: h264_dec_n_save_loop() 
 {
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): init!" );
+	mainLoopThreadRunning_ = true;
 	mainLoopExited_ = false;
 
 	gst_init( NULL, NULL);
 	main_loop_ = g_main_loop_new(NULL, FALSE);
-	GstAppSinkCallbacks callbacks = { appsink_eos_cb, NULL, new_frm_cb };
 
 	string launch_string = createLaunchStr();
-	dumpLog("CapSaveRtspH264 :: main_loop(): Using launch string: %s", launch_string.c_str());
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): Using launch string: %s", launch_string.c_str());
 
 	GError *error = nullptr;
 	gst_pipeline_ = (GstPipeline*)gst_parse_launch(launch_string.c_str(), &error);
-
-	if (gst_pipeline == nullptr) {
-		myExit("CapSaveRtspH264 :: main_loop(): Failed to parse launch: %s", error->message);
+	if (gst_pipeline_ == nullptr) {
+		myExit("CapSaveRtspH264 :: h264_dec_n_save_loop(): Failed to parse launch: %s", error->message);
 	}
 	if (error) g_error_free(error);
 
-	GstElement *yuvSink = gst_bin_get_by_name(GST_BIN(gst_pipeline_), "appYuvSink");
+	GstElement *appSink = gst_bin_get_by_name(GST_BIN(gst_pipeline_), "appYuvSink");
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): appSink=0X%08x", appSink );
 
-	//void gst_app_sink_set_callbacks(GstAppSink *appsink, GstAppSinkCallbacks *callbacks, gpointer user_data, GDestroyNotify notify); ...
-	gst_app_sink_set_callbacks(GST_APP_SINK(yuvSink), &callbacks, this, NULL);
+	//GstAppSinkCallbacks callbacks = { CapSaveRtspH264::eos_cb, NULL, CapSaveRtspH264::new_sample_cb };
+	//gst_app_sink_set_callbacks(GST_APP_SINK(appSink), &callbacks, this, NULL);
+
+	g_signal_connect(appSink, "new_sample", G_CALLBACK(CapSaveRtspH264::new_sample_cb), (gpointer)this );
+	g_signal_connect(appSink, "eos",        G_CALLBACK(CapSaveRtspH264::eos_cb),        (gpointer)this );
 
 	gst_element_set_state((GstElement*)gst_pipeline_, GST_STATE_PLAYING);
 
-	sleep(10);
+	THREAD_SLEEP(10);
 	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): %s -- dec and save start!",  m_camCfg.rtspUrl_.c_str() );
+
 	g_main_loop_run(main_loop_);
 
 	//---- reach the next line when quit from g_main_loop_run()
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited!" );
+
 	gst_element_set_state((GstElement*)gst_pipeline_, GST_STATE_NULL);
+	gst_object_unref(appSink);	
 	gst_object_unref(GST_OBJECT(gst_pipeline_));
 	g_main_loop_unref(main_loop_);
 	mainLoopExited_ = true;
@@ -211,11 +221,17 @@ std::string CapSaveRtspH264::createLaunchStr()
 	return launchStream.str();
 }
 
+void CapSaveRtspH264::start()
+{
+	ThreadX::start();
+	THREAD_SLEEP(10);
+	startMainLoopThread();
+}
+
 void CapSaveRtspH264::startMainLoopThread()
 {
 	dumpLog( "CapSaveRtspH264::startMainLoop(): start capture: %s", m_camCfg.cameraName_.c_str() );
-	gstThread_.reset(new boost::thread(&CapSaveRtspH264::h264_dec_n_save_loop, this));
-	mainLoopThreadRunning_ = true;
+	gstThread_.reset(new boost::thread(boost::bind(&CapSaveRtspH264::h264_dec_n_save_loop, this)));
 }
 
 void CapSaveRtspH264::endMainLoopThread()
@@ -227,7 +243,7 @@ void CapSaveRtspH264::endMainLoopThread()
 	dumpLog("CapSaveRtspH264::endMainLoop(): AA- m_mainLoopEnd=%d", mainLoopExited_);
 	g_main_loop_quit(main_loop_);
 	while (1) {
-		BOOST_SLEEP(10);
+		THREAD_SLEEP(10);
 		if (!g_main_loop_is_running(main_loop_)) {
 			break;
 		}

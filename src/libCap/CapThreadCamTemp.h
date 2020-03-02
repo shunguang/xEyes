@@ -1,4 +1,5 @@
-//this is  template class for capture therad, which can be used as a start point to add new cameras
+//this is  template for developing different camera related capture thread, 
+//which can be used as a start point to add new cameras
 #ifndef __CAP_TREAD_TEMP_H__
 #define __CAP_TREAD_TEMP_H__
 #include "libUtil/util.h"

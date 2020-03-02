@@ -5,7 +5,7 @@ PROJ_NAME=xEyes
 include Makefile_app_header.mak
 
 #the target binary name
-TARGETFILE=$(ODIR_ROOT)/app
+TARGETFILE=$(ODIR_ROOT)/app.out
 
 #redefine CFLAGS and LIBS
 CFLAGS	:= -Wall -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGUseStdInt=0 -DUNIX_ENV=1 -D__LITTLE_ENDIAN__=1 -DqMacOS=0 -DqWinOS=0 -std=gnu++11 \

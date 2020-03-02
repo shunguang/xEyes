@@ -31,6 +31,7 @@ CfgCam::CfgCam( const CfgCam &x )
 , rtspUrl_		( x.rtspUrl_ )
 , isRec_		( x.isRec_ )
 , isDisp_		( x.isDisp_)
+, mp4LocationAndPrefix_( x.mp4LocationAndPrefix_ )
 {
 }
 
@@ -51,6 +52,7 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 		rtspUrl_	= x.rtspUrl_;
 		isRec_ = x.isRec_;
 		isDisp_ = x.isDisp_;
+        mp4LocationAndPrefix_ = x.mp4LocationAndPrefix_;
 	}
 	return *this;
 }
@@ -76,7 +78,7 @@ boost::property_tree::ptree CfgCam::toPropertyTree()
 
 	pt.put( "cameraId", 	cameraId_ );
 	pt.put( "cameraName", cameraName_);
-	pt.put("rtspUrl", rtspUrl_);
+	pt.put( "rtspUrl", rtspUrl_);
 	pt.put( "valid", (int)valid_);
 	pt.put( "imgW", 		imgSz_.w );
 	pt.put( "imgH", 		imgSz_.h );
@@ -84,7 +86,7 @@ boost::property_tree::ptree CfgCam::toPropertyTree()
 	pt.put( "fpsDen", 		fps_.den );
 	pt.put( "frmQueSz", 	frmQueSz_ );
 	pt.put( "detPyrLev", 	detPyrLev_ );
-	pt.put("mp4LocationAndPrefix", mp4LocationAndPrefix_);
+	pt.put( "mp4LocationAndPrefix", mp4LocationAndPrefix_);
 	return pt;
 }
 

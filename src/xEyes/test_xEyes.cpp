@@ -75,7 +75,7 @@ string locateCfgFile( int argc, char **argv)
 #if _WINDOWS
 			cfgFile = "c:/Projects/xEyes/src/xEyes/res/" + f0;            //for development
 #else
-			cfgFile = "/home/swu/Projects/xEyes/src/xEyes/res/" + f0;            //for development
+			cfgFile = "/home/swu/projects/xEyes/src/xEyes/res/" + f0;            //for development
 #endif
 		}
 	}

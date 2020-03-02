@@ -163,7 +163,7 @@ void AppGui::initSettings()
 		txt = QStringLiteral("Camera %1:").arg(prm.cameraId_);
 		m_vLabelCamId[i]->setText(txt);
 
-		txt = QString::fromStdString(ipConvertNum2Str(prm.ip_));
+		txt = QString::fromStdString(ipConvertNum2Str(prm.getIp()));
 		m_vLabelCamIp[i]->setText(txt);
 
 		txt = QString::fromStdString(prm.cameraName_);

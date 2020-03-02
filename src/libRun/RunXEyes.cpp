@@ -65,8 +65,13 @@ void RunXEyes::createCaptureThreads()
 		int id = m_vCamIds[i];
 		CfgCam currCfg = m_cfg->getCam(id);
 		const string threadName = "CapThread4" + currCfg.cameraName_;
-		
-		CapThreadBasePtr cap(new CapThreadSyn(id, m_threadIdCnt, threadName));
+		CapThreadBasePtr cap;
+		if( currCfg.rtspUrl_.empty() ){
+			cap.reset(new CapThreadSyn(id, m_threadIdCnt, threadName));
+		}
+		else{
+			cap.reset(new CapSaveRtspH264(id, m_threadIdCnt, threadName));
+		}
 		cap->setCfg(m_cfg);
 		cap->setDcUI(m_dcUI);
 		cap->setDetPtr(m_vDetThreads[i].get());

@@ -21,6 +21,7 @@
 #define __RUN_XEYES_H__
 
 #include "libCap/CapThreadSyn.h"
+#include "libCap/CapSaveRtspH264.h"
 #include "libDet/DetThreadBkgChg.h"
 #include "libDsp/DspThread.h"
 

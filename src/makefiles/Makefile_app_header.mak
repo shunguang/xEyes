@@ -12,6 +12,7 @@ ODIR_LIB=$(ODIR_ROOT)/libs
 PLTF_INC=/usr/include
 PLTF_LIB=/usr/lib
 
+#the same as PLTF_INC and PLTF_LIB, so we ignored
 #CV_INC=/usr/include
 #CV_LIB=/usr/lib
 #BOOST_INC=/usr/include

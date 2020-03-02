@@ -25,7 +25,7 @@ RunCap::RunCap(CfgPtr &cfg)
 	for( auto &id : vCamIds ){
 		CfgCam currCfg = m_cfg->getCam( id );
 		const string threadName = "Thread4" + currCfg.cameraName_;
-		CapThreadBasePtr capA( new CapThreadCamTemp( id, threadId++, threadName) );
+		CapThreadBasePtr capA( new CapSaveRtspH264( id, threadId++, threadName) );
 
 		capA->setCfg( m_cfg );
 		capA->setDcUI( m_dcUI );

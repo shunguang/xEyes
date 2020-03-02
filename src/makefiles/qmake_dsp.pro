@@ -13,9 +13,9 @@ PROJ_NAME=libDsp
 SDIR_ROOT=/home/swu/projects/xEyes/src
 SDIR_PROJ=/home/swu/projects/xEyes/src/$$PROJ_NAME
 
-ODIR_ROOT?=/home/swu/projects/xEyes/build
-ODIR_PROJ=/home/swu/projects/xEyes/build/$$PROJ_NAME
-ODIR_LIB=/home/swu/projects/xEyes/build/libs
+ODIR_ROOT?=/home/swu/projects/build_xeyes
+ODIR_PROJ=/home/swu/projects/build_xeyes/$$PROJ_NAME
+ODIR_LIB=/home/swu/projects/build_xeyes/libs
 
 #include and lib paths
 PLTF_INC=/usr/include/c++/7

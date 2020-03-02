@@ -11,7 +11,7 @@ namespace xeyes {
 		ThreadX(const ThreadTaskId tid, const int threadId=0, const std::string &name="unkn" );
 		virtual ~ThreadX();
 
-		void start();            //start thread
+		virtual void start();    //start thread
 		void forceQuit();        //force thread quit from its inifinity loop
 
 		void wakeupToWork();     //wake up thread to  procNextTask()

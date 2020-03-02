@@ -9,82 +9,82 @@
       <!-- cameraId must start from 0 -->
       <cameraId>0</cameraId>
       <cameraName>FrontDoor</cameraName>
+      <rtspUrl>rtsp://192.168.1.5/11</rtspUrl>
+
+      <!-- valid: set 1 if valid, 0 otherwise-->
+      <valid>1</valid>
 	    <imgW>1920</imgW>
 	    <imgH>1080</imgH>
-	    <fpsNum>5</fpsNum>
+	    <fpsNum>1</fpsNum>
 	    <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
-		  <detPyrLev>1</detPyrLev>
-	    <rtspUrl>192.168.1.5/11</rtspUrl>
-      <isRec>1</isRec>
-      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
-      <mp4LocationAndPrefix>/home/rec/FrontDoor/rec</mp4LocationAndPrefix>
-      <isDisp>1</isDisp>
+	    <detPyrLev>1</detPyrLev>
+	    <mp4LocationAndPrefix>./frontDoor/capF</mp4LocationAndPrefix>
     </cam>
+
     <cam>
       <!-- cameraId must start from 0 -->
       <cameraId>1</cameraId>
       <cameraName>BackDoor</cameraName>
-      <ip>192.168.10.2</ip>
+      <rtspUrl>rtsp://192.168.1.5/11</rtspUrl>
+
+      <!-- valid: set 1 if valid, 0 otherwise-->
+      <valid>0</valid>
       <imgW>1920</imgW>
       <imgH>1080</imgH>
       <fpsNum>10</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
-      <rtspUrl>unkn</rtspUrl>
-      <isRec>1</isRec>
-      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
-      <mp4LocationAndPrefix>/home/cam2/rec</mp4LocationAndPrefix>
-      <isDisp>1</isDisp>
+      <mp4LocationAndPrefix>./backtDoor/capB</mp4LocationAndPrefix>
     </cam>
+
     <cam>
       <!-- cameraId must start from 0 -->
       <cameraId>2</cameraId>
       <cameraName>camC</cameraName>
-      <ip>192.168.10.3</ip>
+      <rtspUrl>rtsp://192.168.1.5/11</rtspUrl>
+
+      <!-- valid: set 1 if valid, 0 otherwise-->
+      <valid>0</valid>
       <imgW>1920</imgW>
       <imgH>1080</imgH>
       <fpsNum>15</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
-      <rtspUrl>unkn</rtspUrl>
-      <isRec>1</isRec>
-      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
-      <mp4LocationAndPrefix>/home/cam3/rec</mp4LocationAndPrefix>
-      <isDisp>1</isDisp>
+      <mp4LocationAndPrefix>./camC/capC</mp4LocationAndPrefix>
     </cam>
+
     <cam>
       <!-- cameraId must start from 0 -->
       <cameraId>3</cameraId>
       <cameraName>camD</cameraName>
-      <ip>192.168.10.4</ip>
+      <rtspUrl>rtsp://192.168.1.5/11</rtspUrl>
+
+      <!-- valid: set 1 if valid, 0 otherwise-->
+      <valid>0</valid>
       <imgW>1920</imgW>
       <imgH>1080</imgH>
-      <fpsNum>20</fpsNum>
+      <fpsNum>15</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
-      <rtspUrl>unkn</rtspUrl>
-      <isRec>1</isRec>
-      <!-- the saved mp4 files will be /home/cam1/rec_%04d.mp4 -->
-      <mp4LocationAndPrefix>/home/cam4/rec</mp4LocationAndPrefix>
-      <isDisp>1</isDisp>
+      <mp4LocationAndPrefix>./camD/capD</mp4LocationAndPrefix>
     </cam>
   </cams>
 
   <disp>
-	  <imgW>1920</imgW>
-	  <imgH>1080</imgH>
-    <dispQueSz>50</dispQueSz>
-	  <dispPyrLev>2</dispPyrLev>
+	<imgW>1920</imgW>
+	<imgH>1080</imgH>
+    	<dispQueSz>50</dispQueSz>
+	<dispPyrLev>2</dispPyrLev>
   </disp>
 
   <!--dump and log -->
   <log>
-    <logFolder>/home/swu/Projects/xEyes/build</logFolder>
-    <appRootFolder>/home/swu/Projects/xEyes/build</appRootFolder>
+    <logFolder>/home/swu/projects/build_xeyes</logFolder>
+    <appRootFolder>/home/swu/projects/build_xeyes</appRootFolder>
     <isDumpLog>1</isDumpLog>
     <isShowLogInConsole>1</isShowLogInConsole>
     <!-- frameFreqsToLog[0] frm freq to log capture threads cpu time usage  -->
@@ -104,7 +104,6 @@
 		  <detPyrLev>1</detPyrLev>
 	    <rtspUrl>unkn</rtspUrl>
     </cam -->
-
 </cfg>
 
 

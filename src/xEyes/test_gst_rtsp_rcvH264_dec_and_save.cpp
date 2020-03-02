@@ -90,8 +90,8 @@ int test_gst_rtsp_rcvH264_dec_and_save(int argc, char** argv) {
     GMainLoop *main_loop;
     main_loop = g_main_loop_new (NULL, FALSE);
     ostringstream launch_stream;
-    int w = 1920/4;
-    int h = 1080/4;
+    int w = 1920;
+    int h = 1080;
 #if CAP_TO_HOST
     g_yuv_h.reset( new YuvFrm_h(w,h) ) ;
 #else
@@ -116,7 +116,7 @@ int test_gst_rtsp_rcvH264_dec_and_save(int argc, char** argv) {
     << "video/x-raw, format=I420, width="<< w <<", height="<< h <<" ! "
     << "appsink name=myYuvSink tsplit. ! "
     << "queue ! rtph264depay ! h264parse ! "
-    << "splitmuxsink name=myMp4Sink location=test_save_%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE";
+    << "splitmuxsink name=myMp4Sink location=./frontDoor/test_save_%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE";
 
     launch_string = launch_stream.str();
     g_print("Using launch string: %s\n", launch_string.c_str());
