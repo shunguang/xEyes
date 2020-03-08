@@ -10,10 +10,11 @@ RunCap::RunCap(CfgPtr &cfg)
 	, m_mainLoopExited(false)
 	, m_exitMainLoop(false)
 {
+	dumpLog( "RunCap::RunCap(): start!" );
 	CfgLog logCfg = m_cfg->getLog();
 	myCreateDir( logCfg.logFolder );
 
-
+	cout << "RunCap::RunCap(): cfg=" << cfg->toString() << endl;
 	m_dcUI.reset( new DcUI(cfg) );
 
 	//get cam ids from cfg
@@ -31,6 +32,8 @@ RunCap::RunCap(CfgPtr &cfg)
 		capA->setDcUI( m_dcUI );
 		m_vCapThreads.push_back( capA );
 	}
+
+	dumpLog( "RunCap::RunCap(): done!" );
 }
 
 RunCap::~RunCap()
@@ -41,6 +44,8 @@ void RunCap::runAllThreads()
 {
 	m_exitMainLoop = false;
 	m_mainLoopExited = false;
+
+	dumpLog( "RunCap::runAllThreads(): start!" );
 
 	for( auto &x : m_vCapThreads){
 		x->start();

@@ -13,11 +13,11 @@
 
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>1</valid>
-	    <imgW>1920</imgW>
-	    <imgH>1080</imgH>
-	    <fpsNum>1</fpsNum>
+	    <imgW>960</imgW>
+	    <imgH>540</imgH>
+	    <fpsNum>10</fpsNum>
 	    <fpsDen>1</fpsDen>
-      <frmQueSz>50</frmQueSz>
+      <frmQueSz>10</frmQueSz>
 	    <detPyrLev>1</detPyrLev>
 	    <mp4LocationAndPrefix>./frontDoor/capF</mp4LocationAndPrefix>
     </cam>
@@ -77,7 +77,7 @@
   <disp>
 	<imgW>1920</imgW>
 	<imgH>1080</imgH>
-    	<dispQueSz>50</dispQueSz>
+  <dispQueSz>50</dispQueSz>
 	<dispPyrLev>2</dispPyrLev>
   </disp>
 

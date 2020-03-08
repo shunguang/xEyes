@@ -31,6 +31,7 @@ OBJS = $(ODIR_PROJ)/main.o \
 	$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec.o \
 	$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.o \
 	$(ODIR_PROJ)/test_gpu_availability.o \
+	$(ODIR_PROJ)/test_libCap.o \
 	$(ODIR_PROJ)/test_xEyes.o
 
 default:  directories $(TARGETFILE)
@@ -55,11 +56,17 @@ $(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.o	:	$(SDIR_PROJ)/test_gst_rtsp_r
 $(ODIR_PROJ)/test_gpu_availability.o	:	$(SDIR_PROJ)/test_gpu_availability.cpp
 	$(CXX) -o $(ODIR_PROJ)/test_gpu_availability.o $(CFLAGS) $(SDIR_PROJ)/test_gpu_availability.cpp
 
+$(ODIR_PROJ)/test_libCap.o	:	$(SDIR_PROJ)/test_libCap.cpp
+	$(CXX) -o $(ODIR_PROJ)/test_libCap.o $(CFLAGS) $(SDIR_PROJ)/test_libCap.cpp
+
 $(ODIR_PROJ)/test_xEyes.o	:	$(SDIR_PROJ)/test_xEyes.cpp
 	$(CXX) -o $(ODIR_PROJ)/test_xEyes.o $(CFLAGS) $(SDIR_PROJ)/test_xEyes.cpp
 
-clean:
+cleanAll:
 	\rm $(ODIR_PROJ)/*.o $(TARGETFILE)
+
+clean:
+	\rm $(ODIR_PROJ)/main.o $(TARGETFILE)
 
 rm_app:
 	\rm $(TARGETFILE)

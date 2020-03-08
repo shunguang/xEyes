@@ -22,13 +22,13 @@ CfgCam::CfgCam()
 CfgCam::CfgCam( const CfgCam &x )
 : CfgBase		( x )
 , cameraId_		( x.cameraId_ )
-, valid_		( x.valid_ )			
 , cameraName_(x.cameraName_)
+, rtspUrl_		( x.rtspUrl_ )
+, valid_		( x.valid_ )			
 , imgSz_		( x.imgSz_ )
 , fps_			( x.fps_ )
 , frmQueSz_		( x.frmQueSz_ )
 , detPyrLev_	( x.detPyrLev_ )
-, rtspUrl_		( x.rtspUrl_ )
 , isRec_		( x.isRec_ )
 , isDisp_		( x.isDisp_)
 , mp4LocationAndPrefix_( x.mp4LocationAndPrefix_ )
@@ -42,6 +42,7 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 		CfgBase::operator=(x);
 		cameraId_ 	= x.cameraId_;
 		cameraName_ = x.cameraName_;
+		rtspUrl_	= x.rtspUrl_;
 		valid_		= x.valid_ ;
 		imgSz_		= x.imgSz_;
 		fps_		= x.fps_;
@@ -49,7 +50,6 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 
 		detPyrLev_	=  x.detPyrLev_;
 
-		rtspUrl_	= x.rtspUrl_;
 		isRec_ = x.isRec_;
 		isDisp_ = x.isDisp_;
         mp4LocationAndPrefix_ = x.mp4LocationAndPrefix_;

@@ -5,7 +5,8 @@ include Makefile_app_header.mak
 
 OBJS = 	$(ODIR_PROJ)/CapThreadBase.o \
 	$(ODIR_PROJ)/CapThreadSyn.o \
-	$(ODIR_PROJ)/CapSaveRtspH264.o
+	$(ODIR_PROJ)/CapSaveRtspH264.o \
+	$(ODIR_PROJ)/CapAndSaveThread.o
 	
 default:  directories $(TARGETFILE)
 
@@ -25,6 +26,9 @@ $(ODIR_PROJ)/CapThreadSyn.o: $(SDIR_PROJ)/CapThreadSyn.cpp $(SDIR_PROJ)/CapThrea
 
 $(ODIR_PROJ)/CapSaveRtspH264.o: $(SDIR_PROJ)/CapSaveRtspH264.cpp $(SDIR_PROJ)/CapSaveRtspH264.h
 	$(CXX) -o $(ODIR_PROJ)/CapSaveRtspH264.o $(CFLAGS) $(SDIR_PROJ)/CapSaveRtspH264.cpp
+
+$(ODIR_PROJ)/CapAndSaveThread.o: $(SDIR_PROJ)/CapAndSaveThread.cpp $(SDIR_PROJ)/CapAndSaveThread.h
+	$(CXX) -o $(ODIR_PROJ)/CapAndSaveThread.o $(CFLAGS) $(SDIR_PROJ)/CapAndSaveThread.cpp
 
 clean:
 	\rm -r $(ODIR_PROJ)/*.o $(TARGETFILE)

@@ -271,6 +271,6 @@ void FrmInfoCircularQ::allocQ()
 	m_dspWrtH	= 0;	//the index to write DspFrms
 	m_dspReadH  = 0;	//the index to read  DspFrms
 
-	//cout << "FrmInfoCircularQ::allocQ done!" << endl;
+	dumpLog("FrmInfoCircularQ::allocQ done!");
 }
 

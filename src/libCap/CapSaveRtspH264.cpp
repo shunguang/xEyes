@@ -38,10 +38,9 @@ void CapSaveRtspH264::procNextTask()
 			THREAD_SLEEP(m_frmInterval_ms - dt);
 		}
 		//---- for next frm ------------
-		if (m_frmNum % m_frmFreqToLog == 0) {
+		if (m_frmNum % m_frmFreqToLog == 2000) {
 			dumpLog( "CapSaveRtspH264::procNextTask(): %s, fn=%lld, dt=%d, frmIntervals=%d(ms)", m_threadName.c_str(), m_frmNum, dt, m_frmInterval_ms);
 		}
-		m_frmNum++;		
 	}
 	else{
 		THREAD_SLEEP(m_frmInterval_ms);
@@ -53,6 +52,7 @@ bool CapSaveRtspH264::procInit()
 	//init this camera
 	m_camDc = m_dcUI->m_dcMap[m_camId];
 	m_camCfg = m_cfg->getCam( m_camId );
+
 	const int &w = m_camCfg.imgSz_.w;
 	const int &h = m_camCfg.imgSz_.h;
 	std::string recDir = m_camCfg.getRecFolder();
@@ -99,8 +99,7 @@ void CapSaveRtspH264::eos_cb(GstAppSink * appsink, gpointer user_data)
 //-----------------------------------------------------------------------
 GstFlowReturn CapSaveRtspH264::new_sample_cb(GstAppSink *appsink, gpointer user_data)
 {
-	dumpLog("CapSaveRtspH264::new_sample_cb(): AAA.");
-
+	//dumpLog("CapSaveRtspH264::new_sample_cb(): AAA.");
 	//gateway to access this->xyz
 	CapSaveRtspH264 *pThis = reinterpret_cast<CapSaveRtspH264*>(user_data);
 
@@ -121,7 +120,7 @@ GstFlowReturn CapSaveRtspH264::new_sample_cb(GstAppSink *appsink, gpointer user_
 
 #if CAP_TO_HOST
 
-#if 1	
+#if 0	
 		//local dump and debug 
 		myAssert(pThis->m_yuvFrm_h->sz_ == map.size, "CapSaveRtspH264::new_sample_cb(): size does not match!");
 		YuvFrm_h yuv(pThis->m_camCfg.imgSz_.w, pThis->m_camCfg.imgSz_.h);
@@ -137,11 +136,13 @@ GstFlowReturn CapSaveRtspH264::new_sample_cb(GstAppSink *appsink, gpointer user_
 		g_yuv_d->dump(".", "yuv_d");
 #endif
 
-		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 0) {
+		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 2000) {
 			dumpLog("CapSaveRtspH264::new_sample_cb(): map.size = %lu, bufSz=%lu", map.size, gst_buffer_get_size(buffer));
 		}
 		gst_buffer_unmap(buffer, &map);
 		gst_sample_unref(sample);
+
+		pThis->m_frmNum++;
 	}
 	else{
 		dumpLog("CapSaveRtspH264::new_sample_cb(): could not make snapshot");
@@ -172,11 +173,11 @@ int CapSaveRtspH264 :: h264_dec_n_save_loop()
 	GstElement *appSink = gst_bin_get_by_name(GST_BIN(gst_pipeline_), "appYuvSink");
 	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): appSink=0X%08x", appSink );
 
-	//GstAppSinkCallbacks callbacks = { CapSaveRtspH264::eos_cb, NULL, CapSaveRtspH264::new_sample_cb };
-	//gst_app_sink_set_callbacks(GST_APP_SINK(appSink), &callbacks, this, NULL);
+	GstAppSinkCallbacks callbacks = { CapSaveRtspH264::eos_cb, NULL, CapSaveRtspH264::new_sample_cb };
+	gst_app_sink_set_callbacks(GST_APP_SINK(appSink), &callbacks, this, NULL);
 
-	g_signal_connect(appSink, "new_sample", G_CALLBACK(CapSaveRtspH264::new_sample_cb), (gpointer)this );
-	g_signal_connect(appSink, "eos",        G_CALLBACK(CapSaveRtspH264::eos_cb),        (gpointer)this );
+	//g_signal_connect(appSink, "new_sample", G_CALLBACK(CapSaveRtspH264::new_sample_cb), (gpointer)this );
+	//g_signal_connect(appSink, "eos",        G_CALLBACK(CapSaveRtspH264::eos_cb),        (gpointer)this );
 
 	gst_element_set_state((GstElement*)gst_pipeline_, GST_STATE_PLAYING);
 
@@ -207,8 +208,10 @@ std::string CapSaveRtspH264::createLaunchStr()
 	//max-files:      maximum number of files to keep on disk. Once the maximum is reached,old files start to be deleted to make room for new ones.
 	//send-keyframe-requests: request a keyframe every max-size-time ns to try splitting at that point. Needs max-size-bytes to be 0 in order to be effective.
 
+	//cout << "CapSaveRtspH264::createLaunchStr(): " << endl <<  m_camCfg.toString() << endl;
+
 	ostringstream launchStream;
-	launchStream << "-e -v rtspsrc  location= " << m_camCfg.rtspUrl_ << " "
+	launchStream << "-e -v rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
 		<< "tee name=tsplit ! "     //split into two parts
 		<< "queue ! rtph264depay ! h264parse ! "   //Parses H.264 streams  
 		<< "omxh264dec ! "          //hd decoder
@@ -217,7 +220,6 @@ std::string CapSaveRtspH264::createLaunchStr()
 		<< "appsink name=appYuvSink tsplit. ! "
 		<< "queue ! rtph264depay ! h264parse ! "
 		<< "splitmuxsink name=myMp4Sink location=" << m_camCfg.mp4LocationAndPrefix_ << "%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE";
-	
 	return launchStream.str();
 }
 
