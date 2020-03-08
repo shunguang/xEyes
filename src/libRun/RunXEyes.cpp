@@ -66,7 +66,7 @@ void RunXEyes::createCaptureThreads()
 		CfgCam currCfg = m_cfg->getCam(id);
 		const string threadName = "CapThread4" + currCfg.cameraName_;
 		CapThreadBasePtr cap;
-		if( currCfg.rtspUrl_.empty() ){
+		if( 0 ==currCfg.rtspUrl_.compare("none")  ){
 			cap.reset(new CapThreadSyn(id, m_threadIdCnt, threadName));
 		}
 		else{
@@ -226,6 +226,10 @@ inline void RunXEyes::dispImg(const int camIdx)
 	DspFrm_h *p = m_vDspFrm[camIdx].get();
 	bool suc = pDC->m_frmInfoQ->readDspFrmByGuiThread( p );
 	if (suc) {
+#if DSP_USE_QPIXMAP	
 		m_ui->showImg(camIdx, p->m_img);
+#else
+		//todo		
+#endif
 	}
 }

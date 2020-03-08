@@ -78,7 +78,11 @@ bool DspThread::prepareDspImg()
 	cv::putText(m_dspImg, std::to_string(m_yuvFrm_h->fn_), cv::Point(50, m_dspSz.height-50), cv::FONT_HERSHEY_DUPLEX, 2, cv::Scalar(255, 255, 255), 2);
 
 	//convert to QBitmap
+#if DSP_USE_QPIXMAP		
 	m_dspFrm_h->m_img = cvMatToQPixmap(m_dspImg);
+#else
+	myExit("DspThread::prepareDspImg():  todo!");
+#endif	
 	m_dspFrm_h->m_fn = m_yuvFrm_h->fn_;
 	return true;
 }

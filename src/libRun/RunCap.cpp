@@ -26,12 +26,18 @@ RunCap::RunCap(CfgPtr &cfg)
 	for( auto &id : vCamIds ){
 		CfgCam currCfg = m_cfg->getCam( id );
 		const string threadName = "Thread4" + currCfg.cameraName_;
-		CapThreadBasePtr capA( new CapSaveRtspH264( id, threadId++, threadName) );
-
-		capA->setCfg( m_cfg );
-		capA->setDcUI( m_dcUI );
-		m_vCapThreads.push_back( capA );
-	}
+		CapThreadBasePtr cap(NULL);
+		if( 0 ==currCfg.rtspUrl_.compare("none") ){
+			cap.reset(new CapThreadSyn(id, threadId, threadName));
+		}
+		else{
+			cap.reset(new CapSaveRtspH264(id, threadId, threadName));
+		}
+		cap->setCfg( m_cfg );
+		cap->setDcUI( m_dcUI );
+		m_vCapThreads.push_back( cap );
+		threadId++;
+}
 
 	dumpLog( "RunCap::RunCap(): done!" );
 }

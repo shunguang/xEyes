@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	x = test_xEyes(argc, argv);
 #else
 	//developing test approaches
-	const string logFilename = "./xLog.txt";
+	const string logFilename = "./log.txt";
 	cout << logFilename <<endl;
 	startLogThread(logFilename, true, true);
 	dumpLog("---start---");

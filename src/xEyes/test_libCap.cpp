@@ -32,6 +32,7 @@ int test_CapSaveRtspH264(int argc, char **argv)
     p0->setCfg( cfg );
 	p0->setDcUI( dcUI );
 	p0->start();
+	p0->wakeupToWork();
 	while(1){
 		THREAD_SLEEP(5000);
 	}

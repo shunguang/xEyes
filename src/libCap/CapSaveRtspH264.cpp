@@ -29,16 +29,19 @@ void CapSaveRtspH264::procNextTask()
 	if (hasFrm) {
 		//wrt into global shared data container:  <m_camDc->m_frmInfoQ> to make the pipe line work
 		m_camDc->m_frmInfoQ->wrtYuvFrmByCapThread(m_yuvFrm_h.get());
+		
 		//wakeup the consumer thread
-		m_detPtr->wakeupToWork();
-
+		if (m_detPtr){
+			m_detPtr->wakeupToWork();
+		}
 		//decide if need to sleep
 		int dt = timeIntervalMillisec(start);
 		if (dt < m_frmInterval_ms) {
 			THREAD_SLEEP(m_frmInterval_ms - dt);
 		}
 		//---- for next frm ------------
-		if (m_frmNum % m_frmFreqToLog == 2000) {
+		if (m_frmNum % m_frmFreqToLog == 0) {
+			//m_yuvFrm_h.dump(".", "yuv_h");
 			dumpLog( "CapSaveRtspH264::procNextTask(): %s, fn=%lld, dt=%d, frmIntervals=%d(ms)", m_threadName.c_str(), m_frmNum, dt, m_frmInterval_ms);
 		}
 	}
@@ -119,24 +122,21 @@ GstFlowReturn CapSaveRtspH264::new_sample_cb(GstAppSink *appsink, gpointer user_
 		gst_buffer_map(buffer, &map, GST_MAP_READ);
 
 #if CAP_TO_HOST
-
-#if 0	
-		//local dump and debug 
 		myAssert(pThis->m_yuvFrm_h->sz_ == map.size, "CapSaveRtspH264::new_sample_cb(): size does not match!");
-		YuvFrm_h yuv(pThis->m_camCfg.imgSz_.w, pThis->m_camCfg.imgSz_.h);
-		yuv.hdCopyFromBuf(map.data, map.size, 0);
-		yuv.dump(".", "yuv_h");
-#endif
 
+		//local dump and debug 
+		//YuvFrm_h yuv(pThis->m_camCfg.imgSz_.w, pThis->m_camCfg.imgSz_.h);
+		//yuv.hdCopyFromBuf(map.data, map.size, 0);
+		//yuv.dump(".", "yuv_h");
+		//dumpLog( "CapSaveRtspH264::new_sample_cb(): mapSzie=%d, fn=%d", map.size, pThis->m_frmNum);
 		pThis->m_localYuvFrmQ_h.wrt(map.data, map.size, pThis->m_frmNum);
-
 #else            
 		myAssert(g_yuv_d->sz_ == map.size, "CapSaveRtspH264::new_sample_cb(): size does not match!");
 		g_yuv_d->hdCopyFromHostBuf(map.data, map.size, 0);
 		g_yuv_d->dump(".", "yuv_d");
 #endif
 
-		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 2000) {
+		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 500) {
 			dumpLog("CapSaveRtspH264::new_sample_cb(): map.size = %lu, bufSz=%lu", map.size, gst_buffer_get_size(buffer));
 		}
 		gst_buffer_unmap(buffer, &map);

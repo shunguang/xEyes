@@ -9,15 +9,16 @@
       <!-- cameraId must start from 0 -->
       <cameraId>0</cameraId>
       <cameraName>FrontDoor</cameraName>
+      <!--rtspUrl></rtspUrl-->
       <rtspUrl>rtsp://192.168.1.5/11</rtspUrl>
 
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>1</valid>
-	    <imgW>960</imgW>
-	    <imgH>540</imgH>
-	    <fpsNum>10</fpsNum>
+	    <imgW>1920</imgW>
+	    <imgH>1080</imgH>
+	    <fpsNum>25</fpsNum>
 	    <fpsDen>1</fpsDen>
-      <frmQueSz>10</frmQueSz>
+      <frmQueSz>20</frmQueSz>
 	    <detPyrLev>1</detPyrLev>
 	    <mp4LocationAndPrefix>./frontDoor/capF</mp4LocationAndPrefix>
     </cam>
@@ -26,7 +27,8 @@
       <!-- cameraId must start from 0 -->
       <cameraId>1</cameraId>
       <cameraName>BackDoor</cameraName>
-      <rtspUrl>rtsp://192.168.1.5/11</rtspUrl>
+      <rtspUrl>none</rtspUrl>
+      <!--rtspUrl>rtsp://192.168.1.5/11</rtspUrl-->
 
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>0</valid>
@@ -34,7 +36,7 @@
       <imgH>1080</imgH>
       <fpsNum>10</fpsNum>
       <fpsDen>1</fpsDen>
-      <frmQueSz>50</frmQueSz>
+      <frmQueSz>20</frmQueSz>
       <detPyrLev>1</detPyrLev>
       <mp4LocationAndPrefix>./backtDoor/capB</mp4LocationAndPrefix>
     </cam>
@@ -47,8 +49,8 @@
 
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>0</valid>
-      <imgW>1920</imgW>
-      <imgH>1080</imgH>
+      <imgW>960</imgW>
+      <imgH>540</imgH>
       <fpsNum>15</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
@@ -77,7 +79,7 @@
   <disp>
 	<imgW>1920</imgW>
 	<imgH>1080</imgH>
-  <dispQueSz>50</dispQueSz>
+  <dispQueSz>20</dispQueSz>
 	<dispPyrLev>2</dispPyrLev>
   </disp>
 
@@ -90,7 +92,7 @@
     <!-- frameFreqsToLog[0] frm freq to log capture threads cpu time usage  -->
     <!-- frameFreqsToLog[1] frm freq to log detection threads cpu time usage -->
     <!-- frameFreqsToLog[2] to log disp thread cpu time usage -->
-    <frameFreqsToLog>1000,1000,1000,1000,1000</frameFreqsToLog>
+    <frameFreqsToLog>2000,2000,2000,2000,2000</frameFreqsToLog>
   </log>
   <!-- cam>
       <cameraId>1</cameraId>

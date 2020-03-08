@@ -72,12 +72,17 @@ void RunDet::createCapThreads()
 	for( auto &id : m_vCamIds ){
 		CfgCam currCfg = m_cfg->getCam( id );
 		const string threadName = "Cap thread for" + currCfg.cameraName_;
-		CapThreadBasePtr capA( new CapThreadCamTemp( id, m_threadId, threadName) );
 
-		capA->setCfg( m_cfg );
-		capA->setDcUI( m_dcUI );
-		m_vCapThreads.push_back( capA );
-
+		CapThreadBasePtr cap(NULL);
+		if( 0 ==currCfg.rtspUrl_.compare("none") ){
+			cap.reset(new CapThreadSyn(id, m_threadId, threadName));
+		}
+		else{
+			cap.reset(new CapSaveRtspH264(id, m_threadId, threadName));
+		}
+		cap->setCfg( m_cfg );
+		cap->setDcUI( m_dcUI );
+		m_vCapThreads.push_back( cap );
         m_threadId++;
 	}
 }

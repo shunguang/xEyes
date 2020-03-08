@@ -26,8 +26,9 @@ void CapThreadCamTemp::procNextTask()
 
 	//wrt into queue
 	//m_camDc->m_frmInfoQ->wrtYuvFrmByCapThread( m_yuvFrm_h.get());
-
-	m_detPtr->wakeupToWork();
+	if (m_detPtr){
+		m_detPtr->wakeupToWork();
+	}
 
 	//decide if need to sleep
 	uint32_t dt = timeIntervalMillisec(start);

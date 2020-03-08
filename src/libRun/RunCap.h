@@ -6,6 +6,7 @@
 #include "libCfg/Cfg.h"
 #include "libDc/DcUI.h"
 #include "libCap/CapSaveRtspH264.h"
+#include "libCap/CapThreadSyn.h"
 namespace xeyes {
 	class RunCap {
 	public:

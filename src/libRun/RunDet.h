@@ -5,7 +5,8 @@
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
 #include "libDc/DcUI.h"
-#include "libCap/CapThreadCamTemp.h"
+#include "libCap/CapThreadSyn.h"
+#include "libCap/CapSaveRtspH264.h"
 #include "libDet/DetThreadBkgChg.h"
 namespace xeyes {
 	class RunDet {
@@ -30,8 +31,8 @@ namespace xeyes {
 
 		bool	m_exitMainLoop;
 		bool	m_mainLoopExited;
-        int 	m_threadId;
-    	std::vector<int> m_vCamIds; 
+    int 	m_threadId;
+    std::vector<int> m_vCamIds; 
 	};
 }
 #endif

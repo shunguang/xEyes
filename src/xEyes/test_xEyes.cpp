@@ -41,7 +41,7 @@ int test_xEyes(int argc, char **argv)
 	font.setPointSize(9);
 	app.setFont(font);
 
-	int testFlag = 1;
+	int testFlag = 3;
 	if (testFlag == 1) {
 		RunCap x(cfg);
 		x.runAllThreads();

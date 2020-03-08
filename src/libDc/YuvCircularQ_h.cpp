@@ -72,6 +72,7 @@ void YuvCircularQ_h::allocQ(const uint32_t nTotItems)
 
 bool YuvCircularQ_h::wrt(const uint8_t *buf, const uint32_t sz, const uint64_t fn)	//host interface
 {
+	//dumpLog("YuvCircularQ_h::wrt(), m_w=%d, m_h=%d, m_items=%d, m_name=%s", m_w, m_h, m_items, m_name.c_str());
 	static int wrtDropCnt = 0;
 	bool sucWrt = false;
 	{

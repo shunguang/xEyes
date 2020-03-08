@@ -8,7 +8,7 @@ CapThreadBase::CapThreadBase( const int camId, const int threadId, const std::st
 , m_frmNum(0)
 , m_frmInterval_ms(40)
 , m_yuvFrm_h(0)
-, m_detPtr(0)
+, m_detPtr(NULL)
 {
 	cout << "DetThreadBase::CapThreadBase(): called" << endl;
 }
