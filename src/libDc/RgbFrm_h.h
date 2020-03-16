@@ -12,6 +12,7 @@ namespace xeyes {
 		
 		void hdCopyFrom( const RgbFrm_h *src );
 		void hdCopyTo( RgbFrm_h *dst ) const;
+		void hdCopyFromBuf(const uint8_t *buf, const uint32_t bufSz, const uint64_t fn = 0);
 
 		//dump img into a file name start with <prefix>
 		void dump(const std::string &dumpFolder = ".", const std::string &prefix="rgbFrm" );

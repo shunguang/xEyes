@@ -56,17 +56,17 @@ static GstFlowReturn new_buffer(GstAppSink *appsink, gpointer user_data)
         buffer = gst_sample_get_buffer (sample);
         gst_buffer_map (buffer, &map, GST_MAP_READ);
 
-        if(fn%2000==0){
+        if(fn%1==0){
 #if CAP_TO_HOST
             assert( g_yuv_h->sz_ == map.size );
             g_yuv_h->hdCopyFromBuf( map.data, map.size, fn);
-            g_yuv_h->dump(".", "yuv_h");
+            //g_yuv_h->dump(".", "yuv_h");
 #else            
             assert( g_yuv_d->sz_ == map.size );
             g_yuv_d->hdCopyFromHostBuf( map.data, map.size, fn);
             g_yuv_d->dump(".", "yuv_d");
 #endif
-            printf("fn=%llu, map.size = %lu, bufSz=%lu\n", fn, map.size, gst_buffer_get_size(buffer));
+            //printf("fn=%llu, map.size = %lu, bufSz=%lu\n", fn, map.size, gst_buffer_get_size(buffer));
         }
 
         gst_buffer_unmap(buffer, &map);
@@ -90,8 +90,8 @@ int test_gst_rtsp_rcvH264_dec_and_save(int argc, char** argv) {
     GMainLoop *main_loop;
     main_loop = g_main_loop_new (NULL, FALSE);
     ostringstream launch_stream;
-    int w = 1920;
-    int h = 1080;
+    int w = 1920/2;
+    int h = 1080/2;
 #if CAP_TO_HOST
     g_yuv_h.reset( new YuvFrm_h(w,h) ) ;
 #else

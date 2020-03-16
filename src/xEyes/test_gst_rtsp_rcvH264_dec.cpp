@@ -4,24 +4,36 @@
 #include <gst/app/gstappsink.h>
 #include <glib-unix.h>
 #include <dlfcn.h>
+//#include "nvbuf_utils.h"
 
 #include <iostream>
 #include <sstream>
 #include <thread>
 
+#define CAP_TO_HOST     0 //1-capture to cpu memory, 0-gpu memory
+#define CAP_TO_YUV      1 //if 1-YUV, otherwise rgb
 //capture to host or device
-#include "libDc/YuvFrm_h.h"
-#include "libDc/YuvFrm_d.h"
+#if CAP_TO_HOST
+#   include "libDc/YuvFrm_h.h"
+#   include "libDc/RgbFrm_h.h"
+#else
+//deos not work yet!
+//Todo: refer test3_how_to_copy_NVMM.cpp
+#   include "libDc/YuvFrm_d.h"
+#   include "libDc/RgbFrm_d.h"
+#endif
 
 using namespace std;
 using namespace xeyes;
 
 #define USE(x) ((void)(x))
-#define CAP_TO_HOST     1  //todo: 0-does not work
+
 #if CAP_TO_HOST
     static YuvFrm_hPtr g_yuv_h=nullptr;
+    static RgbFrm_hPtr g_rgb_h=nullptr;
 #else
     static YuvFrm_dPtr g_yuv_d=nullptr;
+    static RgbFrm_dPtr g_rgb_d=nullptr;
 #endif
 
 static GstPipeline *gst_pipeline = nullptr;
@@ -48,25 +60,30 @@ static GstFlowReturn new_buffer(GstAppSink *appsink, gpointer user_data)
         GstMapInfo map    = {0};
 
         caps = gst_sample_get_caps (sample);
-        if (!caps)
-        {
+        if (!caps){
             printf("could not get snapshot format\n");
         }
         gst_caps_get_structure (caps, 0);
         buffer = gst_sample_get_buffer (sample);
         gst_buffer_map (buffer, &map, GST_MAP_READ);
 
+        printf("fn=%llu, map.size = %lu, bufSz=%lu\n", fn, map.size, gst_buffer_get_size(buffer));
         if(fn%100==0){
 #if CAP_TO_HOST
+#   if CAP_TO_YUV
             assert( g_yuv_h->sz_ == map.size );
             g_yuv_h->hdCopyFromBuf( map.data, map.size, fn);
             g_yuv_h->dump(".", "yuv_h");
+#   else
+            //g_rgb_h->hdCopyFromBuf(map.data, map.size, fn);
+            //g_rgb_h->dump(".", "rgb_h");
+#   endif
 #else            
-            assert( g_yuv_d->sz_ == map.size );
-            g_yuv_d->hdCopyFromHostBuf( map.data, map.size, fn);
-            g_yuv_d->dump(".", "yuv_d");
+            //myAssert( g_yuv_d->sz_ == map.size. "size doe not match!" );
+            cout << "yuvSz(w=" << g_yuv_d->size_.width << ",h=" << g_yuv_d->size_.height << ")" <<endl;
+            //g_yuv_d->hdCopyFromHostBuf( map.data, map.size, fn);
+            //g_yuv_d->dump(".", "yuv_d");
 #endif
-            printf("fn=%llu, map.size = %lu, bufSz=%lu\n", fn, map.size, gst_buffer_get_size(buffer));
         }
 
         gst_buffer_unmap(buffer, &map);
@@ -94,25 +111,35 @@ int test_gst_rtsp_rcvH264_dec(int argc, char** argv) {
     int h = 1080;
 #if CAP_TO_HOST
     g_yuv_h.reset( new YuvFrm_h(w,h) ) ;
+    g_rgb_h.reset( new RgbFrm_h(w,h) ) ;
 #else
     g_yuv_d.reset( new YuvFrm_d(w,h) ) ;
+    g_rgb_d.reset( new RgbFrm_d(w,h) ) ;
 #endif
-    
+
+    //I420, UYVY, YUY2, YVYU, NV12, GRAY8, BGRx,and RGBA 
+#if CAP_TO_YUV
+    string fmtStr="I420";
+#else
+    string fmtStr="RGBA";  
+#endif
+
     GstAppSinkCallbacks callbacks = {appsink_eos, NULL, new_buffer};
 
-    bool dec = false;
+    bool decOnly = true;
     GError *error = nullptr;
-    if( dec ){
+    if( decOnly ){
         //gst-launch-1.0 rtspsrc location="rtsp://192.168.1.5/11" ! rtph264depay ! h264parse ! omxh264dec ! 
         //nveglglessink window-x=100 window-y=100 window-width=640 window-height=360
         launch_stream
         << "rtspsrc  location= rtsp://192.168.1.5/11 ! "
         << "rtph264depay ! h264parse ! omxh264dec ! "
 #if CAP_TO_HOST    
-        << "nvvidconv ! "
-        << "video/x-raw, format=I420, width="<< w <<", height="<< h <<" ! "
+        << "nvvidconv ! "      
+        << "video/x-raw, format=" << fmtStr << ", width="<< w <<", height="<< h <<" ! "
 #else
-        << "video/x-raw(memory:NVMM), format=I420, width="<< w <<", height="<< h <<" ! "
+        << "nvvidconv ! "
+        << "video/x-raw(memory:NVMM), format=" << fmtStr << ", width="<< w <<", height="<< h <<" ! "
 #endif
         << "appsink name=mysink ";
    
