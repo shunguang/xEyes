@@ -19,6 +19,8 @@ namespace xeyes {
 		//set <isEmitSignal> as false when doing single thread none GUI test
 		virtual void procNextTask()=0;
 		virtual bool procInit()=0;
+		void 		 prepareDetImg();
+		void 		 prepareOutputImg();
 		void 		 dumpFrm( const std::string &folderPath );
 
 	protected:
@@ -26,11 +28,12 @@ namespace xeyes {
 		uint64			m_frmNum;
 		int             m_detPyrL;
 		  
-		YuvFrm_hPtr		m_yuvFrm_h;   //input/captured frm to process
-		DetFrm_hPtr		m_detFrm_h;   //output detetcion frm after processing
+		YuvFrm_hPtr		m_yuvFrm_h;   		 //input/captured frm to process
+		YuvFrm_hPtr		m_yuvFrmAtDetSz_h;   //resized yuv if need
+		DetFrm_hPtr		m_detFrm_h;   		 //output detetcion frm after processing
 
 		DcPtr 			m_camDc;      //shared data container of this camera
-		DspThread*			m_dspPtr;
+		DspThread*		m_dspPtr;
 	};
 	typedef std::shared_ptr<DetThreadBase> DetThreadBasePtr;
 }

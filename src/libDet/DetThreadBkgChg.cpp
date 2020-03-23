@@ -18,46 +18,54 @@ DetThreadBkgChg::~DetThreadBkgChg()
 //todo: compbine with RunThreadS::runLoop() for efficency 
 void DetThreadBkgChg::procNextTask()
 {
+	//dumpLog("DetThreadBkgChg():AA--%s,w=%d,h=%d,sz=%d", m_threadName.c_str(), m_yuvFrm_h->w_, m_yuvFrm_h->h_, m_yuvFrm_h->sz_);
+
 	const boost::posix_time::ptime start = APP_LOCAL_TIME;
 
 	//read new frm from capture Q
 	bool hasNewFrm = m_camDc->m_frmInfoQ->readYuvFrmByDetThread( m_yuvFrm_h.get() );
-	if(hasNewFrm){
+	//dumpLog("DetThreadBkgChg():BB--%s,w=%d,h=%d,sz=%d", m_threadName.c_str(), m_yuvFrm_h->w_, m_yuvFrm_h->h_, m_yuvFrm_h->sz_);
+	if( !hasNewFrm ){
 		this->goToSleep();
 		//dumpLog("DetThreadBkgChg():%s, go to sleep", m_threadName.c_str());
+		return;
 	}
 
-	//do change detection
+	//do change detection and prepare data in <m_detFrm_h>
 	bool suc = doChgDet();
 
 	//wrt results into output queue
 	m_camDc->m_frmInfoQ->wrtDetFrmByDetThread( m_detFrm_h.get() );
-	m_dspPtr->wakeupToWork();
-
+	if( m_dspPtr){
+		m_dspPtr->wakeupToWork();
+	}
+	else{
+		//for debug w/o <m_dspPtr>: we read data from que, otherwise the que will be overflowed
+		DetFrm_h tmp;
+		bool hasDetFrm = m_camDc->m_frmInfoQ->readDetFrmByDspThread( &tmp );
+		if( hasDetFrm  && tmp.m_fn%m_frmFreqToLog==0){
+			tmp.dump(".", "detFrm");
+		}
+	}
 	if (m_yuvFrm_h->fn_ % m_frmFreqToLog == 0) {
 		uint32_t dt = timeIntervalMillisec(start);
-		dumpLog( "DetThreadBkgChg::procNextTask(): %s, fn=%lld, dt=%d", m_threadName.c_str(), m_yuvFrm_h->fn_, dt);
+		dumpLog( "DetThreadBkgChg::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(), m_yuvFrm_h->fn_, dt);
 	}
 
 }
 
 bool DetThreadBkgChg::doChgDet()
 {
-	cv::Mat I0;
-	m_yuvFrm_h->hdCopyToBGR( &I0 );
-	int w = I0.cols >> m_detPyrL;
-	int h = I0.rows >> m_detPyrL;
-	//down sizing the original image
-
+	//yuv-> resizedYuv -> rgb
+	prepareDetImg();
 	//do detection
 
 	//prepare results
 	m_detFrm_h->m_vRois.clear();
-	m_detFrm_h->m_fn = m_yuvFrm_h->fn_;
-	m_detFrm_h->m_L = m_detPyrL;
-	if ( 0==m_detFrm_h->m_fn % 200) {
+	if ( 0==m_detFrm_h->m_fn % 20) {
 		m_detFrm_h->m_vRois.push_back(Roi(10, 10, 50, 70));
 	}
+	prepareOutputImg();
 	return true;
 }
 
@@ -73,7 +81,10 @@ bool DetThreadBkgChg::procInit()
 	//init currrent camera capture params
 	m_detPyrL = L;
 	m_yuvFrm_h.reset( new YuvFrm_h( w0, h0 ) );
-	m_detFrm_h.reset( new DetFrm_h( L ) );
+	m_yuvFrmAtDetSz_h.reset( new YuvFrm_h( w0>>L, h0>>L ) );	
+	m_detFrm_h.reset( new DetFrm_h( w0, h0, L ) );
+
+	dumpLog( "DetThreadBkgChg::procInit():called!" );
 
 	return true;
 }

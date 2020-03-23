@@ -12,7 +12,7 @@ namespace xeyes {
 	public:
 		RunCap(CfgPtr &cfg);
 		~RunCap();
-		void runAllThreads();
+		void startAllThreads();
 
 	protected:	
 		void quitAllThreads();

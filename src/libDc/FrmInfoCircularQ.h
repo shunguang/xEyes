@@ -37,7 +37,7 @@ namespace xeyes {
 		bool wrtDetFrmByDetThread(const DetFrm_h *src);  	//host interface
 
 		//only display thread calls this function once for each frm
-		bool readFrmsByDspThread(DetFrm_h *dstDet, YuvFrm_h *dstYuv);
+		bool readDetFrmByDspThread(DetFrm_h *dstDet);
 
 		//wrt and read DspFrms
 		bool wrtDspFrmByDspThread(const DspFrm_h *src);
@@ -52,12 +52,11 @@ namespace xeyes {
 		//access queue
 		//-----------------------------------------------------------------------------
 		uint32_t		m_items;		//the predefined # of elements of the queue.
-		uint32_t		m_yuvWrtH;		//the index to write YuvFrms
-		uint32_t		m_yuvReadH4Det;	//the index to read  YuvFrms for detetcion thread
-		//uint32_t		m_yuvReadH4Dsp;	//the index to read  YuvFrms for display thread
-		uint32_t		m_detWrtH;		//the index to write DetFrms
-		uint32_t		m_detReadH;		//the index to read  DetFrms
-		uint32_t		m_dspWrtH;		//the index to write DspFrms
+		uint32_t		m_yuvWrtH;		//the index to write YuvFrms by capture thread
+		uint32_t		m_yuvReadH;   	//the index to read  YuvFrms by detetcion thread
+		uint32_t		m_detWrtH;		//the index to write DetFrms by detetcion thread
+		uint32_t		m_detReadH;		//the index to read  DetFrms by display thread
+		uint32_t		m_dspWrtH;		//the index to write DspFrms by display thread
 		uint32_t		m_dspReadH;		//the index to read  DspFrms
 
 		std::vector<FrmInfoPtr>	m_q;

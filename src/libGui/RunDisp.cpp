@@ -36,7 +36,7 @@ void RunDisp::procNextTask()
 	//decide if need to sleep
 	if (m_DspFrm_h->fn_ % m_frmFreqToLog == 0) {
 		uint32_t dt = timeIntervalMillisec(start);
-		dumpLog( "RunDisp::procNextTask(): %s, fn=%ulld, dt=%d", m_threadName.c_str(), m_DspFrm_h->fn_, dt);
+		dumpLog( "RunDisp::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(), m_DspFrm_h->fn_, dt);
 	}
 
 	if (!hasAny){

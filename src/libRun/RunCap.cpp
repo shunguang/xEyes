@@ -46,7 +46,7 @@ RunCap::~RunCap()
 {
 }
 
-void RunCap::runAllThreads()
+void RunCap::startAllThreads()
 {
 	m_exitMainLoop = false;
 	m_mainLoopExited = false;

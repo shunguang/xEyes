@@ -14,14 +14,15 @@ namespace xeyes {
 		void hdCopyTo( RgbFrm_h *dst ) const;
 		void hdCopyFromBuf(const uint8_t *buf, const uint32_t bufSz, const uint64_t fn = 0);
 
+		void resize(int w, int h, int L);
 		//dump img into a file name start with <prefix>
-		void dump(const std::string &dumpFolder = ".", const std::string &prefix="rgbFrm" );
+		void dump(const std::string &dumpFolder = ".", const std::string &prefix="rgbFrm" ) const;
 		void print(const std::string &msg) {
 			printf("%s, size_(w=%d,h=%d), L_=%d\n", msg.c_str(), I_.cols, I_.rows, L_);
 		}
 
 	public:
-        int         L_;    //pyramid level
+        int         L_;    //pyramid level of the original image which comes from
 		cv::Mat		I_;    //cv img at level <L_>
 		uint64_t	fn_;   //frame number
 	};

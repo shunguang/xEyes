@@ -36,7 +36,7 @@ void CapThreadCamTemp::procNextTask()
 		THREAD_SLEEP(m_frmInterval_ms - dt);
 	}
 	if (m_frmNum % m_frmFreqToLog == 0) {
-		dumpLog( "CapThreadCamTemp::procNextTask(): %s, fn=%lld, dt=%d", m_threadName.c_str(), m_frmNum, dt);
+		dumpLog( "CapThreadCamTemp::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(), m_frmNum, dt);
 	}
 
 	//---- for next frm ------------

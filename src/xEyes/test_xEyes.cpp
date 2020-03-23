@@ -3,6 +3,7 @@
 
 //#include "libDc/CudaUtil.h"
 #include "libRun/RunCap.h"
+#include "libRun/RunDet.h"
 #include "libRun/RunGui.h"
 #include "libRun/RunXEyes.h"
 
@@ -41,10 +42,14 @@ int test_xEyes(int argc, char **argv)
 	font.setPointSize(9);
 	app.setFont(font);
 
-	int testFlag = 3;
-	if (testFlag == 1) {
+	int testFlag = 1;
+	if (testFlag == 0) {
 		RunCap x(cfg);
-		x.runAllThreads();
+		x.startAllThreads();
+	}
+	else if (testFlag == 1) {
+		RunDet x(cfg);
+		x.startAllThreads();
 	}
 	else if (testFlag == 2) {
 		RunGui x(cfg);

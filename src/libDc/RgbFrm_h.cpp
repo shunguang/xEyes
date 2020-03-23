@@ -5,9 +5,15 @@ using namespace xeyes;
 
 RgbFrm_h :: RgbFrm_h( int w, int h, int L, uint64_t fn )
 : L_(L)
-, I_(w,h,CV_8UC3)
+, I_(h,w,CV_8UC3)
 , fn_(fn)
 {
+}
+
+void RgbFrm_h::resize(int w, int h, int L)
+{
+    L_=L;
+    I_.create(h,w,CV_8UC3);
 }
 
 void RgbFrm_h::hdCopyFrom( const RgbFrm_h *src )
@@ -31,9 +37,9 @@ void RgbFrm_h::hdCopyFromBuf(const uint8_t *buf, const uint32_t bufSz, const uin
 	fn_ = fn;    
 }
 
-void RgbFrm_h::dump(const std::string &dumpFolder, const std::string &prefix)
+void RgbFrm_h::dump(const std::string &dumpFolder, const std::string &prefix) const
 {
 	char fpath[1024];
-	snprintf(fpath, 1024, "%s/%s-fn-%09lld_L%d.png", dumpFolder.c_str(), prefix.c_str(), fn_, L_);
+	snprintf(fpath, 1024, "%s/%s-fn-%09llu_L%d.png", dumpFolder.c_str(), prefix.c_str(), fn_, L_);
 	cv::imwrite(fpath, I_);
 }

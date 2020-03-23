@@ -14,11 +14,11 @@
 
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>1</valid>
-	    <imgW>1920</imgW>
-	    <imgH>1080</imgH>
+	    <imgW>960</imgW>
+	    <imgH>540</imgH>
 	    <fpsNum>25</fpsNum>
 	    <fpsDen>1</fpsDen>
-      <frmQueSz>20</frmQueSz>
+      <frmQueSz>5</frmQueSz>
 	    <detPyrLev>1</detPyrLev>
 	    <mp4LocationAndPrefix>./frontDoor/capF</mp4LocationAndPrefix>
     </cam>
@@ -54,7 +54,7 @@
       <fpsNum>15</fpsNum>
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
-      <detPyrLev>1</detPyrLev>
+      <detPyrLev>0</detPyrLev>
       <mp4LocationAndPrefix>./camC/capC</mp4LocationAndPrefix>
     </cam>
 
@@ -92,7 +92,7 @@
     <!-- frameFreqsToLog[0] frm freq to log capture threads cpu time usage  -->
     <!-- frameFreqsToLog[1] frm freq to log detection threads cpu time usage -->
     <!-- frameFreqsToLog[2] to log disp thread cpu time usage -->
-    <frameFreqsToLog>2000,2000,2000,2000,2000</frameFreqsToLog>
+    <frameFreqsToLog>2000,1000,1000,2000,2000</frameFreqsToLog>
   </log>
   <!-- cam>
       <cameraId>1</cameraId>

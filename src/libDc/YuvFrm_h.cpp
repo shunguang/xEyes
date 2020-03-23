@@ -134,7 +134,8 @@ void YuvFrm_h::hdCopyToBGR(cv::Mat *dstBGR) const
 
 void YuvFrm_h::hdCopyTo(YuvFrm_h *des) const
 {
-	*des = *this;
+	myAssert( des->sz_ == sz_, "YuvFrm_h::hdCopyTo(): buf sz doest match, data loss!");
+	des->hdCopyFromBuf( v_.data(), sz_, fn_ );
 }
 
 void YuvFrm_h::hdCopyToLargerDst(YuvFrm_h *dst) const
@@ -161,7 +162,7 @@ void YuvFrm_h::hdCopyToLargerDst(YuvFrm_h *dst) const
 void YuvFrm_h::dump(const std::string &folder, const std::string &tag, int roiW, int roiH, int L)
 {
 	char buf[1024];
-	snprintf(buf, 1024, "%s/%s-fn-%09lld_L%d.png", folder.c_str(), tag.c_str(), fn_, L);
+	snprintf(buf, 1024, "%s/%s-fn-%09llu_L%d.png", folder.c_str(), tag.c_str(), fn_, L);
 	cv::Mat bgr;
 	
 	hdCopyToBGR(&bgr);

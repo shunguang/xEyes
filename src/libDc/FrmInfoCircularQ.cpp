@@ -7,9 +7,8 @@ using namespace xeyes;
 FrmInfoCircularQ::FrmInfoCircularQ(const CfgCam &cam, const CfgLocalView &lv, const std::string &name)
 	: m_items( cam.frmQueSz_ )
 	, m_yuvWrtH(0)		//the index to write YuvFrms
-	, m_yuvReadH4Det(0)	//the index to read  YuvFrms for detetcion thread
-	//, m_yuvReadH4Dsp(0)	//the index to read  YuvFrms for display thread
-	, m_detWrtH(0)
+	, m_yuvReadH(0)	    //the index to read  YuvFrms for detetcion thread
+	, m_detWrtH(0)   
 	, m_detReadH(0)
 	, m_dspWrtH(0)
 	, m_dspReadH(0)
@@ -89,12 +88,12 @@ bool FrmInfoCircularQ::readYuvFrmByDetThread(YuvFrm_h *dst)       	//host interf
 	{
 		//this lock moved to readNext() for specific RawFrmXYZ Type
 		boost::mutex::scoped_lock lock(m_mutex4YuvRW);
-		uint32_t &idx = m_yuvReadH4Det;
+		uint32_t &idx = m_yuvReadH;
 		int   &cnt = m_vYuvWrtCnt[idx];
 		if (cnt > 0) {
 			FrmInfo  *src = m_q[idx].get();
 			src->yuv_.hdCopyTo(dst);		//hd copy the poiter
-			//cnt = 0;                       //we deleted this because of wrt once, but read many times scenario  
+			cnt = 0;                        
 			hasData = true;
 
 			//move head to the next slot
@@ -150,7 +149,7 @@ bool FrmInfoCircularQ::wrtDetFrmByDetThread(const DetFrm_h *src)  	//host interf
 }
 
 //assumption: only display thread calls this function once for each frm
-bool FrmInfoCircularQ::readFrmsByDspThread(DetFrm_h *dstDet, YuvFrm_h *dstYuv)		//host interface 
+bool FrmInfoCircularQ::readDetFrmByDspThread(DetFrm_h *dstDet)		//host interface 
 {
 	bool hasData = false;
 	{
@@ -161,11 +160,8 @@ bool FrmInfoCircularQ::readFrmsByDspThread(DetFrm_h *dstDet, YuvFrm_h *dstYuv)		
 		if (cnt > 0) {
 			FrmInfo  *src = m_q[idx].get();
 			src->det_.hdCopyTo(dstDet);		//hd copy the poiter
-			src->yuv_.hdCopyTo(dstYuv);		//hd copy the poiter
-
 			cnt = 0;
 			hasData = true;
-
 			//move head to the next slot
 			++idx;
 			if (idx >= m_items) {
@@ -228,9 +224,6 @@ bool FrmInfoCircularQ::readDspFrmByGuiThread(DspFrm_h *dst)       //host interfa
 			if (idx >= m_items) {
 				idx = 0;
 			}
-
-			//Note: mark this frmIno is sinked, then the thread does wrtYuvFrmByCapThread() can wrt new frms into the queque
-			m_vYuvWrtCnt[idx] = 0;
 		}
 	}
 	return hasData;
@@ -241,9 +234,8 @@ void FrmInfoCircularQ::freeQ()
 	boost::mutex::scoped_lock lock(m_mutex4All);
 	m_q.clear();
 	m_vYuvWrtCnt.clear();
-	m_yuvWrtH = 0;
-	m_yuvReadH4Det = 0;
-//	m_yuvReadH4Dsp = 0;
+	m_vDetWrtCnt.clear();
+	m_vDspWrtCnt.clear();
 }
 
 void FrmInfoCircularQ::allocQ()
@@ -264,8 +256,7 @@ void FrmInfoCircularQ::allocQ()
 	m_vDspWrtCnt.resize(m_items, 0);
 
 	m_yuvWrtH = 0;		//the index to write YuvFrms
-	m_yuvReadH4Det = 0;	//the index to read  YuvFrms for detetcion thread
-//	m_yuvReadH4Dsp = 0;	//the index to read  YuvFrms for display thread
+	m_yuvReadH = 0;	//the index to read  YuvFrms for detetcion thread
 	m_detWrtH	= 0;	//the index to write DetFrms
 	m_detReadH  = 0;	//the index to read  DetFrms
 	m_dspWrtH	= 0;	//the index to write DspFrms

@@ -8,7 +8,6 @@ DspThread::DspThread( const int camId, const int threadId, const std::string &th
 , m_detPyrL(0)
 , m_dspPyrL(0)
 , m_dspSz(320,240)
-, m_yuvFrm_h(0)
 , m_detFrm_h(0)
 , m_dspFrm_h(0)
 , m_camDc(0)
@@ -28,10 +27,11 @@ void DspThread::procNextTask()
 	const boost::posix_time::ptime start = APP_LOCAL_TIME;
 
 	//read new frm from capture Q
-	bool hasDetFrm = m_camDc->m_frmInfoQ->readFrmsByDspThread( m_detFrm_h.get(), m_yuvFrm_h.get() );
+	bool hasDetFrm = m_camDc->m_frmInfoQ->readDetFrmByDspThread( m_detFrm_h.get() );
 	if (!hasDetFrm) {
 		this->goToSleep();
 		//dumpLog("DspThread():%s, go to sleep", m_threadName.c_str());
+		return;
 	}
 
 	//do change detection
@@ -42,9 +42,9 @@ void DspThread::procNextTask()
 
 	emit sigReady2Disp();
 
-	if (m_yuvFrm_h->fn_ % m_frmFreqToLog == 0) {
+	if (m_detFrm_h->m_fn % m_frmFreqToLog == 0) {
 		uint32_t dt = timeIntervalMillisec(start);
-		dumpLog("DspThread::procNextTask(): %s, fn=%lld, dt=%d", m_threadName.c_str(), m_yuvFrm_h->fn_, dt);
+		dumpLog("DspThread::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(),m_detFrm_h->m_fn, dt);
 	}
 
 }
@@ -52,7 +52,6 @@ void DspThread::procNextTask()
 bool DspThread::prepareDspImg()
 {
 	cv::Mat I0;
-	m_yuvFrm_h->hdCopyToBGR(&I0);
 
 	//down sizing the original image
 	cv::resize(I0, m_dspImg, m_dspSz, 0, 0, CV_INTER_LINEAR);
@@ -75,7 +74,7 @@ bool DspThread::prepareDspImg()
 		cv::rectangle(m_dspImg, rect, cv::Scalar(0, 255, 0), 2);
 	}
 
-	cv::putText(m_dspImg, std::to_string(m_yuvFrm_h->fn_), cv::Point(50, m_dspSz.height-50), cv::FONT_HERSHEY_DUPLEX, 2, cv::Scalar(255, 255, 255), 2);
+	cv::putText(m_dspImg, std::to_string(m_detFrm_h->m_fn), cv::Point(50, m_dspSz.height-50), cv::FONT_HERSHEY_DUPLEX, 2, cv::Scalar(255, 255, 255), 2);
 
 	//convert to QBitmap
 #if DSP_USE_QPIXMAP		
@@ -83,7 +82,6 @@ bool DspThread::prepareDspImg()
 #else
 	myExit("DspThread::prepareDspImg():  todo!");
 #endif	
-	m_dspFrm_h->m_fn = m_yuvFrm_h->fn_;
 	return true;
 }
 
@@ -98,7 +96,6 @@ bool DspThread::procInit()
 
 	m_dspSz = m_cfg->getDspImgSz( m_camId );
 
-	m_yuvFrm_h.reset(new YuvFrm_h(w0, h0));
 	m_detFrm_h.reset(new DetFrm_h(m_detPyrL));
 	m_dspFrm_h.reset(new DspFrm_h(m_dspSz.width, m_dspSz.height));
 	m_dspImg.create(m_dspSz, 0);

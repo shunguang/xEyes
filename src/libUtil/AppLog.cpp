@@ -86,9 +86,6 @@ void AppLog::doDumpLoop()
 				outfile << curMsg << endl;
 				outfile.flush();
 			}
-			if (AppLog::m_logShowMsgInConsole) {
-				cout << endl << curMsg << endl;
-			}
 		}
 		else{ //no more msg to log
 			boost::mutex::scoped_lock lock(m_logSleepMutex);
@@ -128,8 +125,10 @@ void xeyes::dumpLog(const char *fmt, ...)
 	vsnprintf(buffer, LOG_MAX_MSG_LEN, fmt, args);
 	va_end(args);
 
+	if (AppLog::m_logShowMsgInConsole) {
+		cout << buffer << endl;
+	}
 	AppLog::m_logPtr->logMsg(buffer);
-	//std::cout << buffer << std::endl;
 }
 
 //-------------------------------

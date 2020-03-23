@@ -34,7 +34,7 @@ void RunDetBkgChg::procNextTask()
 	//decide if need to sleep
 	uint32_t dt = timeIntervalMillisec(start);
 	if (m_yuvFrm_h.fn_ % m_frmFreqToLog == 0) {
-		dumpLog( "RunDetBkgChg::procNextTask(): %s, fn=%ulld, dt=%d", m_threadName.c_str(), m_yuvFrm_h.fn_, dt);
+		dumpLog( "RunDetBkgChg::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(), m_yuvFrm_h.fn_, dt);
 	}
 
 }

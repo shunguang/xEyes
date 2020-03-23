@@ -25,14 +25,25 @@ void CapSaveRtspH264::procNextTask()
 	const boost::posix_time::ptime start = APP_LOCAL_TIME;
 
 	//read from local <m_localYuvFrmQ_h>
+	//dumpLog( "CapSaveRtspH264::procNextTask(): AA--");
 	bool hasFrm = m_localYuvFrmQ_h.read(m_yuvFrm_h.get());
 	if (hasFrm) {
+		//dumpLog( "CapSaveRtspH264::procNextTask(): BB--");
 		//wrt into global shared data container:  <m_camDc->m_frmInfoQ> to make the pipe line work
 		m_camDc->m_frmInfoQ->wrtYuvFrmByCapThread(m_yuvFrm_h.get());
 		
 		//wakeup the consumer thread
 		if (m_detPtr){
 			m_detPtr->wakeupToWork();
+		}
+		else{
+			//local lest w/o comsumer thread
+			YuvFrm_h tmp( m_camCfg.imgSz_.w,  m_camCfg.imgSz_.h);
+			bool hasNewFrm = m_camDc->m_frmInfoQ->readYuvFrmByDetThread( &tmp );
+			//dumpLog( "%s, hasNewFrm=%d, fn=%llu, fn2=%llu, fn3=%llu", m_threadName.c_str(), hasNewFrm, tmp.fn_, m_yuvFrm_h->fn_, m_frmNum );
+			if( hasNewFrm  && tmp.fn_%m_frmFreqToLog ==0){
+				tmp.dump(".", "capYuv");
+			}
 		}
 		//decide if need to sleep
 		int dt = timeIntervalMillisec(start);
@@ -42,10 +53,11 @@ void CapSaveRtspH264::procNextTask()
 		//---- for next frm ------------
 		if (m_frmNum % m_frmFreqToLog == 0) {
 			//m_yuvFrm_h.dump(".", "yuv_h");
-			dumpLog( "CapSaveRtspH264::procNextTask(): %s, fn=%lld, dt=%d, frmIntervals=%d(ms)", m_threadName.c_str(), m_frmNum, dt, m_frmInterval_ms);
+			dumpLog( "CapSaveRtspH264::procNextTask(): %s, fn=%llu, dt=%d, frmIntervals=%d(ms)", m_threadName.c_str(), m_frmNum, dt, m_frmInterval_ms);
 		}
 	}
 	else{
+		//dumpLog( "CapSaveRtspH264::procNextTask(): CC--");
 		THREAD_SLEEP(m_frmInterval_ms);
 	}
 }
@@ -136,8 +148,8 @@ GstFlowReturn CapSaveRtspH264::new_sample_cb(GstAppSink *appsink, gpointer user_
 		g_yuv_d->dump(".", "yuv_d");
 #endif
 
-		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 500) {
-			dumpLog("CapSaveRtspH264::new_sample_cb(): map.size = %lu, bufSz=%lu", map.size, gst_buffer_get_size(buffer));
+		if (pThis->m_frmNum % pThis->m_frmFreqToLog == 0) {
+			dumpLog("CapSaveRtspH264::new_sample_cb(): fn=%llu, map.size = %lu, bufSz=%lu", pThis->m_frmNum, map.size, gst_buffer_get_size(buffer));
 		}
 		gst_buffer_unmap(buffer, &map);
 		gst_sample_unref(sample);
@@ -213,7 +225,7 @@ std::string CapSaveRtspH264::createLaunchStr()
 	//cout << "CapSaveRtspH264::createLaunchStr(): " << endl <<  m_camCfg.toString() << endl;
 
 	ostringstream launchStream;
-#if 0 //CAP_SPLIT_TO_SAVE
+#if CAP_SPLIT_TO_SAVE
 	launchStream << "-e -v rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
 		<< "tee name=tsplit ! "     //split into two parts
 		<< "queue ! rtph264depay ! h264parse ! "   //Parses H.264 streams  

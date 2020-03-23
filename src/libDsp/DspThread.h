@@ -41,7 +41,6 @@ namespace xeyes {
 		int             m_dspPyrL;
 		cv::Size		m_dspSz;
 
-		YuvFrm_hPtr		m_yuvFrm_h;   //input: original frm captured by camera
 		DetFrm_hPtr		m_detFrm_h;   //input: detetcion results
 
 		DspFrm_hPtr		m_dspFrm_h;   //ouput: binded original frm with detetcion results
