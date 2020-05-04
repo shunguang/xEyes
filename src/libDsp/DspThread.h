@@ -40,6 +40,7 @@ namespace xeyes {
 		int             m_detPyrL;
 		int             m_dspPyrL;
 		cv::Size		m_dspSz;
+		cv::Size		m_detSz;
 
 		DetFrm_hPtr		m_detFrm_h;   //input: detetcion results
 

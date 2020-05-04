@@ -109,10 +109,13 @@ uint32_t  CfgCam::getIp() const
 	return ipConvertStr2Num( v[0] );
 }
 
-//mp4LocationAndPrefix_ = "/home/rec/FrontDoor/rec"
+//mp4LocationAndPrefix_ = "/home/rec/FrontDoor/rec" or ""
 std::string  CfgCam::getRecFolder() const
 {
-	//mp4LocationAndPrefix_ = "/home/rec/FrontDoor/rec"
+	if (mp4LocationAndPrefix_.empty()){
+		return "";
+	}
+
 	std::string fDir, fName;
 	splitFolder(mp4LocationAndPrefix_, fDir, fName);
 	return fDir;

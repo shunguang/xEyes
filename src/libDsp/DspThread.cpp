@@ -8,6 +8,7 @@ DspThread::DspThread( const int camId, const int threadId, const std::string &th
 , m_detPyrL(0)
 , m_dspPyrL(0)
 , m_dspSz(320,240)
+, m_detSz(320,240)
 , m_detFrm_h(0)
 , m_dspFrm_h(0)
 , m_camDc(0)
@@ -26,7 +27,7 @@ void DspThread::procNextTask()
 {
 	const boost::posix_time::ptime start = APP_LOCAL_TIME;
 
-	//read new frm from capture Q
+	//read new frm from detection result Queue
 	bool hasDetFrm = m_camDc->m_frmInfoQ->readDetFrmByDspThread( m_detFrm_h.get() );
 	if (!hasDetFrm) {
 		this->goToSleep();
@@ -39,46 +40,24 @@ void DspThread::procNextTask()
 
 	//wrt results into output queue
 	m_camDc->m_frmInfoQ->wrtDspFrmByDspThread(m_dspFrm_h.get());
-
 	emit sigReady2Disp();
 
 	if (m_detFrm_h->m_fn % m_frmFreqToLog == 0) {
 		uint32_t dt = timeIntervalMillisec(start);
 		dumpLog("DspThread::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(),m_detFrm_h->m_fn, dt);
 	}
-
 }
 
 bool DspThread::prepareDspImg()
 {
-	cv::Mat I0;
-
-	//down sizing the original image
-	cv::resize(I0, m_dspImg, m_dspSz, 0, 0, CV_INTER_LINEAR);
-
-	//draw ROis
-	int dL = m_detPyrL - m_dspPyrL;
-	for (const auto &x : m_detFrm_h->m_vRois) {
-		Roi y(x);
-		if (dL > 0) {
-			for (int i = 0; i < dL; ++i) {
-				y.oneLevelUp();
-			}
-		}
-		else if (dL < 0) {
-			for (int i = 0; i < -dL; ++i) {
-				y.oneLevelDown();
-			}
-		}
-		cv::Rect rect = y.toCvRect();
-		cv::rectangle(m_dspImg, rect, cv::Scalar(0, 255, 0), 2);
-	}
-
-	cv::putText(m_dspImg, std::to_string(m_detFrm_h->m_fn), cv::Point(50, m_dspSz.height-50), cv::FONT_HERSHEY_DUPLEX, 2, cv::Scalar(255, 255, 255), 2);
-
-	//convert to QBitmap
 #if DSP_USE_QPIXMAP		
-	m_dspFrm_h->m_img = cvMatToQPixmap(m_dspImg);
+	if( m_detSz.width == m_dspSz.width && m_detSz.height == m_dspSz.height ){
+		m_dspFrm_h->m_img = cvMatToQPixmap( m_detFrm_h->m_rgbImg.I_);
+	}
+	else{
+		cv::resize( m_detFrm_h->m_rgbImg.I_, m_dspImg, m_dspSz, 0, 0, CV_INTER_LINEAR);
+		m_dspFrm_h->m_img = cvMatToQPixmap(m_dspImg);
+	}	
 #else
 	myExit("DspThread::prepareDspImg():  todo!");
 #endif	
@@ -92,13 +71,17 @@ bool DspThread::procInit()
 	CfgCam camCfg = m_cfg->getCam(m_camId);
 	const int &w0 = camCfg.imgSz_.w;
 	const int &h0 = camCfg.imgSz_.h;
+	
 	m_detPyrL = camCfg.detPyrLev_;
+	m_detSz.width = w0>>m_detPyrL;
+	m_detSz.height = h0>>m_detPyrL;
+	m_detFrm_h.reset(new DetFrm_h(m_detPyrL));
 
 	m_dspSz = m_cfg->getDspImgSz( m_camId );
-
-	m_detFrm_h.reset(new DetFrm_h(m_detPyrL));
 	m_dspFrm_h.reset(new DspFrm_h(m_dspSz.width, m_dspSz.height));
 	m_dspImg.create(m_dspSz, 0);
+
+	dumpLog("DspThread::procInit(): detSz(w=%d,h=%d), dspSz=(w=%d,h=%d)", m_detSz.width, m_detSz.height,m_dspSz.width, m_dspSz.height);
 	return true;
 }
 

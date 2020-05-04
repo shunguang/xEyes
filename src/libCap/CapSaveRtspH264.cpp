@@ -70,7 +70,7 @@ bool CapSaveRtspH264::procInit()
 
 	const int &w = m_camCfg.imgSz_.w;
 	const int &h = m_camCfg.imgSz_.h;
-	std::string recDir = m_camCfg.getRecFolder();
+	const std::string recDir = m_camCfg.getRecFolder();
 
 	//init currrent camera capture params
 	m_frmInterval_ms = floor( (float)(1000.0/m_camCfg.fps_.getFps()) );
@@ -88,8 +88,10 @@ bool CapSaveRtspH264::procInit()
 	//dumpLog( "Yuv: (w=%d,h=%d)", m_yuvFrm_h->w_, m_yuvFrm_h->h_);
 
 	//check if recoder folder exist
-	if (!folderExists(recDir)) {
-		myCreateDir(recDir);
+	if( !recDir.empty() ){
+		if (!folderExists(recDir)) {
+			myCreateDir(recDir);
+		}
 	}
 
 	return true;
@@ -211,7 +213,6 @@ int CapSaveRtspH264 :: h264_dec_n_save_loop()
 	return 0;
 }
 
-#define CAP_SPLIT_TO_SAVE	0
 #define CAP_TO_HOST 		1
 std::string CapSaveRtspH264::createLaunchStr()
 {
@@ -225,28 +226,29 @@ std::string CapSaveRtspH264::createLaunchStr()
 	//cout << "CapSaveRtspH264::createLaunchStr(): " << endl <<  m_camCfg.toString() << endl;
 
 	ostringstream launchStream;
-#if CAP_SPLIT_TO_SAVE
-	launchStream << "-e -v rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
-		<< "tee name=tsplit ! "     //split into two parts
-		<< "queue ! rtph264depay ! h264parse ! "   //Parses H.264 streams  
-		<< "omxh264dec ! "          //hd decoder
-		<< "nvvidconv ! "
-		<< "video/x-raw, format=I420, width=" << m_camCfg.imgSz_.w << ", height=" << m_camCfg.imgSz_.h << " ! "
-		<< "appsink name=appYuvSink tsplit. ! "
-		<< "queue ! rtph264depay ! h264parse ! "
-		<< "splitmuxsink name=myMp4Sink location=" << m_camCfg.mp4LocationAndPrefix_ << "%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE";
-#else
-	launchStream << "rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
-		<< "rtph264depay ! h264parse ! "   //Parses H.264 streams  
-		<< "omxh264dec ! "                 //hd decoder
-#	if CAP_TO_HOST    
-		<< "nvvidconv ! "
-		<< "video/x-raw, format=I420, width=" << m_camCfg.imgSz_.w << ", height=" << m_camCfg.imgSz_.h << " ! "
-#	else
-        << "video/x-raw(memory:NVMM), format=I420, width="<< m_camCfg.imgSz_.w  <<", height="<< m_camCfg.imgSz_.h <<" ! "
-#	endif
-		<< "appsink name=appYuvSink";
-#endif
+	if( m_camCfg.mp4LocationAndPrefix_.empty() ){
+		launchStream << "rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
+			<< "rtph264depay ! h264parse ! "   //Parses H.264 streams  
+			<< "omxh264dec ! "                 //hd decoder
+	#	if CAP_TO_HOST    
+			<< "nvvidconv ! "
+			<< "video/x-raw, format=I420, width=" << m_camCfg.imgSz_.w << ", height=" << m_camCfg.imgSz_.h << " ! "
+	#	else
+    	    << "video/x-raw(memory:NVMM), format=I420, width="<< m_camCfg.imgSz_.w  <<", height="<< m_camCfg.imgSz_.h <<" ! "
+	#	endif
+			<< "appsink name=appYuvSink";
+	}
+	else{
+		launchStream << "-e -v rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
+			<< "tee name=tsplit ! "     				//split into two parts
+			<< "queue ! rtph264depay ! h264parse ! "   	//Parses H.264 streams  
+			<< "omxh264dec ! "          				//hd decoder
+			<< "nvvidconv ! "
+			<< "video/x-raw, format=I420, width=" << m_camCfg.imgSz_.w << ", height=" << m_camCfg.imgSz_.h << " ! "
+			<< "appsink name=appYuvSink tsplit. ! "
+			<< "queue ! rtph264depay ! h264parse ! "
+			<< "splitmuxsink name=myMp4Sink location=" << m_camCfg.mp4LocationAndPrefix_ << "%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE";
+	}
 	return launchStream.str();
 }
 

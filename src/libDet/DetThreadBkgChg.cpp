@@ -36,17 +36,18 @@ void DetThreadBkgChg::procNextTask()
 
 	//wrt results into output queue
 	m_camDc->m_frmInfoQ->wrtDetFrmByDetThread( m_detFrm_h.get() );
-	if( m_dspPtr){
+	if( m_dspPtr ){
 		m_dspPtr->wakeupToWork();
 	}
 	else{
-		//for debug w/o <m_dspPtr>: we read data from que, otherwise the que will be overflowed
+		//for unit test w/o <m_dspPtr>: we read data from que, otherwise the que will be overflowed
 		DetFrm_h tmp;
 		bool hasDetFrm = m_camDc->m_frmInfoQ->readDetFrmByDspThread( &tmp );
 		if( hasDetFrm  && tmp.m_fn%m_frmFreqToLog==0){
 			tmp.dump(".", "detFrm");
 		}
 	}
+
 	if (m_yuvFrm_h->fn_ % m_frmFreqToLog == 0) {
 		uint32_t dt = timeIntervalMillisec(start);
 		dumpLog( "DetThreadBkgChg::procNextTask(): %s, fn=%llu, dt=%d", m_threadName.c_str(), m_yuvFrm_h->fn_, dt);
@@ -58,14 +59,20 @@ bool DetThreadBkgChg::doChgDet()
 {
 	//yuv-> resizedYuv -> rgb
 	prepareDetImg();
+	
 	//do detection
+	//todo:  ...
 
-	//prepare results
+	//prepare results 
 	m_detFrm_h->m_vRois.clear();
-	if ( 0==m_detFrm_h->m_fn % 20) {
-		m_detFrm_h->m_vRois.push_back(Roi(10, 10, 50, 70));
+	const int n = rand()%4;
+	for( int i=0; i<n; ++i){
+		Roi tmp(rand()%512, rand()%320, 10+rand()%50, 5+rand()%70);
+		m_detFrm_h->m_vRois.push_back( tmp );
 	}
+
 	prepareOutputImg();
+
 	return true;
 }
 
@@ -84,7 +91,7 @@ bool DetThreadBkgChg::procInit()
 	m_yuvFrmAtDetSz_h.reset( new YuvFrm_h( w0>>L, h0>>L ) );	
 	m_detFrm_h.reset( new DetFrm_h( w0, h0, L ) );
 
-	dumpLog( "DetThreadBkgChg::procInit():called!" );
+	dumpLog( "DetThreadBkgChg::procInit():called! detL=%d, detW=%d,detH=%d", L, w0>>L, h0>>L );
 
 	return true;
 }

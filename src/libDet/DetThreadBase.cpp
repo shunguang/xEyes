@@ -60,11 +60,14 @@ void DetThreadBase::prepareDetImg()
 void DetThreadBase::prepareOutputImg()
 {
 	cv::Mat &I = m_detFrm_h->m_rgbImg.I_;
-	for (const auto &x : m_detFrm_h->m_vRois) {
+	for ( auto &x : m_detFrm_h->m_vRois) {
+		x.trimLocation(I.cols, I.rows);
 		cv::Rect rect = x.toCvRect();
+		//cout << "rect=" << rect <<endl;
 		cv::rectangle(I, rect, cv::Scalar(0, 255, 0), 2);
 	}
-	cv::putText( I, std::to_string(m_detFrm_h->m_fn), cv::Point(10, I.cols-40), cv::FONT_HERSHEY_DUPLEX, 2, cv::Scalar(255, 255, 255), 2);
+	cv::putText( I, std::to_string(m_detFrm_h->m_fn), cv::Point(10, I.rows-20), cv::FONT_HERSHEY_DUPLEX, 2, cv::Scalar(0, 255, 255), 2);
+	//cout << "fn=" << m_detFrm_h->m_fn <<endl;
 }
 
 void DetThreadBase::dumpFrm( const std::string &folderPath )
