@@ -18,18 +18,36 @@
     <ClInclude Include="..\..\libCap\CapDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libCap\RunCapBase.h">
+    <ClInclude Include="..\..\libCap\CapAndSaveThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libCap\RunCapCamA.h">
+    <ClInclude Include="..\..\libCap\CapSaveRtspH264.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libCap\CapThreadBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libCap\CapThreadCamTemp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libCap\CapThreadSyn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libCap\RunCapBase.cpp">
+    <ClCompile Include="..\..\libCap\CapAndSaveThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libCap\RunCapCamA.cpp">
+    <ClCompile Include="..\..\libCap\CapSaveRtspH264.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libCap\CapThreadBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libCap\CapThreadCamTemp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libCap\CapThreadSyn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

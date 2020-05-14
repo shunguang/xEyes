@@ -12,7 +12,7 @@ namespace xeyes {
 		virtual ~ThreadX();
 
 		virtual void start();    //start thread
-		void forceQuit();        //force thread quit from its inifinity loop
+		virtual void forceQuit();        //force thread quit from its inifinity loop
 
 		void wakeupToWork();     //wake up thread to  procNextTask()
 		void goToSleep();        //ask thread go to sleep

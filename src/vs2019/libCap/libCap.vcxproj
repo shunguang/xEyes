@@ -19,13 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\libCap\CapAndSaveThread.h" />
     <ClInclude Include="..\..\libCap\CapDefs.h" />
-    <ClInclude Include="..\..\libCap\RunCapBase.h" />
-    <ClInclude Include="..\..\libCap\RunCapCamA.h" />
+    <ClInclude Include="..\..\libCap\CapSaveRtspH264.h" />
+    <ClInclude Include="..\..\libCap\CapThreadBase.h" />
+    <ClInclude Include="..\..\libCap\CapThreadCamTemp.h" />
+    <ClInclude Include="..\..\libCap\CapThreadSyn.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libCap\RunCapBase.cpp" />
-    <ClCompile Include="..\..\libCap\RunCapCamA.cpp" />
+    <ClCompile Include="..\..\libCap\CapAndSaveThread.cpp" />
+    <ClCompile Include="..\..\libCap\CapSaveRtspH264.cpp" />
+    <ClCompile Include="..\..\libCap\CapThreadBase.cpp" />
+    <ClCompile Include="..\..\libCap\CapThreadCamTemp.cpp" />
+    <ClCompile Include="..\..\libCap\CapThreadSyn.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

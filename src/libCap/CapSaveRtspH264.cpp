@@ -97,18 +97,6 @@ bool CapSaveRtspH264::procInit()
 	return true;
 }
 
-
-void CapSaveRtspH264::eos_cb(GstAppSink * appsink, gpointer user_data)
-{
-	//gateway to access this->xyz
-	CapSaveRtspH264 *pThis = reinterpret_cast<CapSaveRtspH264*>(user_data);
-
-	dumpLog("CapSaveRtspH264::eos_cb(): app sink receive eos!");
-	//force main loop quit and starover
-	//todo:
-	//g_main_loop_quit (hpipe->loop);
-}
-
 //-----------------------------------------------------------------------
 //wrt decoded frm image into <m_localYuvFrmQ_h>
 // or
@@ -252,11 +240,32 @@ std::string CapSaveRtspH264::createLaunchStr()
 	return launchStream.str();
 }
 
+//end-of-stream callback
+void CapSaveRtspH264::eos_cb(GstAppSink* appsink, gpointer user_data)
+{
+	//gateway to access this->xyz
+	CapSaveRtspH264* pThis = reinterpret_cast<CapSaveRtspH264*>(user_data);
+
+	dumpLog("CapSaveRtspH264::eos_cb(): app sink receive eos!");
+	//force main loop quit and starover
+	pThis->endMainLoopThread();
+	THREAD_SLEEP(100);
+	pThis->startMainLoopThread();
+
+	dumpLog("CapSaveRtspH264::eos_cb(): MainLoopThread restarted!");
+}
+
 void CapSaveRtspH264::start()
 {
 	ThreadX::start();
 	THREAD_SLEEP(10);
 	startMainLoopThread();
+}
+
+void CapSaveRtspH264::forceQuit()
+{
+	endMainLoopThread();
+	ThreadX::forceQuit();
 }
 
 void CapSaveRtspH264::startMainLoopThread()

@@ -34,7 +34,8 @@ namespace xeyes {
 		CapSaveRtspH264(const int camId=0, const int threadId=0, const std::string &threadName="camA_Cap_thread");
 		virtual ~CapSaveRtspH264();
 		virtual void start();
-		
+		virtual void forceQuit();
+
 	protected:
 		virtual void procNextTask();
 		virtual bool procInit();
