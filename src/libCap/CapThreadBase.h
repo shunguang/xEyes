@@ -14,7 +14,6 @@ namespace xeyes {
 		CapThreadBase( const CapThreadBase &x) = delete;
 		virtual ~CapThreadBase();
 		void setDetPtr( DetThreadBase *p );
-		virtual void forceQuit();
 
 	protected:
 		//set <isEmitSignal> as false when doing single thread none GUI test

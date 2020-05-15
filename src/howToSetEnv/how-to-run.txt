@@ -1,0 +1,23 @@
+1. vscode (located at /usr/share//code-oss/code-oss)
+$code-oss
+
+2. install boost
+$sudo apt-get install libboost-all-dev
+
+Note: Also available for Linux: linux-clang linux-icc
+
+Note: Dropped compiler flags '-pthread' when detecting library 'glib'.
+
+Note: Disabling X11 Accessibility Bridge: D-Bus or AT-SPI is missing.
+
+Note: Dropped compiler flags '-pthread' when detecting library 'gstreamer'.
+
+Note: Dropped compiler flags '-pthread' when detecting library 'gstreamer_app'.
+
+Qt is now configured for building. Just run 'make'.
+Once everything is built, you must run 'make install'.
+Qt will be installed into '/usr/local/Qt-5.9.2'.
+
+Prior to reconfiguration, make sure you remove any leftovers from
+the previous build.
+
