@@ -22,6 +22,10 @@ QT_INC=/usr/local/Qt-5.9.2/include
 QT_LIB=/usr/local/Qt-5.9.2/lib
 CUDA_INC=/usr/local/cuda/include
 CUDA_LIB=/usr/local/cuda/lib64
+JETSON_INFER_INC=/usr/local/include/jetson-inference
+JETSON_UTIL_INC=/usr/local/include/jetson-utils
+JETSON_LIB=/usr/local/lib
+
 
 GST_INC=-I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include
 GST_LIB=/usr/lib/aarch64-linux-gnu 
@@ -43,11 +47,7 @@ DEBUG = -Os -DNDEBUG
 
 #include flags
 CFLAGS = -Wall -static -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGUseStdInt=0 -DUNIX_ENV=1 -D__LITTLE_ENDIAN__=1 -DqMacOS=0 -DqWinOS=0 -std=gnu++11 \
-	-I$(SDIR_PROJ) -I$(SDIR_ROOT) -I$(CUDA_INC) -I$(QT_INC) $(GST_INC) -I$(PLTF_INC)
-	
-#link flags
-LFLAGS = -Wall $(DEBUG) $(L_GST_LIB) -L$(QT_LIB) -L$(PLTF_LIB) 
-#link libs
+	-I$(SDIR_PROJ) -I$(SDIR_ROOT) -I$(CUDA_INC) -I$(QT_INC) $(GST_INC) -I$(PLTF_INC) -I$(JETSON_INFER_INC) -I$(JETSON_UTIL_INC)
 
 TARGETFILE=$(ODIR_LIB)/$(PROJ_NAME).a
 

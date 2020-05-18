@@ -284,7 +284,7 @@ void CapSaveRtspH264::endMainLoopThread()
 	g_main_loop_quit(main_loop_);
 	while (1) {
 		THREAD_SLEEP(10);
-		if (!g_main_loop_is_running(main_loop_)) {
+		if (mainLoopExited_) {
 			break;
 		}
 #if 0
@@ -295,7 +295,8 @@ void CapSaveRtspH264::endMainLoopThread()
 		dumpLog("GstRtspStreamer::endStreamThread(): add junk frm, m_mainLoopEnd=%d", mainLoopExited_);
 
 	}
+	dumpLog("GstRtspStreamer::endStreamThread(): BB-mainLoopExit_=%d, %s", mainLoopExited_, m_camCfg.toString().c_str() );
 	gstThread_ -> join();
 	mainLoopThreadRunning_ = false;
-	dumpLog("GstRtspStreamer::endStreamThread(): BB-m_mainLoopExit=%d, %s", mainLoopExited_, m_camCfg.toString().c_str() );
+	dumpLog("GstRtspStreamer::endStreamThread(): CC-mainLoopThreadRunning_=%d, %s", mainLoopThreadRunning_, m_camCfg.toString().c_str() );
 }

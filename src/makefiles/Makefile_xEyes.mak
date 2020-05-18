@@ -8,11 +8,12 @@ include Makefile_app_header.mak
 TARGETFILE=$(ODIR_ROOT)/app.out
 
 #redefine CFLAGS and LIBS
-CFLAGS	:= -Wall -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGUseStdInt=0 -DUNIX_ENV=1 -D__LITTLE_ENDIAN__=1 -DqMacOS=0 -DqWinOS=0 -std=gnu++11 \
-	-I$(SDIR_PROJ) -I$(SDIR_ROOT) -I$(QT_INC) -I$(CUDA_INC) $(GST_INC) -I$(PLTF_INC) 
+CFLAGS	= -Wall -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGUseStdInt=0 -DUNIX_ENV=1 -D__LITTLE_ENDIAN__=1 -DqMacOS=0 -DqWinOS=0 -std=gnu++11 \
+	-I$(SDIR_PROJ) -I$(SDIR_ROOT) -I$(QT_INC) -I$(CUDA_INC) $(GST_INC) -I$(JETSON_INFER_INC) -I$(JETSON_UTIL_INC) -I$(PLTF_INC) 
 	
-#redefine link flags and lib searching paths
-LFLAGS	:= -Wall $(DEBUG) $(L_GST_LIB) -L$(QT_LIB) -L$(ODIR_LIB) -L$(CUDA_LIB) -L$(PLTF_LIB) -L$(GST_LIB)
+#link flags
+#define link flags and lib searching paths
+LFLAGS	= -Wall $(DEBUG) $(L_GST_LIB) -L$(QT_LIB) -L$(ODIR_LIB) -L$(JETSON_LIB)  -L$(CUDA_LIB) -L$(PLTF_LIB) -L$(GST_LIB)
 
 #link libs
 #L_GST_LIB=-lgstrtspserver-1.0
@@ -24,6 +25,7 @@ LIBS	:= -lqmake_run -lqmake_gui -lqmake_dsp -lDet -lCap -lDc -lCfg -lUtil -lyuv 
 	-lopencv_ml -lopencv_shape -lopencv_video -lopencv_calib3d -lopencv_features2d \
 	-lopencv_highgui -lopencv_videoio -lopencv_flann -lopencv_imgcodecs -lopencv_imgproc -lopencv_core \
 	-lQt5Core -lQt5Gui -lQt5Widgets -lQt5OpenGL \
+	-ljetson-inference -ljetson-utils \
 	-lgthread-2.0 -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lgstapp-1.0 -lz -lv4l2 \
 	-ldl -lm -lpthread -lrt 
 
@@ -32,6 +34,7 @@ OBJS = $(ODIR_PROJ)/main.o \
 	$(ODIR_PROJ)/test_gst_rtsp_rcvH264_dec_and_save.o \
 	$(ODIR_PROJ)/test_gpu_availability.o \
 	$(ODIR_PROJ)/test_libCap.o \
+	$(ODIR_PROJ)/test_detectnet_console.o \
 	$(ODIR_PROJ)/test_xEyes.o
 
 default:  directories $(TARGETFILE)
@@ -58,6 +61,9 @@ $(ODIR_PROJ)/test_gpu_availability.o	:	$(SDIR_PROJ)/test_gpu_availability.cpp
 
 $(ODIR_PROJ)/test_libCap.o	:	$(SDIR_PROJ)/test_libCap.cpp
 	$(CXX) -o $(ODIR_PROJ)/test_libCap.o $(CFLAGS) $(SDIR_PROJ)/test_libCap.cpp
+
+$(ODIR_PROJ)/test_detectnet_console.o	:	$(SDIR_PROJ)/test_detectnet_console.cpp
+	$(CXX) -o $(ODIR_PROJ)/test_detectnet_console.o $(CFLAGS) $(SDIR_PROJ)/test_detectnet_console.cpp
 
 $(ODIR_PROJ)/test_xEyes.o	:	$(SDIR_PROJ)/test_xEyes.cpp
 	$(CXX) -o $(ODIR_PROJ)/test_xEyes.o $(CFLAGS) $(SDIR_PROJ)/test_xEyes.cpp

@@ -1,6 +1,7 @@
 #include "AppLog.h"
 using namespace std;
 using namespace xeyes;
+
 //init static private varaiables
 AppLog* AppLog::m_logPtr = NULL;
 string	AppLog::m_logFilename = string("");
@@ -18,10 +19,6 @@ AppLog::AppLog()
 {
 	m_begTime = std::time(0);
 }
-
-AppLog::~AppLog() {
-}
-
 
 //-------public funcs -----------
 void AppLog::logMsg(const std::string &msg)
@@ -105,9 +102,26 @@ void AppLog::doDumpLoop()
 	setLoopExited(true);
 }
 
-void AppLog::startThread()
+void AppLog::startLog()
 {
 	m_logThread.reset(new boost::thread(boost::bind(&AppLog::doDumpLoop, this)));
+}
+
+void AppLog::endLog()
+{
+	uint32_t cnt=0;
+	setForceExit( true );
+	do {
+		wakeUpToWork();
+
+		boost::this_thread::sleep(boost::posix_time::milliseconds(10));
+		cnt++;
+		if (cnt>100){
+			printf("AppLog::endLog(): cnt=%d\n", cnt);
+			cnt=0;
+		}
+	} while ( !isLoopExited() );
+	printf("AppLog::endLog(): done!\n");
 }
 
 //----------------- global funcs ---------------------
@@ -143,7 +157,7 @@ void xeyes::startLogThread( const std::string &logFilePath, const bool showInCon
 	AppLog::m_logShowMsgInConsole = showInConsole;
 	AppLog::m_logIsDump = dumpLog;
 
-	AppLog::m_logPtr->startThread();
+	AppLog::m_logPtr->startLog();
 }
 
 void xeyes::endLogThread()
@@ -151,20 +165,11 @@ void xeyes::endLogThread()
 	if (AppLog::m_logPtr == NULL) {
 		return;
 	}
-
 	AppLog::m_logPtr->logMsg("-------Last log Msg : log thread prepare to exit -----");
-	AppLog::m_logPtr->setForceExit( true );
-	uint32_t cnt=0;
-	do {
-		boost::this_thread::sleep(boost::posix_time::milliseconds(50));
-		cnt++;
-		if (cnt>100){
-			printf("xeyes::endLogThread(): cnt=%d\n", cnt);
-			cnt=0;
-		}
-	} while ( !AppLog::m_logPtr->isLoopExited() );
+	AppLog::m_logPtr->endLog();
 
-	AppLog::m_logPtr = NULL;
+	//delete AppLog::m_logPtr
+	//AppLog::m_logPtr = NULL;
 }
 
 void  xeyes::myExit(const int flag)
