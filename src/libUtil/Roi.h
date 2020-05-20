@@ -14,6 +14,9 @@ namespace xeyes {
 class UTIL_EXPORT Roi{
 	public:
 		float m_xo, m_yo, m_w, m_h, m_xb, m_yb;  
+		int				m_classId;			  //[0,256] 	
+		float			m_classConfidence;    //[0,100]
+		std::string		m_className;
 
 		inline static int myround(const float &x)
 		{
@@ -23,7 +26,9 @@ class UTIL_EXPORT Roi{
 	public:
 		Roi();
 		Roi( const int xo, const int yo, const int w, const int h );
-		Roi( const float xo, const float yo, const float w, const float h  );
+		Roi(const float xo, const float yo, const float w, const float h);
+		Roi(const float xo, const float yo, const float w, const float h, const int classId, const float confidence, const std::string &className);
+
 		Roi( const Roi &p );
 
 		Roi& operator =( const Roi &p);

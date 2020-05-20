@@ -12,16 +12,24 @@ using namespace std;
 using namespace xeyes;
 
 Roi :: Roi():
-m_xo (-1), m_yo (-1), m_w (0), m_h (0), m_xb(-1), m_yb(-1)
+m_xo (-1), m_yo (-1), m_w (0), m_h (0), m_xb(-1), m_yb(-1), m_classId(0), m_classConfidence(100), m_className("")
 {
 }
 
 Roi :: Roi( const int xo, const int yo, const int w, const int h )
+	: m_classId(0), m_classConfidence(100), m_className("")
 {
 	setRoi(xo, yo, w, h);
 }
 
 Roi :: Roi( const float xo, const float yo, const float w, const float h )
+	: m_classId(0), m_classConfidence(100), m_className("")
+{
+	setRoi(xo, yo, w, h);
+}
+
+Roi::Roi(const float xo, const float yo, const float w, const float h, const int classId, const float confidence, const std::string& className)
+	: m_classId(classId), m_classConfidence(confidence), m_className(className)
 {
 	setRoi(xo, yo, w, h);
 }
@@ -32,7 +40,10 @@ m_yo	( p.m_yo ),
 m_w		( p.m_w ), 
 m_h		( p.m_h ),
 m_xb	( p.m_xb ), 
-m_yb	( p.m_yb )
+m_yb	( p.m_yb ),
+m_classId( p.m_classId),
+m_classConfidence(p.m_classConfidence),
+m_className(p.m_className)
 {
 }
 
@@ -79,6 +90,10 @@ Roi& Roi :: operator =( const Roi& p)
 		m_h		= p.m_h;
 		m_xb	= p.m_xb;
 		m_yb	= p.m_yb;
+		m_classId = p.m_classId;
+		m_classConfidence = p.m_classConfidence;
+		m_className = p.m_className;
+
 	}
 	return *this;
 }

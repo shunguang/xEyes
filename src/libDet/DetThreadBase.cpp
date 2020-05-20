@@ -5,19 +5,25 @@ using namespace std;
 using namespace xeyes;
 DetThreadBase::DetThreadBase( const int camId, const int threadId, const std::string &threadName )
 : ThreadX	( THD_TASK_DET, threadId, threadName )
-, m_camId 	( camId )
 , m_frmNum(0)
+, m_camId 	( camId )
+, m_detPyrL(1)
+, m_detMethod(0)
+, m_detNetworkName("ped")
+, m_detFrmsToSkip(5)
 , m_yuvFrm_h(0)
 , m_yuvFrmAtDetSz_h(0)
 , m_detFrm_h(0)
 , m_camDc(0)
 , m_dspPtr(0)
+, m_skipedFrmCount(0)
 {
 	cout << "DetThreadBase::DetThreadBase(): called" << endl;
 }
 
 DetThreadBase::~DetThreadBase()
 {
+	ThreadX::~ThreadX();
 }
 
 void DetThreadBase::setDspPtr(DspThread *p)
@@ -25,6 +31,7 @@ void DetThreadBase::setDspPtr(DspThread *p)
 	m_dspPtr = p;
 }
 
+//prepare m_detFrm_h->m_rgbImg
 void DetThreadBase::prepareDetImg()
 {
 	const int &w0 = m_yuvFrm_h->w_;

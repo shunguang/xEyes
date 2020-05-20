@@ -4,18 +4,21 @@ using namespace std;
 using namespace xeyes;
 
 CfgCam::CfgCam()
-: CfgBase()
-, cameraId_(0)
-, cameraName_("unkn")
-, rtspUrl_("unkn")
-, valid_(true)
-, imgSz_(0,0)
-, fps_(0,0)
-, frmQueSz_(10)
-, detPyrLev_(1)
-, isRec_(true)
-, isDisp_(true)
-, mp4LocationAndPrefix_("./myRecFolder/tmp")
+	: CfgBase()
+	, cameraId_(0)
+	, cameraName_("unkn")
+	, rtspUrl_("unkn")
+	, valid_(true)
+	, imgSz_(0, 0)
+	, fps_(0, 0)
+	, frmQueSz_(10)
+	, detPyrLev_(1)
+	, detMethodId_(0)
+	, detNetworkName_("ped")
+	, detFrmsToSkip_(2)  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
+	, isRec_(true)
+	, isDisp_(true)
+	, mp4LocationAndPrefix_("./myRecFolder/tmp")
 {
 }
 
@@ -29,6 +32,9 @@ CfgCam::CfgCam( const CfgCam &x )
 , fps_			( x.fps_ )
 , frmQueSz_		( x.frmQueSz_ )
 , detPyrLev_	( x.detPyrLev_ )
+, detMethodId_	( x.detMethodId_)
+, detNetworkName_(x.detNetworkName_)
+, detFrmsToSkip_(detFrmsToSkip_)  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
 , isRec_		( x.isRec_ )
 , isDisp_		( x.isDisp_)
 , mp4LocationAndPrefix_( x.mp4LocationAndPrefix_ )
@@ -49,10 +55,14 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 		frmQueSz_	= x.frmQueSz_;
 
 		detPyrLev_	=  x.detPyrLev_;
+		detMethodId_ = x.detMethodId_;
+		detNetworkName_ = x.detNetworkName_;
+		detFrmsToSkip_ = detFrmsToSkip_;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
 
 		isRec_ = x.isRec_;
 		isDisp_ = x.isDisp_;
         mp4LocationAndPrefix_ = x.mp4LocationAndPrefix_;
+
 	}
 	return *this;
 }
@@ -69,23 +79,32 @@ void CfgCam::fromPropertyTree(const boost::property_tree::ptree &pt)
 	fps_.den 	= pt.get<int>("fpsDen");
 	frmQueSz_	= pt.get<int>("frmQueSz");
 	detPyrLev_	= pt.get<int>("detPyrLev");
-	mp4LocationAndPrefix_ = pt.get<std::string>("mp4LocationAndPrefix");
+	detMethodId_ = pt.get<int>("detMethodId");
+	detNetworkName_ = pt.get<string>("detNetworkName");
+	detFrmsToSkip_ = pt.get<int>("detFrmsToSkip);
+
+		mp4LocationAndPrefix_ = pt.get<std::string>("mp4LocationAndPrefix");
 }
 
-boost::property_tree::ptree CfgCam::toPropertyTree() 
+boost::property_tree::ptree CfgCam::toPropertyTree()
 {
 	boost::property_tree::ptree pt;
 
-	pt.put( "cameraId", 	cameraId_ );
-	pt.put( "cameraName", cameraName_);
-	pt.put( "rtspUrl", rtspUrl_);
-	pt.put( "valid", (int)valid_);
-	pt.put( "imgW", 		imgSz_.w );
-	pt.put( "imgH", 		imgSz_.h );
-	pt.put( "fpsNum", 		fps_.num );
-	pt.put( "fpsDen", 		fps_.den );
-	pt.put( "frmQueSz", 	frmQueSz_ );
-	pt.put( "detPyrLev", 	detPyrLev_ );
+	pt.put("cameraId", cameraId_);
+	pt.put("cameraName", cameraName_);
+	pt.put("rtspUrl", rtspUrl_);
+	pt.put("valid", (int)valid_);
+	pt.put("imgW", imgSz_.w);
+	pt.put("imgH", imgSz_.h);
+	pt.put("fpsNum", fps_.num);
+	pt.put("fpsDen", fps_.den);
+	pt.put("frmQueSz", frmQueSz_);
+
+	pt.put("detPyrLev", detPyrLev_);
+	pt.put("detMethodId"), detMethodId_);
+	pt.put( "detNetworkName", detNetworkName_);
+	pt.put( "detFrmsToSkip", detFrmsToSkip_);
+
 	pt.put( "mp4LocationAndPrefix", mp4LocationAndPrefix_);
 	return pt;
 }

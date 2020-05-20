@@ -28,10 +28,16 @@ namespace xeyes {
 
 		//todo: add more
 		int 		frmQueSz_;      //que size for FrmInfo
+
 		int 		detPyrLev_;    	//detetcion pyamid level
+		int			detMethodId_;
+		std::string detNetworkName_;
+		int			detFrmsToSkip_;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
+
 		bool		isRec_;
 		bool		isDisp_;      
 		std::string mp4LocationAndPrefix_;
+
 
 	};
 	typedef std::shared_ptr<CfgCam>		CfgCamPtr;

@@ -26,14 +26,20 @@ namespace xeyes {
 	protected:
 		int 			m_camId;
 		uint64			m_frmNum;
+
 		int             m_detPyrL;
-		  
+		DetectionMethod	m_detMethod;
+		std::string		m_detNetworkName;
+		int				m_detFrmsToSkip;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
+
+
 		YuvFrm_hPtr		m_yuvFrm_h;   		 //input/captured frm to process
 		YuvFrm_hPtr		m_yuvFrmAtDetSz_h;   //resized yuv if need
 		DetFrm_hPtr		m_detFrm_h;   		 //output detetcion frm after processing
 
-		DcPtr 			m_camDc;      //shared data container of this camera
-		DspThread*		m_dspPtr;
+		DcPtr 			m_camDc;			//shared data container of this camera
+		DspThread*		m_dspPtr;	
+		int				m_skipedFrmCount;	//frms skiped for detetction
 	};
 	typedef std::shared_ptr<DetThreadBase> DetThreadBasePtr;
 }

@@ -11,6 +11,12 @@ namespace xeyes {
 		THD_TASK_COUNT
 	};
 
+	enum DetectionMethod {
+		DET_MTD_CHG_DETECTION = 0,
+		DET_MTD_DEEP_NETWORK,
+		DET_MTD_COUNT
+	};
+
 	struct ImgSize {
 		ImgSize(int w_=0, int h_=0) : w(w_), h(h_) {}
 		ImgSize( const ImgSize &x):w(x.w), h(x.h) {}

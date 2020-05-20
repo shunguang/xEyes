@@ -7,7 +7,7 @@ namespace xeyes {
 	{
 	public:
 		DetThreadBkgChg(const int camId=0, const int threadId=0, const std::string &threadName="det_thread");
-		~DetThreadBkgChg();
+		virtual ~DetThreadBkgChg();
 
 	protected:
 		virtual void 	procNextTask();
