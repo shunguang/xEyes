@@ -1,4 +1,9 @@
 #include "RunXEyes.h"
+#include "libCap/CapThreadSyn.h"
+#include "libCap/CapSaveRtspH264.h"
+#include "libDet/DetThreadBkgChg.h"
+#include "libDet/DetThreadDeepNet.h"
+
 using namespace std;
 using namespace xeyes;
 
@@ -89,7 +94,14 @@ void RunXEyes::createDetectionThreads()
 		CfgCam currCfg = m_cfg->getCam(id);
 		const string threadName = "DetThread4" + currCfg.cameraName_;
 
-		DetThreadBasePtr det(new DetThreadBkgChg(id, m_threadIdCnt, threadName));
+		DetThreadBasePtr det(0);
+		DetectionMethod mtd = (DetectionMethod)currCfg.detMethodId_;
+		if(  mtd == DET_MTD_CHG_DETECTION ){
+			det.reset(new DetThreadBkgChg(id, m_threadIdCnt, threadName));
+		}
+		else{
+			det.reset(new DetThreadDeepNet(id, m_threadIdCnt, threadName));
+		}		
 		det->setCfg(m_cfg);
 		det->setDcUI(m_dcUI);
 		det->setDspPtr(m_vDspThreads[i].get());

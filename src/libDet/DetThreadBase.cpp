@@ -8,7 +8,7 @@ DetThreadBase::DetThreadBase( const int camId, const int threadId, const std::st
 , m_frmNum(0)
 , m_camId 	( camId )
 , m_detPyrL(1)
-, m_detMethod(0)
+, m_detMethod(DET_MTD_DEEP_NETWORK)
 , m_detNetworkName("ped")
 , m_detFrmsToSkip(5)
 , m_yuvFrm_h(0)
@@ -23,7 +23,6 @@ DetThreadBase::DetThreadBase( const int camId, const int threadId, const std::st
 
 DetThreadBase::~DetThreadBase()
 {
-	ThreadX::~ThreadX();
 }
 
 void DetThreadBase::setDspPtr(DspThread *p)

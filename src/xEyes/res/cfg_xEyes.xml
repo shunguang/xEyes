@@ -11,7 +11,6 @@
       <cameraName>FrontDoor</cameraName>
       <!--rtspUrl></rtspUrl-->
       <rtspUrl>rtsp://192.168.1.2/11</rtspUrl>
-
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>1</valid>
 	    <imgW>1920</imgW>
@@ -19,7 +18,15 @@
 	    <fpsNum>20</fpsNum>
 	    <fpsDen>1</fpsDen>
       <frmQueSz>10</frmQueSz>
+
 	    <detPyrLev>1</detPyrLev>
+      <!-- detMethodId=0, chg detettcion, 1-deepne -->
+  	  <detMethodId>1</detMethodId>
+      <!-- 
+      CUSTOM=0,COCO_AIRPLANE=1,COCO_BOTTLE=2,COCO_CHAIR=3,COCO_DOG=4,FACENET=5,PEDNET=6,PEDNET_MULTI=7,SSD_MOBILENET_V1=8,SSD_MOBILENET_V2=9,SSD_INCEPTION_V2=10 
+      -->
+	    <detNetworkId>9</detNetworkId>
+	    <detFrmsToSkip>5</detFrmsToSkip>
       <!--if empty do not save mp4 file -->
 	    <!--mp4LocationAndPrefix>./frontDoor/capF</mp4LocationAndPrefix-->
 	    <mp4LocationAndPrefix></mp4LocationAndPrefix>
@@ -31,7 +38,6 @@
       <cameraName>BackDoor</cameraName>
       <rtspUrl>none</rtspUrl>
       <!--rtspUrl>rtsp://192.168.1.2/11</rtspUrl-->
-
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>0</valid>
       <imgW>1920</imgW>
@@ -40,6 +46,9 @@
       <fpsDen>1</fpsDen>
       <frmQueSz>20</frmQueSz>
       <detPyrLev>1</detPyrLev>
+  	  <detMethodId>1</detMethodId>
+	    <detNetworkId>7</detNetworkId>
+	    <detFrmsToSkip>4</detFrmsToSkip>
       <mp4LocationAndPrefix>./backtDoor/capB</mp4LocationAndPrefix>
     </cam>
 
@@ -48,7 +57,6 @@
       <cameraId>2</cameraId>
       <cameraName>camC</cameraName>
       <rtspUrl>rtsp://192.168.1.2/11</rtspUrl>
-
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>0</valid>
       <imgW>960</imgW>
@@ -57,6 +65,9 @@
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>0</detPyrLev>
+  	  <detMethodId>1</detMethodId>
+	    <detNetworkId>7</detNetworkId>
+	    <detFrmsToSkip>4</detFrmsToSkip>
       <mp4LocationAndPrefix>./camC/capC</mp4LocationAndPrefix>
     </cam>
 
@@ -65,7 +76,6 @@
       <cameraId>3</cameraId>
       <cameraName>camD</cameraName>
       <rtspUrl>rtsp://192.168.1.2/11</rtspUrl>
-
       <!-- valid: set 1 if valid, 0 otherwise-->
       <valid>0</valid>
       <imgW>1920</imgW>
@@ -74,15 +84,18 @@
       <fpsDen>1</fpsDen>
       <frmQueSz>50</frmQueSz>
       <detPyrLev>1</detPyrLev>
+  	  <detMethodId>1</detMethodId>
+	    <detNetworkId>7</detNetworkId>
+	    <detFrmsToSkip>4</detFrmsToSkip>
       <mp4LocationAndPrefix>./camD/capD</mp4LocationAndPrefix>
     </cam>
   </cams>
 
   <disp>
-	<imgW>1920</imgW>
-	<imgH>1080</imgH>
-  <dispQueSz>20</dispQueSz>
-	<dispPyrLev>2</dispPyrLev>
+	  <imgW>1920</imgW>
+	  <imgH>1080</imgH>
+    <dispQueSz>20</dispQueSz>
+	  <dispPyrLev>2</dispPyrLev>
   </disp>
 
   <!--dump and log -->
@@ -96,19 +109,4 @@
     <!-- frameFreqsToLog[2] to log disp thread cpu time usage -->
     <frameFreqsToLog>2000,2000,2000,2000,2000</frameFreqsToLog>
   </log>
-  <!-- cam>
-      <cameraId>1</cameraId>
-      <cameraName>Back Door</cameraName>
-      <ip>192.168.10.2</ip>
-      <imgW>1920</imgW>
-	    <imgH>1080</imgH>
-	    <fpsNum>25</fpsNum>
-	    <fpsDen>1</fpsDen>
-      <frmQueSz>50</frmQueSz>
-		  <detPyrLev>1</detPyrLev>
-	    <rtspUrl>unkn</rtspUrl>
-    </cam -->
 </cfg>
-
-
-

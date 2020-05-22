@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -fPIC -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/c++/7 -isystem /usr/include/gstreamer-1.0 -isystem /usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libRun -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/home/swu/projects/build_xeyes/libRun -isystem /usr/include/libdrm -I/usr/local/Qt-5.9.2/mkspecs/linux-g++
+INCPATH       = -I. -isystem /usr/include/c++/7 -isystem /usr/include/gstreamer-1.0 -isystem /usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -isystem /usr/local/include/jetson-inference -isystem /usr/local/include/jetson-utils -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libRun -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/home/swu/projects/build_xeyes/libRun -isystem /usr/include/libdrm -I/usr/local/Qt-5.9.2/mkspecs/linux-g++
 QMAKE         = /usr/local/Qt-5.9.2/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -1175,9 +1175,9 @@ compiler_moc_header_clean:
 		/home/swu/projects/xEyes/src/libRun/RunGui.h \
 		/home/swu/projects/build_xeyes/libRun/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libRun/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libRun -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libRun/RunGui.h -o /home/swu/projects/build_xeyes/libRun/moc_RunGui.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libRun/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/usr/local/include/jetson-inference -I/usr/local/include/jetson-utils -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libRun -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libRun/RunGui.h -o /home/swu/projects/build_xeyes/libRun/moc_RunGui.cpp
 
-/home/swu/projects/build_xeyes/libRun/moc_RunXEyes.cpp: /home/swu/projects/xEyes/src/libCap/CapThreadSyn.h \
+/home/swu/projects/build_xeyes/libRun/moc_RunXEyes.cpp: /home/swu/projects/xEyes/src/libCap/CapThreadBase.h \
 		/home/swu/projects/xEyes/src/libUtil/util.h \
 		/home/swu/projects/xEyes/src/libUtil/DataTypes.h \
 		/home/swu/projects/xEyes/src/libUtil/AppEnums.h \
@@ -1358,9 +1358,7 @@ compiler_moc_header_clean:
 		/usr/local/Qt-5.9.2/include/QtCore/qiodevice.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qline.h \
 		/usr/local/Qt-5.9.2/include/QtGui/qpainterpath.h \
-		/home/swu/projects/xEyes/src/libCap/CapThreadBase.h \
 		/home/swu/projects/xEyes/src/libCap/CapDefs.h \
-		/home/swu/projects/xEyes/src/libDet/DetThreadBkgChg.h \
 		/home/swu/projects/xEyes/src/libDet/DetThreadBase.h \
 		/home/swu/projects/xEyes/src/libDet/DetDefs.h \
 		/home/swu/projects/xEyes/src/libDsp/DspThread.h \
@@ -1706,7 +1704,7 @@ compiler_moc_header_clean:
 		/home/swu/projects/xEyes/src/libRun/RunXEyes.h \
 		/home/swu/projects/build_xeyes/libRun/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libRun/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libRun -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libRun/RunXEyes.h -o /home/swu/projects/build_xeyes/libRun/moc_RunXEyes.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libRun/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/usr/local/include/jetson-inference -I/usr/local/include/jetson-utils -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libRun -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libRun/RunXEyes.h -o /home/swu/projects/build_xeyes/libRun/moc_RunXEyes.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1903,7 +1901,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		/home/swu/projects/xEyes/src/libCap/CapSaveRtspH264.h \
 		/home/swu/projects/xEyes/src/libDc/ThreadX.h \
 		/home/swu/projects/xEyes/src/libCap/CapThreadBase.h \
-		/home/swu/projects/xEyes/src/libCap/CapDefs.h
+		/home/swu/projects/xEyes/src/libCap/CapDefs.h \
+		/home/swu/projects/xEyes/src/libCap/CapThreadSyn.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libRun/RunCap.o /home/swu/projects/xEyes/src/libRun/RunCap.cpp
 
 /home/swu/projects/build_xeyes/libRun/RunDet.o: /home/swu/projects/xEyes/src/libRun/RunDet.cpp /home/swu/projects/xEyes/src/libRun/RunDet.h \
@@ -2086,10 +2085,11 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		/usr/local/Qt-5.9.2/include/QtCore/qiodevice.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qline.h \
 		/usr/local/Qt-5.9.2/include/QtGui/qpainterpath.h \
-		/home/swu/projects/xEyes/src/libCap/CapThreadCamTemp.h \
+		/home/swu/projects/xEyes/src/libCap/CapThreadSyn.h \
 		/home/swu/projects/xEyes/src/libDc/ThreadX.h \
 		/home/swu/projects/xEyes/src/libCap/CapThreadBase.h \
 		/home/swu/projects/xEyes/src/libCap/CapDefs.h \
+		/home/swu/projects/xEyes/src/libCap/CapSaveRtspH264.h \
 		/home/swu/projects/xEyes/src/libDet/DetThreadBkgChg.h \
 		/home/swu/projects/xEyes/src/libDet/DetThreadBase.h \
 		/home/swu/projects/xEyes/src/libDet/DetDefs.h
@@ -2612,7 +2612,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libRun/RunGui.o /home/swu/projects/xEyes/src/libRun/RunGui.cpp
 
 /home/swu/projects/build_xeyes/libRun/RunXEyes.o: /home/swu/projects/xEyes/src/libRun/RunXEyes.cpp /home/swu/projects/xEyes/src/libRun/RunXEyes.h \
-		/home/swu/projects/xEyes/src/libCap/CapThreadSyn.h \
+		/home/swu/projects/xEyes/src/libCap/CapThreadBase.h \
 		/home/swu/projects/xEyes/src/libUtil/util.h \
 		/home/swu/projects/xEyes/src/libUtil/DataTypes.h \
 		/home/swu/projects/xEyes/src/libUtil/AppEnums.h \
@@ -2793,9 +2793,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		/usr/local/Qt-5.9.2/include/QtCore/qiodevice.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qline.h \
 		/usr/local/Qt-5.9.2/include/QtGui/qpainterpath.h \
-		/home/swu/projects/xEyes/src/libCap/CapThreadBase.h \
 		/home/swu/projects/xEyes/src/libCap/CapDefs.h \
-		/home/swu/projects/xEyes/src/libDet/DetThreadBkgChg.h \
 		/home/swu/projects/xEyes/src/libDet/DetThreadBase.h \
 		/home/swu/projects/xEyes/src/libDet/DetDefs.h \
 		/home/swu/projects/xEyes/src/libDsp/DspThread.h \
@@ -3137,7 +3135,11 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		/home/swu/projects/xEyes/src/libGui/MsgBox.h \
 		/home/swu/projects/xEyes/src/libGui/ProgDialog.h \
 		/usr/local/Qt-5.9.2/include/QtWidgets/QProgressDialog \
-		/usr/local/Qt-5.9.2/include/QtWidgets/qprogressdialog.h
+		/usr/local/Qt-5.9.2/include/QtWidgets/qprogressdialog.h \
+		/home/swu/projects/xEyes/src/libCap/CapThreadSyn.h \
+		/home/swu/projects/xEyes/src/libCap/CapSaveRtspH264.h \
+		/home/swu/projects/xEyes/src/libDet/DetThreadBkgChg.h \
+		/home/swu/projects/xEyes/src/libDet/DetThreadDeepNet.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libRun/RunXEyes.o /home/swu/projects/xEyes/src/libRun/RunXEyes.cpp
 
 /home/swu/projects/build_xeyes/libRun/moc_RunGui.o: /home/swu/projects/build_xeyes/libRun/moc_RunGui.cpp 

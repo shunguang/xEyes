@@ -1,5 +1,6 @@
 #include "libDsp/DspThread.h"
 #include "DetThreadDeepNet.h"
+#include "loadImage.h"
 
 using namespace std;
 using namespace cv;
@@ -21,7 +22,6 @@ DetThreadDeepNet::~DetThreadDeepNet()
 	if (m_detImgCpu) {
 		CUDA(cudaFreeHost(m_detImgCpu));
 	}
-	DetThreadBase::~DetThreadBase()
 }
 
 //only need to one frame 
@@ -72,40 +72,56 @@ bool DetThreadDeepNet::doChgDet()
 	prepareDetImg();
 
 	m_detFrm_h->m_vRois.clear();
-
 	if (m_skipedFrmCount < m_detFrmsToSkip) {
-			m_skipedFrmCount++;
+		m_skipedFrmCount++;
+		prepareOutputImg();
+		return true;
 	}
-	else{
-		m_skipedFrmCount = 0;
-		//transfer to float4 img for shared cpu and gpu memory
-		if (!DetThreadDeepNet::rgb2float4(m_detImgCpu, m_detImgW, m_detImgH, m_detFrm_h->m_rgbImg.I_)) {
-			return false;
-		}
 
-		//do detection
-		detectNet::Detection* detections = NULL;
-		const int numDetections = m_deepNet->Detect(m_detImgGpu, m_detImgW, m_detImgH, &detections, m_overlayFlags);
 
-		// print out the detection results
+	m_skipedFrmCount = 0;
+	//const boost::posix_time::ptime start = APP_LOCAL_TIME;
+	//transfer to float4 img for shared cpu and gpu memory
+	if (!DetThreadDeepNet::rgbUCHAR2rgbaFLOAT(m_detImgCpu, m_detImgW, m_detImgH, m_detFrm_h->m_rgbImg.I_)) {
+		return false;
+	}
+
 #if 0
-		for (int n = 0; n < numDetections; n++) {
-			printf("detected obj %u  class #%u (%s)  confidence=%f\n", detections[n].Instance, detections[n].ClassID, net->GetClassDesc(detections[n].ClassID), detections[n].Confidence);
-			printf("bounding box %u  (%f, %f)  (%f, %f)  w=%f  h=%f\n", detections[n].Instance, detections[n].Left, detections[n].Top, detections[n].Right, detections[n].Bottom, detections[n].Width(), detections[n].Height());
-		}
-		// print out timing info
-		m_deepNet->PrintProfilerTimes();
+	char outFile[128];
+	snprintf(outFile, 128, "./tmp_%06d.png", m_detFrm_h->m_fn );
+	saveImageRGBA( outFile, (float4*)m_detImgCpu, m_detImgW, m_detImgH, 255.0f);
 #endif
 
-		//prepare results 
-		for (int i = 0; i < numDetections; ++i) {
-			const detectNet::Detection& d = detections[i];
-			Roi tmp(d.Left, d.Top, d.Right - d.Left + 1, d.Bottom - d.Top + 1, d.ClassID, d.Confidence, std::string(m_deepNet->GetClassDesc(d.ClassID)));
-			m_detFrm_h->m_vRois.push_back(tmp);
-		}
+	//do detection
+	detectNet::Detection* detections = NULL;
+	int numDetections=0;
+	try{
+		numDetections = m_deepNet->Detect( m_detImgGpu, m_detImgW, m_detImgH, &detections, m_overlayFlags);
 	}
-	prepareOutputImg();
+	catch (const std::overflow_error& e){
+		dumpLog("%s\n", e.what());	
+	}
 
+	// print out the detection results
+#if 0
+	for (int n = 0; n < numDetections; n++) {
+		printf("detected obj %u  class #%u (%s)  confidence=%f\n", detections[n].Instance, detections[n].ClassID, net->GetClassDesc(detections[n].ClassID), detections[n].Confidence);
+		printf("bounding box %u  (%f, %f)  (%f, %f)  w=%f  h=%f\n", detections[n].Instance, detections[n].Left, detections[n].Top, detections[n].Right, detections[n].Bottom, detections[n].Width(), detections[n].Height());
+	}
+	// print out timing info
+	m_deepNet->PrintProfilerTimes();
+#endif
+
+	//prepare results 
+	for (int i = 0; i < numDetections; ++i) {
+		const detectNet::Detection& d = detections[i];
+		Roi tmp(d.Left, d.Top, d.Right - d.Left + 1, d.Bottom - d.Top + 1, d.ClassID, d.Confidence, std::string(m_deepNet->GetClassDesc(d.ClassID)));
+		m_detFrm_h->m_vRois.push_back(tmp);
+	}
+
+	//uint32_t dt = timeIntervalMillisec(start);
+	//dumpLog("numDetections=%d, dt=%d, fn=%llu", numDetections, dt, m_detFrm_h->m_fn);
+	prepareOutputImg();
 	return true;
 }
 
@@ -122,8 +138,8 @@ bool DetThreadDeepNet::procInit()
 	//init currrent camera capture params
 	m_detPyrL = L;
 	m_detMethod = (DetectionMethod) camCfg.detMethodId_;
-	m_detNetworkName = camCfg.detNetworkName_;
-	m_detFrmsToSkip = camCfg.detFrmsToSkip_;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
+	m_detNetworkName = camCfg.detNetworkId_;
+	m_detFrmsToSkip = camCfg.detFrmsToSkip_;  //# of frms to be skip for detection thread
 	m_detImgW = w0 >> L;
 	m_detImgH = h0 >> L;
 
@@ -136,42 +152,61 @@ bool DetThreadDeepNet::procInit()
 	/*
 	 * create detection network
 	 */
-	m_deepNet.reset( detectNet::Create(argc, argv) );
+	//m_deepNet.reset( detectNet::Create(argc, argv) );
+
+	//static detectNet* Create( NetworkType networkType=PEDNET_MULTI, float threshold=DETECTNET_DEFAULT_THRESHOLD, 
+	//					 uint32_t maxBatchSize=DEFAULT_MAX_BATCH_SIZE, precisionType precision=TYPE_FASTEST, 
+	//						 deviceType device=DEVICE_GPU, bool allowGPUFallback=true );
+
+	const detectNet::NetworkType type = (detectNet::NetworkType)camCfg.detNetworkId_;
+	float threshold = 0.51;
+	int maxBatchSize = 1;
+	if (type == detectNet::CUSTOM){
+		//todo:
+		myAssert(false, "DetThreadDeepNet::procInit(): todo not implemented yet!");
+	}
+	else{
+		m_deepNet.reset( detectNet::Create(type,threshold, maxBatchSize) );
+	}
+
 	if ( !m_deepNet.get() ) {
 		dumpLog("DetThreadDeepNet::procInit(): failed to initialize detectNet.");
 		return false;
 	}
+	m_deepNet->SetOverlayAlpha(128);
+
 	// parse overlay flags
 	m_overlayFlags = detectNet::OverlayFlagsFromStr("box,labels,conf");
 
 	//allocate gpu memeory
 	const int imgSzBytes = m_detImgW * m_detImgH * sizeof(float) * 4;   //RGBA interface to detectNet  m_deepNet->Detect()
-	if ( !cudaAllocMapped((void**)&m_detImgCpu,  (void**)&m_imgGPU, imgSzBytes ) ) {
+	if ( !cudaAllocMapped((void**)&m_detImgCpu,  (void**)&m_detImgGpu, imgSzBytes ) ) {
 		dumpLog("DetThreadDeepNet::procInit(): failed to allocate %zu bytes", imgSzBytes);
 		return false;
 	}
 
+	m_skipedFrmCount=0;
 	return true;
 }
 
 
-bool DetThreadDeepNet :: rgb2float4(float4* cpuRgba, int cpuImgW, int cpuImgH, const cv::Mat& bgrSrc)
+bool DetThreadDeepNet :: rgbUCHAR2rgbaFLOAT(float* cpuRgba, int cpuImgW, int cpuImgH, const cv::Mat& bgrSrc)
 {
 	const int imgChs = bgrSrc.channels();
 	if (3 != imgChs) {
-		dumpLog("DetThreadDeepNet::rgb2float4(): image channels is not three!");
+		dumpLog("DetThreadDeepNet::rgb2float4(): image channels(%d) is not three!", imgChs);
 		return false;
 	}
 
 	if (bgrSrc.cols != cpuImgW || bgrSrc.rows != cpuImgH) {
-		dumpLog("DetThreadDeepNet::rgb2float4(): image sizes do not match with eachother - Mat(w=%d,h=%d), cpuPtrSz(w=%d,h=%d)", 
-			bgrSrc.cols, bgrSrc.rows, cpuImgW, cpuImgH));
+		dumpLog("DetThreadDeepNet::rgb2float4(): image sizes do not match with eachother - Mat(w=%d,h=%d), cpuRgba(w=%d,h=%d)", 
+			bgrSrc.cols, bgrSrc.rows, cpuImgW, cpuImgH);
 		return false;
 	}
 
 	for (int y = 0; y < cpuImgH; y++){
-		uint8_t* pSrc = bgrSrc.ptr(y);    //BGRBGR...BGR
-		float4* pDes = cpuRgba + y * cpuImgW;
+		const uchar* pSrc = bgrSrc.ptr(y);    //BGRBGR...BGR
+		float4* pDes = (float4 *)cpuRgba + y * cpuImgW;
 		for (int x = 0; x < cpuImgW; x++){
 			uint8_t b = *pSrc++;
 			uint8_t g = *pSrc++;

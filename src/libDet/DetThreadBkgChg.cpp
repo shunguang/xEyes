@@ -12,7 +12,6 @@ DetThreadBkgChg::DetThreadBkgChg( const int camId, const int threadId, const std
 
 DetThreadBkgChg::~DetThreadBkgChg()
 {
-	DetThreadBase::~DetThreadBase();
 }
 
 //only need to one frame 

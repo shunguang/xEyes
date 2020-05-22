@@ -4,7 +4,8 @@ PROJ_NAME=libDet
 include Makefile_app_header.mak
 
 OBJS = 	$(ODIR_PROJ)/DetThreadBase.o \
-	$(ODIR_PROJ)/DetThreadBkgChg.o
+	$(ODIR_PROJ)/DetThreadBkgChg.o \
+	$(ODIR_PROJ)/DetThreadDeepNet.o
 	
 default:  directories $(TARGETFILE)
 
@@ -21,6 +22,9 @@ $(ODIR_PROJ)/DetThreadBase.o: $(SDIR_PROJ)/DetThreadBase.cpp $(SDIR_PROJ)/DetThr
     
 $(ODIR_PROJ)/DetThreadBkgChg.o: $(SDIR_PROJ)/DetThreadBkgChg.cpp $(SDIR_PROJ)/DetThreadBkgChg.h
 	$(CXX) -o $(ODIR_PROJ)/DetThreadBkgChg.o $(CFLAGS) $(SDIR_PROJ)/DetThreadBkgChg.cpp
+
+$(ODIR_PROJ)/DetThreadDeepNet.o: $(SDIR_PROJ)/DetThreadDeepNet.cpp $(SDIR_PROJ)/DetThreadDeepNet.h
+	$(CXX) -o $(ODIR_PROJ)/DetThreadDeepNet.o $(CFLAGS) $(SDIR_PROJ)/DetThreadDeepNet.cpp
 
 clean:
 	\rm -r $(ODIR_PROJ)/*.o $(TARGETFILE)

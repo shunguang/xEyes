@@ -45,6 +45,7 @@ namespace xeyes {
 		uint32_t m_w;
 		uint32_t m_h;
 		std::string m_name;
+		uint32_t m_wrtDropCnt;
 	};
 	typedef std::shared_ptr<YuvCircularQ_h> YuvCircularQ_hPtr;
 }

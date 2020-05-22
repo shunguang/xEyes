@@ -14,7 +14,7 @@ CfgCam::CfgCam()
 	, frmQueSz_(10)
 	, detPyrLev_(1)
 	, detMethodId_(0)
-	, detNetworkName_("ped")
+	, detNetworkId_(0)
 	, detFrmsToSkip_(2)  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
 	, isRec_(true)
 	, isDisp_(true)
@@ -33,8 +33,8 @@ CfgCam::CfgCam( const CfgCam &x )
 , frmQueSz_		( x.frmQueSz_ )
 , detPyrLev_	( x.detPyrLev_ )
 , detMethodId_	( x.detMethodId_)
-, detNetworkName_(x.detNetworkName_)
-, detFrmsToSkip_(detFrmsToSkip_)  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
+, detNetworkId_ ( x.detNetworkId_)
+, detFrmsToSkip_( x.detFrmsToSkip_)  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
 , isRec_		( x.isRec_ )
 , isDisp_		( x.isDisp_)
 , mp4LocationAndPrefix_( x.mp4LocationAndPrefix_ )
@@ -56,8 +56,8 @@ CfgCam& CfgCam::operator = (const CfgCam &x)
 
 		detPyrLev_	=  x.detPyrLev_;
 		detMethodId_ = x.detMethodId_;
-		detNetworkName_ = x.detNetworkName_;
-		detFrmsToSkip_ = detFrmsToSkip_;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
+		detNetworkId_ = x.detNetworkId_;
+		detFrmsToSkip_ = x.detFrmsToSkip_;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
 
 		isRec_ = x.isRec_;
 		isDisp_ = x.isDisp_;
@@ -80,10 +80,9 @@ void CfgCam::fromPropertyTree(const boost::property_tree::ptree &pt)
 	frmQueSz_	= pt.get<int>("frmQueSz");
 	detPyrLev_	= pt.get<int>("detPyrLev");
 	detMethodId_ = pt.get<int>("detMethodId");
-	detNetworkName_ = pt.get<string>("detNetworkName");
-	detFrmsToSkip_ = pt.get<int>("detFrmsToSkip);
-
-		mp4LocationAndPrefix_ = pt.get<std::string>("mp4LocationAndPrefix");
+	detNetworkId_ = pt.get<int>("detNetworkId");
+	detFrmsToSkip_ = pt.get<int>("detFrmsToSkip");
+	mp4LocationAndPrefix_ = pt.get<std::string>("mp4LocationAndPrefix");
 }
 
 boost::property_tree::ptree CfgCam::toPropertyTree()
@@ -101,9 +100,9 @@ boost::property_tree::ptree CfgCam::toPropertyTree()
 	pt.put("frmQueSz", frmQueSz_);
 
 	pt.put("detPyrLev", detPyrLev_);
-	pt.put("detMethodId"), detMethodId_);
-	pt.put( "detNetworkName", detNetworkName_);
-	pt.put( "detFrmsToSkip", detFrmsToSkip_);
+	pt.put("detMethodId", detMethodId_);
+	pt.put("detNetworkId", detNetworkId_);
+	pt.put("detFrmsToSkip", detFrmsToSkip_);
 
 	pt.put( "mp4LocationAndPrefix", mp4LocationAndPrefix_);
 	return pt;

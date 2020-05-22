@@ -31,7 +31,7 @@ namespace xeyes {
 
 		int 		detPyrLev_;    	//detetcion pyamid level
 		int			detMethodId_;
-		std::string detNetworkName_;
+		int			detNetworkId_;
 		int			detFrmsToSkip_;  //if 1 do detection every other frm, skip 2 frames after one detetcion, ....
 
 		bool		isRec_;

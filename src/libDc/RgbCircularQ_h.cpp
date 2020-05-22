@@ -74,7 +74,6 @@ void RgbCircularQ_h::allocQ(const uint32_t nTotItems)
 //wrt from host
 bool RgbCircularQ_h::wrt(const RgbFrm_h *src)
 {
-	static int wrtDropCnt = 0;
 	bool sucWrt = false;
 	{
 		boost::mutex::scoped_lock lock(m_mutexRW);
@@ -95,11 +94,7 @@ bool RgbCircularQ_h::wrt(const RgbFrm_h *src)
 	}
 
 	if ( !sucWrt ) {
-		++wrtDropCnt;
-		if (wrtDropCnt > 999) {
-			dumpLog("RgbCircularQ_h::wrt(): writen is too fast, %d frames droped", wrtDropCnt);
-			wrtDropCnt = 0;
-		}
+		dumpLog("RgbCircularQ_h::wrt(): writen is too fast, %s", m_name.c_str() );
 	}
 	return sucWrt;
 }

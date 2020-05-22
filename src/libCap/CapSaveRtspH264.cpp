@@ -37,7 +37,7 @@ void CapSaveRtspH264::procNextTask()
 			m_detPtr->wakeupToWork();
 		}
 		else{
-			//local lest w/o comsumer thread
+			//local test w/o comsumer thread
 			YuvFrm_h tmp( m_camCfg.imgSz_.w,  m_camCfg.imgSz_.h);
 			bool hasNewFrm = m_camDc->m_frmInfoQ->readYuvFrmByDetThread( &tmp );
 			//dumpLog( "%s, hasNewFrm=%d, fn=%llu, fn2=%llu, fn3=%llu", m_threadName.c_str(), hasNewFrm, tmp.fn_, m_yuvFrm_h->fn_, m_frmNum );

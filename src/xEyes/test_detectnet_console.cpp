@@ -42,6 +42,7 @@ facenet-120	            facenet	                FACENET	            faces
 #include "commandLine.h"
 #include "cudaMappedMemory.h"
 #include "libUtil/util.h"
+#include "libDet/DetThreadDeepNet.h"
 
 using namespace xeyes;
 using namespace std;
@@ -70,7 +71,7 @@ static int usage()
 int test_detectnet_console( int argc, char** argv )
 {
 	test_rgb2float4();
-	return;
+	return 0;
 
 	usage();
 	/*
@@ -167,17 +168,16 @@ int test_detectnet_console( int argc, char** argv )
 }
 
 
-#include "libDet/DetThreadDeepNet.h"
 void test_rgb2float4()
 {
-	cv::Mat I = imread("C:\\images\\apple.jpg", 0);
+	cv::Mat I = cv::imread("/home/swu/tools/jetson-inference/data/images/airplane_0.jpg", 1);
 	if (I.empty()){
 		printf("!!! Failed imread(): image not found");
 		return;
 	}
 
-	float4* cpuRgba;
-	float4* gpuRgba;
+	float* cpuRgba;
+	float* gpuRgba;
 	int w = I.cols, h = I.rows;
 	uint32_t  imgSzBytes = w * h * 4 * sizeof(float);
 	if (!cudaAllocMapped((void**)&cpuRgba, (void**)&gpuRgba, imgSzBytes)) {
@@ -185,9 +185,9 @@ void test_rgb2float4()
 		return;
 	}
 
-	bool f = DetThreadDeepNet::rgb2float4(cpuRgba, w, h, I);
+	bool f = DetThreadDeepNet::rgbUCHAR2rgbaFLOAT(cpuRgba, w, h, I);
 	if (f) {
-		saveImageRGBA("./tmp.png", cpuRgba, w, h, 255.0f);
+		saveImageRGBA("./tmp.png", (float4*)cpuRgba, w, h, 255.0f);
 	}
 	CUDA( cudaFreeHost(cpuRgba) );
 }

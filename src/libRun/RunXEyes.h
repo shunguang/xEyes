@@ -20,9 +20,8 @@
 #ifndef __RUN_XEYES_H__
 #define __RUN_XEYES_H__
 
-#include "libCap/CapThreadSyn.h"
-#include "libCap/CapSaveRtspH264.h"
-#include "libDet/DetThreadBkgChg.h"
+#include "libCap/CapThreadBase.h"
+#include "libDet/DetThreadBase.h"
 #include "libDsp/DspThread.h"
 
 #include "RunGui.h"

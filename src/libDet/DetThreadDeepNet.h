@@ -15,7 +15,7 @@ namespace xeyes {
 		DetThreadDeepNet(const int camId=0, const int threadId=0, const std::string &threadName="det_thread");
 		virtual ~DetThreadDeepNet();
 
-		static bool rgb2float4(float4* cpuRgba, int cpuImgW, int cpuImgH, const cv::Mat& bgrSrc );
+		static bool rgbUCHAR2rgbaFLOAT(float* cpuRgba, int cpuImgW, int cpuImgH, const cv::Mat& bgrSrc );
 
 	protected:
 		virtual void 	procNextTask();
@@ -27,8 +27,8 @@ namespace xeyes {
 		uint32_t					m_overlayFlags;
 
 		//note: both <m_detImgCpu> and <m_detImgGpu> point to the same physical memory area but with differen addresses fro cup and gpu devices
-		float4*						m_detImgCpu;         
-		float4*						m_detImgGpu;
+		float*						m_detImgCpu;         
+		float*						m_detImgGpu;
 		int							m_detImgW;
 		int							m_detImgH;
 	};

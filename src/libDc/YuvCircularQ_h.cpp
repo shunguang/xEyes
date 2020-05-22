@@ -9,6 +9,7 @@ YuvCircularQ_h::YuvCircularQ_h(const uint32_t imgW, const uint32_t imgH, const u
 	, m_w(imgW)
 	, m_h(imgH)
 	, m_name(name)
+	, m_wrtDropCnt(0)
 {
 	allocQ( nTotItems );
 }
@@ -73,7 +74,6 @@ void YuvCircularQ_h::allocQ(const uint32_t nTotItems)
 bool YuvCircularQ_h::wrt(const uint8_t *buf, const uint32_t sz, const uint64_t fn)	//host interface
 {
 	//dumpLog("YuvCircularQ_h::wrt(), m_w=%d, m_h=%d, m_items=%d, m_name=%s", m_w, m_h, m_items, m_name.c_str());
-	static int wrtDropCnt = 0;
 	bool sucWrt = false;
 	{
 		boost::mutex::scoped_lock lock(m_mutexRW);
@@ -95,10 +95,10 @@ bool YuvCircularQ_h::wrt(const uint8_t *buf, const uint32_t sz, const uint64_t f
 	}
 
 	if (!sucWrt) {
-		++wrtDropCnt;
-		if (wrtDropCnt > 999) {
-			dumpLog("YuvCircularQ_h::wrt(): writen is too fast, %d frames droped", wrtDropCnt);
-			wrtDropCnt = 0;
+		m_wrtDropCnt++;
+		if (m_wrtDropCnt > 999) {
+			dumpLog("YuvCircularQ_h::wrt(): writen is too fast, %d frames droped--%s", m_wrtDropCnt, m_name.c_str() );
+			m_wrtDropCnt = 0;
 		}
 	}
 	return sucWrt;
@@ -108,46 +108,12 @@ bool YuvCircularQ_h::wrt(const uint8_t *buf, const uint32_t sz, const uint64_t f
 bool YuvCircularQ_h::wrt(const YuvFrm_h *src)
 {
 	return wrt(src->v_.data(), src->sz_, src->fn_);
-
-#if 0
-	//delay remove,'cause this part was tested.
-	static int wrtDropCnt = 0;
-	bool sucWrt = false;
-	{
-		boost::mutex::scoped_lock lock(m_mutexRW);
-		uint32_t &idx = m_headW;
-		int   &cnt = m_v[idx];
-		if (cnt == 0) {
-			YuvFrm_h  *dst = m_q[idx].get();			
-			myAssert( src->sz_ == dst->sz_, "YuvCircularQ_h::wrt(): A- size does not match!" );
-			dst->hdCopyFrom(src);	  //hard copy
-			cnt = cnt + 1;
-
-			//move head to the next slot
-			++idx;
-			if (idx >= m_items) {
-				idx = 0;
-			}
-			sucWrt = true;
-		}
-	}
-
-	if ( !sucWrt ) {
-		++wrtDropCnt;
-		if (wrtDropCnt > 999) {
-			dumpLog("YuvCircularQ_h::wrt(): writen is too fast, %d frames droped", wrtDropCnt);
-			wrtDropCnt = 0;
-		}
-	}
-	return sucWrt;
-#endif
 }
 
 //wrt from dev
 #if APP_USE_CUDA
 bool YuvCircularQ_h::wrt(const YuvFrm_d *src)
 {
-	static int wrtDropCnt = 0;
 	bool sucWrt = false;
 	{
 		boost::mutex::scoped_lock lock(m_mutexRW);
@@ -167,9 +133,10 @@ bool YuvCircularQ_h::wrt(const YuvFrm_d *src)
 	}
 
 	if (!sucWrt) {
-		if (wrtDropCnt > 999) {
-			dumpLog("YuvCircularQ_h::wrtNext(): writen is too fast, %d frames droped", wrtDropCnt);
-			wrtDropCnt = 0;
+		m_wrtDropCnt++;
+		if (m_wrtDropCnt > 999) {
+			dumpLog("YuvCircularQ_h::wrtNext(): writen is too fast, %d frames droped -- %s", m_wrtDropCnt, m_name.c_str());
+			m_wrtDropCnt = 0;
 		}
 	}
 

@@ -1,6 +1,8 @@
 #---------------------------------------------------------
-# This is a qmake pro file
+# This is a qmake pro file, 
+# to create make file use the following cmd:
 # /usr/local/Qt-5.9.2/bin/qmake -makefile qmake_run.pro 
+#
 # by shunguang.wu@gmail.com
 # 12/8/2019
 #---------------------------------------------------------
@@ -32,7 +34,13 @@ GST_LIB=/usr/lib/aarch64-linux-gnu1
 
 QT_INC=/usr/local/Qt-5.9.2/include
 QT_LIB=/usr/local/Qt-5.9.2/lib
+
 CUDA_INC=/usr/local/cuda/include
+
+JETSON_INFER_INC=/usr/local/include/jetson-inference
+JETSON_UTIL_INC=/usr/local/include/jetson-utils
+JETSON_LIB=/usr/local/lib
+
 
 TEMPLATE = lib   # build a static or shared lib
 CONFIG += debug 
@@ -54,6 +62,9 @@ INCLUDEPATH += $$GST_INC3
 #INCLUDEPATH += $$CV_INC 
 INCLUDEPATH += $$QT_INC 
 INCLUDEPATH += $$CUDA_INC 
+INCLUDEPATH += $$JETSON_INFER_INC 
+INCLUDEPATH += $$JETSON_UTIL_INC 
+
 INCLUDEPATH += $$SDIR_ROOT 
 INCLUDEPATH += $$SDIR_PROJ 
 
