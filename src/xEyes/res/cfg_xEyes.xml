@@ -29,7 +29,7 @@
 	    <detFrmsToSkip>5</detFrmsToSkip>
       <!--if empty do not save mp4 file -->
 	    <!--mp4LocationAndPrefix>./frontDoor/capF</mp4LocationAndPrefix-->
-	    <mp4LocationAndPrefix></mp4LocationAndPrefix>
+	    <mp4LocationAndPrefix>NULL</mp4LocationAndPrefix>
     </cam>
 
     <cam>

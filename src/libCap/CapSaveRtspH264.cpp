@@ -189,14 +189,21 @@ int CapSaveRtspH264 :: h264_dec_n_save_loop()
 	g_main_loop_run(main_loop_);
 
 	//---- reach the next line when quit from g_main_loop_run()
-	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited!" );
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited - A!" );
 
 	gst_element_set_state((GstElement*)gst_pipeline_, GST_STATE_NULL);
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited -- B!" );
+
 	gst_object_unref(appSink);	
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited -- C!" );
+
 	gst_object_unref(GST_OBJECT(gst_pipeline_));
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited -- D!" );
+	
 	g_main_loop_unref(main_loop_);
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): main_loop quited -- E!" );
 	mainLoopExited_ = true;
-	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): % -- dec and save exit!", m_camCfg.rtspUrl_.c_str() );
+	dumpLog("CapSaveRtspH264 :: h264_dec_n_save_loop(): %s -- dec and save exit!", m_camCfg.rtspUrl_.c_str() );
 
 	return 0;
 }
@@ -214,7 +221,7 @@ std::string CapSaveRtspH264::createLaunchStr()
 	//cout << "CapSaveRtspH264::createLaunchStr(): " << endl <<  m_camCfg.toString() << endl;
 
 	ostringstream launchStream;
-	if( m_camCfg.mp4LocationAndPrefix_.empty() ){
+	if( m_camCfg.mp4LocationAndPrefix_== "NULL" || m_camCfg.mp4LocationAndPrefix_= "null" ){
 		launchStream << "rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
 			<< "rtph264depay ! h264parse ! "   //Parses H.264 streams  
 			<< "omxh264dec ! "                 //hd decoder
@@ -264,8 +271,11 @@ void CapSaveRtspH264::start()
 
 void CapSaveRtspH264::forceQuit()
 {
+	dumpLog("CapSaveRtspH264::forceQuit()-A");
 	endMainLoopThread();
+	dumpLog("CapSaveRtspH264::forceQuit()-B");
 	ThreadX::forceQuit();
+	dumpLog("CapSaveRtspH264::forceQuit()-C");
 }
 
 void CapSaveRtspH264::startMainLoopThread()
@@ -276,12 +286,14 @@ void CapSaveRtspH264::startMainLoopThread()
 
 void CapSaveRtspH264::endMainLoopThread()
 {
+	dumpLog("CapSaveRtspH264::endMainLoopThread(): A1- mainLoopThreadRunning_=%d", mainLoopThreadRunning_);
 	if (!mainLoopThreadRunning_) {
 		return;
 	}
 
-	dumpLog("CapSaveRtspH264::endMainLoop(): AA- m_mainLoopEnd=%d", mainLoopExited_);
+	dumpLog("CapSaveRtspH264::endMainLoopThread(): A2- m_mainLoopEnd=%d", mainLoopExited_);
 	g_main_loop_quit(main_loop_);
+	uint32_t cnt=0;
 	while (1) {
 		THREAD_SLEEP(10);
 		if (mainLoopExited_) {
@@ -292,11 +304,14 @@ void CapSaveRtspH264::endMainLoopThread()
 		m_yuvQue_dev->addJunkFrm();
 		m_pCW->go_wakeup_one();
 #endif
-		dumpLog("GstRtspStreamer::endStreamThread(): add junk frm, m_mainLoopEnd=%d", mainLoopExited_);
-
+		if( cnt++>1000 ){
+			dumpLog("GstRtspStreamer::endMainLoopThread(): abnormal quit! --  m_mainLoopEnd=%d", mainLoopExited_);
+			break;
+		}
 	}
-	dumpLog("GstRtspStreamer::endStreamThread(): BB-mainLoopExit_=%d, %s", mainLoopExited_, m_camCfg.toString().c_str() );
+	dumpLog("GstRtspStreamer::endMainLoopThread(): BB-mainLoopExited_=%d", mainLoopExited_  );
+	dumpLog("GstRtspStreamer::endMainLoopThread(): cfg=%s", m_camCfg.toString().c_str() );
 	gstThread_ -> join();
 	mainLoopThreadRunning_ = false;
-	dumpLog("GstRtspStreamer::endStreamThread(): CC-mainLoopThreadRunning_=%d, %s", mainLoopThreadRunning_, m_camCfg.toString().c_str() );
+	dumpLog("GstRtspStreamer::endMainLoopThread(): CC-mainLoopThreadRunning_=%d, %s", mainLoopThreadRunning_, m_camCfg.toString().c_str() );
 }
