@@ -1,5 +1,6 @@
 #include "libDet/DetThreadBase.h"
 #include "CapSaveRtspH264.h"
+#include <boost/algorithm/string.hpp>  // boost::iequals
 
 using namespace std;
 using namespace xeyes;
@@ -221,7 +222,7 @@ std::string CapSaveRtspH264::createLaunchStr()
 	//cout << "CapSaveRtspH264::createLaunchStr(): " << endl <<  m_camCfg.toString() << endl;
 
 	ostringstream launchStream;
-	if( m_camCfg.mp4LocationAndPrefix_== "NULL" || m_camCfg.mp4LocationAndPrefix_= "null" ){
+	if( boost::iequals( m_camCfg.mp4LocationAndPrefix_, "NULL") ){
 		launchStream << "rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
 			<< "rtph264depay ! h264parse ! "   //Parses H.264 streams  
 			<< "omxh264dec ! "                 //hd decoder
