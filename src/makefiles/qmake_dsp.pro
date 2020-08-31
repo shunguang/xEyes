@@ -5,17 +5,21 @@
 # 12/8/2019
 #---------------------------------------------------------
 
+# Note: you need to define the following env in ~/.bashrc
+# export XEYES_SRC=/home/swu/projects/xEyes/src
+# export XEYES_BUILD=/home/swu/projects/build_xeyes
+# since qmake cannot access env (bad), we need to redefine them at here
+
+XEYES_SRC=/home/swu/projects/xEyes/src
+XEYES_BUILD=/home/swu/projects/build_xeyes
 PROJ_NAME=libDsp
 
 #---------------------------------------------------------
 # BEG: don not change for my nano evn
 #---------------------------------------------------------
-SDIR_ROOT=/home/swu/projects/xEyes/src
-SDIR_PROJ=/home/swu/projects/xEyes/src/$$PROJ_NAME
-
-ODIR_ROOT?=/home/swu/projects/build_xeyes
-ODIR_PROJ=/home/swu/projects/build_xeyes/$$PROJ_NAME
-ODIR_LIB=/home/swu/projects/build_xeyes/libs
+SDIR_PROJ=$$XEYES_SRC/$$PROJ_NAME
+ODIR_PROJ=$$XEYES_BUILD/lib/$$PROJ_NAME
+ODIR_LIB=$$XEYES_BUILD/lib/libs
 
 #include and lib paths
 PLTF_INC=/usr/include/c++/7
@@ -47,7 +51,7 @@ INCLUDEPATH += $$PLTF_INC
 #INCLUDEPATH += $$CV_INC 
 INCLUDEPATH += $$QT_INC 
 INCLUDEPATH += $$CUDA_INC 
-INCLUDEPATH += $$SDIR_ROOT 
+INCLUDEPATH += $$XEYES_SRC 
 INCLUDEPATH += $$SDIR_PROJ 
 
 OBJECTS_DIR = $$ODIR_PROJ 			#Intermediate object files directory
@@ -55,10 +59,10 @@ MOC_DIR = $$ODIR_PROJ 				#Intermediate moc files directory
 DESTDIR = $$ODIR_LIB
 #---------------------------------------------------------
 # END: don not change  my nano evn
-#---------------------------------------------------------
+#---------------------------------------------------------TARGET
 
 #does not work
-QMAKE_MAKEFILE=$$SDIR_ROOT/makefiles/Makefile_dsp.mak
+QMAKE_MAKEFILE=$$XEYES_SRC/makefiles/Makefile_dsp.mak
 
 HEADERS = \
 	$$SDIR_PROJ/ThreadQt.h \

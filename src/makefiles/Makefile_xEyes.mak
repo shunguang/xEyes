@@ -1,3 +1,7 @@
+#Note: you need to define the following env in ~/.bashrc
+#export XEYES_SRC=/home/swu/projects/xEyes/src
+#export XEYES_BUILD=/home/swu/projects/build_xeyes
+
 -include Makefile.inc
 
 PROJ_NAME=xEyes
@@ -5,11 +9,11 @@ PROJ_NAME=xEyes
 include Makefile_app_header.mak
 
 #the target binary name
-TARGETFILE=$(ODIR_ROOT)/app.out
+TARGETFILE=$(ODIR_BIN)/xeyes.out
 
 #redefine CFLAGS and LIBS
 CFLAGS	= -Wall -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGUseStdInt=0 -DUNIX_ENV=1 -D__LITTLE_ENDIAN__=1 -DqMacOS=0 -DqWinOS=0 -std=gnu++11 \
-	-I$(SDIR_PROJ) -I$(SDIR_ROOT) -I$(QT_INC) -I$(CUDA_INC) $(GST_INC) -I$(JETSON_INFER_INC) -I$(JETSON_UTIL_INC) -I$(PLTF_INC) 
+	-I$(SDIR_PROJ) -I$(XEYES_SRC) -I$(QT_INC) -I$(CUDA_INC) $(GST_INC) -I$(JETSON_INFER_INC) -I$(JETSON_UTIL_INC) -I$(PLTF_INC) 
 	
 #link flags
 #define link flags and lib searching paths
@@ -42,6 +46,7 @@ default:  directories $(TARGETFILE)
 directories:    
 	mkdir -p $(ODIR_PROJ)
 	mkdir -p $(ODIR_LIB)
+	mkdir -p $(ODIR_BIN)
 	
 #the output binary file name is <$(TARGETFILE)>
 $(TARGETFILE)	:	$(OBJS)

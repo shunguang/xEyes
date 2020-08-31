@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -fPIC -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/home/swu/projects/build_xeyes/libGui -isystem /usr/include/libdrm -I/usr/local/Qt-5.9.2/mkspecs/linux-g++
+INCPATH       = -I. -isystem /usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/home/swu/projects/build_xeyes/lib/libGui -isystem /usr/include/libdrm -I/usr/local/Qt-5.9.2/mkspecs/linux-g++
 QMAKE         = /usr/local/Qt-5.9.2/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = qmake_gui1.0.0
-DISTDIR = /home/swu/projects/build_xeyes/libGui/qmake_gui1.0.0
+DISTDIR = /home/swu/projects/build_xeyes/lib/libGui/qmake_gui1.0.0
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -43,23 +43,23 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = /home/swu/projects/build_xeyes/libGui/
+OBJECTS_DIR   = /home/swu/projects/build_xeyes/lib/libGui/
 
 ####### Files
 
 SOURCES       = /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp \
 		/home/swu/projects/xEyes/src/libGui/MsgBox.cpp \
-		/home/swu/projects/xEyes/src/libGui/AppGui.cpp /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp \
-		/home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp \
-		/home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp \
-		/home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp
-OBJECTS       = /home/swu/projects/build_xeyes/libGui/ImgLabel.o \
-		/home/swu/projects/build_xeyes/libGui/MsgBox.o \
-		/home/swu/projects/build_xeyes/libGui/AppGui.o \
-		/home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.o \
-		/home/swu/projects/build_xeyes/libGui/moc_ImgLabel.o \
-		/home/swu/projects/build_xeyes/libGui/moc_MsgBox.o \
-		/home/swu/projects/build_xeyes/libGui/moc_ProgDialog.o
+		/home/swu/projects/xEyes/src/libGui/AppGui.cpp /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp
+OBJECTS       = /home/swu/projects/build_xeyes/lib/libGui/ImgLabel.o \
+		/home/swu/projects/build_xeyes/lib/libGui/MsgBox.o \
+		/home/swu/projects/build_xeyes/lib/libGui/AppGui.o \
+		/home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.o \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.o \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.o \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.o
 DIST          = /usr/local/Qt-5.9.2/mkspecs/features/spec_pre.prf \
 		/usr/local/Qt-5.9.2/mkspecs/common/unix.conf \
 		/usr/local/Qt-5.9.2/mkspecs/common/linux.conf \
@@ -240,7 +240,7 @@ DIST          = /usr/local/Qt-5.9.2/mkspecs/features/spec_pre.prf \
 		/home/swu/projects/xEyes/src/libGui/MsgBox.cpp \
 		/home/swu/projects/xEyes/src/libGui/AppGui.cpp
 QMAKE_TARGET  = qmake_gui
-DESTDIR       = /home/swu/projects/build_xeyes/libs/
+DESTDIR       = /home/swu/projects/build_xeyes/lib/libs/
 TARGET        = libqmake_gui.a
 TARGETD       = libqmake_gui.a
 
@@ -248,11 +248,11 @@ TARGETD       = libqmake_gui.a
 first: all
 ####### Build rules
 
-staticlib: /home/swu/projects/build_xeyes/libs/$(TARGET)
+staticlib: /home/swu/projects/build_xeyes/lib/libs/$(TARGET)
 
-/home/swu/projects/build_xeyes/libs/$(TARGET):  $(OBJECTS) $(OBJCOMP) 
-	@test -d /home/swu/projects/build_xeyes/libs/ || mkdir -p /home/swu/projects/build_xeyes/libs/
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libs/$(TARGET)
+/home/swu/projects/build_xeyes/lib/libs/$(TARGET):  $(OBJECTS) $(OBJCOMP) 
+	@test -d /home/swu/projects/build_xeyes/lib/libs/ || mkdir -p /home/swu/projects/build_xeyes/lib/libs/
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libs/$(TARGET)
 	$(AR) $(DESTDIR)$(TARGET) $(OBJECTS)
 
 
@@ -617,7 +617,7 @@ qmake: FORCE
 qmake_all: FORCE
 
 
-all: /home/swu/projects/xEyes/src/makefiles/Makefile_gui.mak /home/swu/projects/build_xeyes/libs/$(TARGET)
+all: /home/swu/projects/xEyes/src/makefiles/Makefile_gui.mak /home/swu/projects/build_xeyes/lib/libs/$(TARGET)
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
@@ -637,7 +637,7 @@ clean: compiler_clean
 
 
 distclean: clean 
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libs/$(TARGET) 
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libs/$(TARGET) 
 	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) /home/swu/projects/xEyes/src/makefiles/Makefile_gui.mak
 
@@ -652,10 +652,10 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp
+compiler_rcc_make_all: /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp
-/home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp: /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc \
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp
+/home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp: /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc \
 		/usr/local/Qt-5.9.2/bin/rcc \
 		/home/swu/projects/xEyes/src/libGui/Resource/initScreen.jpg \
 		/home/swu/projects/xEyes/src/libGui/Resource/exit_icon.jpg \
@@ -666,18 +666,18 @@ compiler_rcc_clean:
 		/home/swu/projects/xEyes/src/libGui/Resource/defaultImg.jpg \
 		/home/swu/projects/xEyes/src/libGui/Resource/gray_box.png \
 		/home/swu/projects/xEyes/src/libGui/Resource/About_xEyes.txt
-	/usr/local/Qt-5.9.2/bin/rcc -name appGuiRc /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc -o /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp
+	/usr/local/Qt-5.9.2/bin/rcc -name appGuiRc /home/swu/projects/xEyes/src/libGui/appGuiRc.qrc -o /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp
 
-compiler_moc_predefs_make_all: /home/swu/projects/build_xeyes/libGui/moc_predefs.h
+compiler_moc_predefs_make_all: /home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libGui/moc_predefs.h
-/home/swu/projects/build_xeyes/libGui/moc_predefs.h: /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
-	g++ -pipe -g -fPIC -std=gnu++11 -Wall -W -dM -E -o /home/swu/projects/build_xeyes/libGui/moc_predefs.h /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h
+/home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h: /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
+	g++ -pipe -g -fPIC -std=gnu++11 -Wall -W -dM -E -o /home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: /home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp /home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp /home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp
+compiler_moc_header_make_all: /home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp /home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp /home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp /home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp /home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp
-/home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp: /usr/local/Qt-5.9.2/include/QtCore/QtCore \
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp /home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp /home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp
+/home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp: /usr/local/Qt-5.9.2/include/QtCore/QtCore \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCoreDepends \
 		/usr/local/Qt-5.9.2/include/QtCore/qglobal.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qconfig-bootstrapped.h \
@@ -995,11 +995,11 @@ compiler_moc_header_clean:
 		/usr/local/Qt-5.9.2/include/QtWidgets/qsizepolicy.h \
 		/usr/local/Qt-5.9.2/include/QtWidgets/QWidget \
 		/home/swu/projects/xEyes/src/libGui/ImgLabel.h \
-		/home/swu/projects/build_xeyes/libGui/moc_predefs.h \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libGui/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libGui/ImgLabel.h -o /home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libGui/ImgLabel.h -o /home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp
 
-/home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp: /home/swu/projects/xEyes/src/libGui/QtHeaders.h \
+/home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp: /home/swu/projects/xEyes/src/libGui/QtHeaders.h \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCore \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCoreDepends \
 		/usr/local/Qt-5.9.2/include/QtCore/qglobal.h \
@@ -1329,11 +1329,11 @@ compiler_moc_header_clean:
 		/usr/local/Qt-5.9.2/include/QtWidgets/qfiledialog.h \
 		/home/swu/projects/xEyes/src/libGui/GuiDefs.h \
 		/home/swu/projects/xEyes/src/libGui/MsgBox.h \
-		/home/swu/projects/build_xeyes/libGui/moc_predefs.h \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libGui/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libGui/MsgBox.h -o /home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libGui/MsgBox.h -o /home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp
 
-/home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp: /usr/local/Qt-5.9.2/include/QtCore/QString \
+/home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp: /usr/local/Qt-5.9.2/include/QtCore/QString \
 		/usr/local/Qt-5.9.2/include/QtCore/qstring.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qchar.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qglobal.h \
@@ -1444,9 +1444,9 @@ compiler_moc_header_clean:
 		/usr/local/Qt-5.9.2/include/QtGui/qguiapplication.h \
 		/usr/local/Qt-5.9.2/include/QtGui/qinputmethod.h \
 		/home/swu/projects/xEyes/src/libGui/ProgDialog.h \
-		/home/swu/projects/build_xeyes/libGui/moc_predefs.h \
+		/home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libGui/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libGui/ProgDialog.h -o /home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/lib/libGui/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libGui -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libGui/ProgDialog.h -o /home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1460,7 +1460,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-/home/swu/projects/build_xeyes/libGui/ImgLabel.o: /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp /home/swu/projects/xEyes/src/libGui/ImgLabel.h \
+/home/swu/projects/build_xeyes/lib/libGui/ImgLabel.o: /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp /home/swu/projects/xEyes/src/libGui/ImgLabel.h \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCore \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCoreDepends \
 		/usr/local/Qt-5.9.2/include/QtCore/qglobal.h \
@@ -1778,9 +1778,9 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 		/usr/local/Qt-5.9.2/include/QtWidgets/qwidget.h \
 		/usr/local/Qt-5.9.2/include/QtWidgets/qsizepolicy.h \
 		/usr/local/Qt-5.9.2/include/QtWidgets/QWidget
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/ImgLabel.o /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/ImgLabel.o /home/swu/projects/xEyes/src/libGui/ImgLabel.cpp
 
-/home/swu/projects/build_xeyes/libGui/MsgBox.o: /home/swu/projects/xEyes/src/libGui/MsgBox.cpp /home/swu/projects/xEyes/src/libGui/MsgBox.h \
+/home/swu/projects/build_xeyes/lib/libGui/MsgBox.o: /home/swu/projects/xEyes/src/libGui/MsgBox.cpp /home/swu/projects/xEyes/src/libGui/MsgBox.h \
 		/home/swu/projects/xEyes/src/libGui/QtHeaders.h \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCore \
 		/usr/local/Qt-5.9.2/include/QtCore/QtCoreDepends \
@@ -2110,9 +2110,9 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 		/usr/local/Qt-5.9.2/include/QtWidgets/QFileDialog \
 		/usr/local/Qt-5.9.2/include/QtWidgets/qfiledialog.h \
 		/home/swu/projects/xEyes/src/libGui/GuiDefs.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/MsgBox.o /home/swu/projects/xEyes/src/libGui/MsgBox.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/MsgBox.o /home/swu/projects/xEyes/src/libGui/MsgBox.cpp
 
-/home/swu/projects/build_xeyes/libGui/AppGui.o: /home/swu/projects/xEyes/src/libGui/AppGui.cpp /home/swu/projects/xEyes/src/libGui/AppGui.h \
+/home/swu/projects/build_xeyes/lib/libGui/AppGui.o: /home/swu/projects/xEyes/src/libGui/AppGui.cpp /home/swu/projects/xEyes/src/libGui/AppGui.h \
 		/home/swu/projects/xEyes/src/libUtil/AppEnums.h \
 		/home/swu/projects/xEyes/src/libCfg/Cfg.h \
 		/home/swu/projects/xEyes/src/libCfg/CfgLog.h \
@@ -2523,19 +2523,19 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 		/usr/local/Qt-5.9.2/include/QtMultimedia/qaudio.h \
 		/usr/local/Qt-5.9.2/include/QtNetwork/qnetworkconfiguration.h \
 		/home/swu/projects/xEyes/src/libGui/GuiDefs.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/AppGui.o /home/swu/projects/xEyes/src/libGui/AppGui.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/AppGui.o /home/swu/projects/xEyes/src/libGui/AppGui.cpp
 
-/home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.o: /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.o /home/swu/projects/build_xeyes/libGui/qrc_appGuiRc.cpp
+/home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.o: /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.o /home/swu/projects/build_xeyes/lib/libGui/qrc_appGuiRc.cpp
 
-/home/swu/projects/build_xeyes/libGui/moc_ImgLabel.o: /home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/moc_ImgLabel.o /home/swu/projects/build_xeyes/libGui/moc_ImgLabel.cpp
+/home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.o: /home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.o /home/swu/projects/build_xeyes/lib/libGui/moc_ImgLabel.cpp
 
-/home/swu/projects/build_xeyes/libGui/moc_MsgBox.o: /home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/moc_MsgBox.o /home/swu/projects/build_xeyes/libGui/moc_MsgBox.cpp
+/home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.o: /home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.o /home/swu/projects/build_xeyes/lib/libGui/moc_MsgBox.cpp
 
-/home/swu/projects/build_xeyes/libGui/moc_ProgDialog.o: /home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libGui/moc_ProgDialog.o /home/swu/projects/build_xeyes/libGui/moc_ProgDialog.cpp
+/home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.o: /home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.o /home/swu/projects/build_xeyes/lib/libGui/moc_ProgDialog.cpp
 
 ####### Install
 

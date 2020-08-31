@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -fPIC -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libDsp -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/home/swu/projects/build_xeyes/libDsp -isystem /usr/include/libdrm -I/usr/local/Qt-5.9.2/mkspecs/linux-g++
+INCPATH       = -I. -isystem /usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libDsp -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/home/swu/projects/build_xeyes/lib/libDsp -isystem /usr/include/libdrm -I/usr/local/Qt-5.9.2/mkspecs/linux-g++
 QMAKE         = /usr/local/Qt-5.9.2/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = qmake_dsp1.0.0
-DISTDIR = /home/swu/projects/build_xeyes/libDsp/qmake_dsp1.0.0
+DISTDIR = /home/swu/projects/build_xeyes/lib/libDsp/qmake_dsp1.0.0
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -43,17 +43,17 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = /home/swu/projects/build_xeyes/libDsp/
+OBJECTS_DIR   = /home/swu/projects/build_xeyes/lib/libDsp/
 
 ####### Files
 
 SOURCES       = /home/swu/projects/xEyes/src/libDsp/ThreadQt.cpp \
-		/home/swu/projects/xEyes/src/libDsp/DspThread.cpp /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp \
-		/home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp
-OBJECTS       = /home/swu/projects/build_xeyes/libDsp/ThreadQt.o \
-		/home/swu/projects/build_xeyes/libDsp/DspThread.o \
-		/home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.o \
-		/home/swu/projects/build_xeyes/libDsp/moc_DspThread.o
+		/home/swu/projects/xEyes/src/libDsp/DspThread.cpp /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp \
+		/home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp
+OBJECTS       = /home/swu/projects/build_xeyes/lib/libDsp/ThreadQt.o \
+		/home/swu/projects/build_xeyes/lib/libDsp/DspThread.o \
+		/home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.o \
+		/home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.o
 DIST          = /usr/local/Qt-5.9.2/mkspecs/features/spec_pre.prf \
 		/usr/local/Qt-5.9.2/mkspecs/common/unix.conf \
 		/usr/local/Qt-5.9.2/mkspecs/common/linux.conf \
@@ -231,7 +231,7 @@ DIST          = /usr/local/Qt-5.9.2/mkspecs/features/spec_pre.prf \
 		/home/swu/projects/xEyes/src/libDsp/DspThread.h /home/swu/projects/xEyes/src/libDsp/ThreadQt.cpp \
 		/home/swu/projects/xEyes/src/libDsp/DspThread.cpp
 QMAKE_TARGET  = qmake_dsp
-DESTDIR       = /home/swu/projects/build_xeyes/libs/
+DESTDIR       = /home/swu/projects/build_xeyes/lib/libs/
 TARGET        = libqmake_dsp.a
 TARGETD       = libqmake_dsp.a
 
@@ -239,11 +239,11 @@ TARGETD       = libqmake_dsp.a
 first: all
 ####### Build rules
 
-staticlib: /home/swu/projects/build_xeyes/libs/$(TARGET)
+staticlib: /home/swu/projects/build_xeyes/lib/libs/$(TARGET)
 
-/home/swu/projects/build_xeyes/libs/$(TARGET):  $(OBJECTS) $(OBJCOMP) 
-	@test -d /home/swu/projects/build_xeyes/libs/ || mkdir -p /home/swu/projects/build_xeyes/libs/
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libs/$(TARGET)
+/home/swu/projects/build_xeyes/lib/libs/$(TARGET):  $(OBJECTS) $(OBJCOMP) 
+	@test -d /home/swu/projects/build_xeyes/lib/libs/ || mkdir -p /home/swu/projects/build_xeyes/lib/libs/
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libs/$(TARGET)
 	$(AR) $(DESTDIR)$(TARGET) $(OBJECTS)
 
 
@@ -606,7 +606,7 @@ qmake: FORCE
 qmake_all: FORCE
 
 
-all: /home/swu/projects/xEyes/src/makefiles/Makefile_dsp.mak /home/swu/projects/build_xeyes/libs/$(TARGET)
+all: /home/swu/projects/xEyes/src/makefiles/Makefile_dsp.mak /home/swu/projects/build_xeyes/lib/libs/$(TARGET)
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
@@ -625,7 +625,7 @@ clean: compiler_clean
 
 
 distclean: clean 
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libs/$(TARGET) 
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libs/$(TARGET) 
 	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) /home/swu/projects/xEyes/src/makefiles/Makefile_dsp.mak
 
@@ -642,16 +642,16 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_predefs_make_all: /home/swu/projects/build_xeyes/libDsp/moc_predefs.h
+compiler_moc_predefs_make_all: /home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libDsp/moc_predefs.h
-/home/swu/projects/build_xeyes/libDsp/moc_predefs.h: /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
-	g++ -pipe -g -fPIC -std=gnu++11 -Wall -W -dM -E -o /home/swu/projects/build_xeyes/libDsp/moc_predefs.h /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h
+/home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h: /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
+	g++ -pipe -g -fPIC -std=gnu++11 -Wall -W -dM -E -o /home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h /usr/local/Qt-5.9.2/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp /home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp
+compiler_moc_header_make_all: /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp /home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp /home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp
-/home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp: /usr/local/Qt-5.9.2/include/QtCore/qthread.h \
+	-$(DEL_FILE) /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp /home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp
+/home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp: /usr/local/Qt-5.9.2/include/QtCore/qthread.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qobject.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qobjectdefs.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qnamespace.h \
@@ -833,11 +833,11 @@ compiler_moc_header_clean:
 		/usr/local/Qt-5.9.2/include/QtGui/qpainterpath.h \
 		/home/swu/projects/xEyes/src/libDsp/DspDefs.h \
 		/home/swu/projects/xEyes/src/libDsp/ThreadQt.h \
-		/home/swu/projects/build_xeyes/libDsp/moc_predefs.h \
+		/home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libDsp/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libDsp -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libDsp/ThreadQt.h -o /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libDsp -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libDsp/ThreadQt.h -o /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp
 
-/home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp: /home/swu/projects/xEyes/src/libUtil/util.h \
+/home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp: /home/swu/projects/xEyes/src/libUtil/util.h \
 		/home/swu/projects/xEyes/src/libUtil/DataTypes.h \
 		/home/swu/projects/xEyes/src/libUtil/AppEnums.h \
 		/home/swu/projects/xEyes/src/libUtil/AppLog.h \
@@ -1032,9 +1032,9 @@ compiler_moc_header_clean:
 		/home/swu/projects/xEyes/src/libDsp/DspDefs.h \
 		/usr/local/Qt-5.9.2/include/QtCore/QObject \
 		/home/swu/projects/xEyes/src/libDsp/DspThread.h \
-		/home/swu/projects/build_xeyes/libDsp/moc_predefs.h \
+		/home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h \
 		/usr/local/Qt-5.9.2/bin/moc
-	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/libDsp/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libDsp -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libDsp/DspThread.h -o /home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp
+	/usr/local/Qt-5.9.2/bin/moc $(DEFINES) --include /home/swu/projects/build_xeyes/lib/libDsp/moc_predefs.h -I/usr/local/Qt-5.9.2/mkspecs/linux-g++ -I/media/swu/ssd512/projects/xEyes/src/makefiles -I/usr/include/c++/7 -I/usr/local/Qt-5.9.2/include -I/usr/local/cuda/include -I/home/swu/projects/xEyes/src -I/home/swu/projects/xEyes/src/libDsp -I/usr/local/Qt-5.9.2/include/QtGui -I/usr/local/Qt-5.9.2/include/QtCore -I/usr/include/c++/7 -I/usr/include/aarch64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/aarch64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/aarch64-linux-gnu/7/include-fixed -I/usr/include/aarch64-linux-gnu -I/usr/include /home/swu/projects/xEyes/src/libDsp/DspThread.h -o /home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1048,7 +1048,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-/home/swu/projects/build_xeyes/libDsp/ThreadQt.o: /home/swu/projects/xEyes/src/libDsp/ThreadQt.cpp /home/swu/projects/xEyes/src/libDsp/ThreadQt.h \
+/home/swu/projects/build_xeyes/lib/libDsp/ThreadQt.o: /home/swu/projects/xEyes/src/libDsp/ThreadQt.cpp /home/swu/projects/xEyes/src/libDsp/ThreadQt.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qthread.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qobject.h \
 		/usr/local/Qt-5.9.2/include/QtCore/qobjectdefs.h \
@@ -1230,9 +1230,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		/usr/local/Qt-5.9.2/include/QtCore/qline.h \
 		/usr/local/Qt-5.9.2/include/QtGui/qpainterpath.h \
 		/home/swu/projects/xEyes/src/libDsp/DspDefs.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libDsp/ThreadQt.o /home/swu/projects/xEyes/src/libDsp/ThreadQt.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libDsp/ThreadQt.o /home/swu/projects/xEyes/src/libDsp/ThreadQt.cpp
 
-/home/swu/projects/build_xeyes/libDsp/DspThread.o: /home/swu/projects/xEyes/src/libDsp/DspThread.cpp /home/swu/projects/xEyes/src/libDsp/DspThread.h \
+/home/swu/projects/build_xeyes/lib/libDsp/DspThread.o: /home/swu/projects/xEyes/src/libDsp/DspThread.cpp /home/swu/projects/xEyes/src/libDsp/DspThread.h \
 		/home/swu/projects/xEyes/src/libUtil/util.h \
 		/home/swu/projects/xEyes/src/libUtil/DataTypes.h \
 		/home/swu/projects/xEyes/src/libUtil/AppEnums.h \
@@ -1427,13 +1427,13 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		/usr/local/Qt-5.9.2/include/QtCore/qthread.h \
 		/home/swu/projects/xEyes/src/libDsp/DspDefs.h \
 		/usr/local/Qt-5.9.2/include/QtCore/QObject
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libDsp/DspThread.o /home/swu/projects/xEyes/src/libDsp/DspThread.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libDsp/DspThread.o /home/swu/projects/xEyes/src/libDsp/DspThread.cpp
 
-/home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.o: /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.o /home/swu/projects/build_xeyes/libDsp/moc_ThreadQt.cpp
+/home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.o: /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.o /home/swu/projects/build_xeyes/lib/libDsp/moc_ThreadQt.cpp
 
-/home/swu/projects/build_xeyes/libDsp/moc_DspThread.o: /home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/libDsp/moc_DspThread.o /home/swu/projects/build_xeyes/libDsp/moc_DspThread.cpp
+/home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.o: /home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o /home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.o /home/swu/projects/build_xeyes/lib/libDsp/moc_DspThread.cpp
 
 ####### Install
 

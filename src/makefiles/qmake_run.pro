@@ -7,17 +7,23 @@
 # 12/8/2019
 #---------------------------------------------------------
 
+# Note: you need to define the following env in ~/.bashrc
+# export XEYES_SRC=/home/swu/projects/xEyes/src
+# export XEYES_BUILD=/home/swu/projects/build_xeyes
+# since qmake cannot access env (bad), we need to redefine them at here
+
+XEYES_SRC=/home/swu/projects/xEyes/src
+XEYES_BUILD=/home/swu/projects/build_xeyes
 PROJ_NAME=libRun
+
 
 #---------------------------------------------------------
 # BEG: don not change for my nano evn
 #---------------------------------------------------------
-SDIR_ROOT=/home/swu/projects/xEyes/src
-SDIR_PROJ=/home/swu/projects/xEyes/src/$$PROJ_NAME
+SDIR_PROJ=$$XEYES_SRC/$$PROJ_NAME
 
-ODIR_ROOT?=/home/swu/projects/build_xeyes
-ODIR_PROJ=/home/swu/projects/build_xeyes/$$PROJ_NAME
-ODIR_LIB=/home/swu/projects/build_xeyes/libs
+ODIR_PROJ=$$XEYES_BUILD/lib/$$PROJ_NAME
+ODIR_LIB=$$XEYES_BUILD/lib/libs
 
 #include and lib paths
 PLTF_INC=/usr/include/c++/7
@@ -65,7 +71,7 @@ INCLUDEPATH += $$CUDA_INC
 INCLUDEPATH += $$JETSON_INFER_INC 
 INCLUDEPATH += $$JETSON_UTIL_INC 
 
-INCLUDEPATH += $$SDIR_ROOT 
+INCLUDEPATH += $$XEYES_SRC 
 INCLUDEPATH += $$SDIR_PROJ 
 
 OBJECTS_DIR = $$ODIR_PROJ 			#Intermediate object files directory
@@ -76,7 +82,7 @@ DESTDIR = $$ODIR_LIB
 #---------------------------------------------------------
 #
 #destination makeFile name
-QMAKE_MAKEFILE=$$SDIR_ROOT/makefiles/Makefile_run.mak
+QMAKE_MAKEFILE=$$XEYES_SRC/makefiles/Makefile_run.mak
 HEADERS = \
 	$$SDIR_PROJ/RunCap.h \
 	$$SDIR_PROJ/RunDet.h \

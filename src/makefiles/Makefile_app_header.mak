@@ -1,12 +1,14 @@
 -include Makefile.inc
 
-#build intermediat output paths
-SDIR_ROOT?=/home/swu/projects/xEyes/src
-SDIR_PROJ=$(SDIR_ROOT)/$(PROJ_NAME)
+#Note: you need to define the following env in ~/.bashrc
+#export XEYES_SRC=/home/swu/projects/xEyes/src
+#export XEYES_BUILD=/home/swu/projects/build_xeyes
 
-ODIR_ROOT?=/home/swu/projects/build_xeyes
-ODIR_PROJ=$(ODIR_ROOT)/$(PROJ_NAME)
-ODIR_LIB=$(ODIR_ROOT)/libs
+SDIR_PROJ=$(XEYES_SRC)/$(PROJ_NAME)
+
+ODIR_PROJ=$(XEYES_BUILD)/lib/$(PROJ_NAME)
+ODIR_LIB=$(XEYES_BUILD)/lib/libs
+ODIR_BIN=$(XEYES_BUILD)/bin
 
 #include and lib paths of the platform
 PLTF_INC=/usr/include
@@ -47,7 +49,7 @@ DEBUG = -Os -DNDEBUG
 
 #include flags
 CFLAGS = -Wall -static -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGUseStdInt=0 -DUNIX_ENV=1 -D__LITTLE_ENDIAN__=1 -DqMacOS=0 -DqWinOS=0 -std=gnu++11 \
-	-I$(SDIR_PROJ) -I$(SDIR_ROOT) -I$(CUDA_INC) -I$(QT_INC) $(GST_INC) -I$(PLTF_INC) -I$(JETSON_INFER_INC) -I$(JETSON_UTIL_INC)
+	-I$(SDIR_PROJ) -I$(XEYES_SRC) -I$(CUDA_INC) -I$(QT_INC) $(GST_INC) -I$(PLTF_INC) -I$(JETSON_INFER_INC) -I$(JETSON_UTIL_INC)
 
 TARGETFILE=$(ODIR_LIB)/$(PROJ_NAME).a
 

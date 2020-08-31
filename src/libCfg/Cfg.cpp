@@ -50,6 +50,7 @@ void Cfg::fromPropertyTree(const boost::property_tree::ptree &pt0)
 		}
 	}
 	m_localView->fromPropertyTree(pt0.get_child("disp"));
+	m_localView->nNumOfCams_ = m_camIdVec.size();
 	m_log->fromPropertyTree(pt0.get_child("log"));
 }
 
