@@ -45,6 +45,8 @@ qrc_*.cpp
 vs14-x64/
 ref/
 x64/
+datasets
+
 
 
 
