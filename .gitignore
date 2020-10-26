@@ -43,7 +43,6 @@ moc_*.cpp
 qrc_*.cpp
 
 vs14-x64/
-doc/
 ref/
 x64/
 
