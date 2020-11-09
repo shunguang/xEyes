@@ -81,18 +81,30 @@
 #endif
 
 //---------- opencv ---------
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+//startig from opencv4, it does not install the deprecated opencv foldr
+#include <opencv2/core/version.hpp>
+
+#if CV_VERSION_MAJOR < 4  
+#   include <opencv/cv.h>
+#   include <opencv/highgui.h>
+#elif CV_VERSION_MAJOR >= 4
+#   include <opencv2/highgui.hpp>
+#   include <opencv2/imgproc/imgproc.hpp>
+#endif
+
+#include <opencv2/imgproc/types_c.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/utility.hpp>
 #include <opencv2/videostab/global_motion.hpp>
 #include <opencv2/features2d.hpp>
 //#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/opencv.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-//--------- my owen defs ----------------
+
+
+
+//--------- my own defs ----------------
 #define float32		float
 #define float64		double
 
