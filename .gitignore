@@ -47,6 +47,9 @@ doc/
 ref/
 x64/
 
+#makefiles_jack
+/xEyes/src/makefiles_jack
+
 
 
 
