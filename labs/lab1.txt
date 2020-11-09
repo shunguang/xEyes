@@ -1,0 +1,17 @@
+1.  Week 1: 9/13 - 9/19
+
+A. Before discussion you need to do the following
+(1). Check out the code
+(2). build it with Makefiles
+
+B. During discussion, we will go over Ch1.1 and Ch1 1.2  based on my code.
+
+Ch1 Background refreshment
+1.1 Setting working environment
+      1.1.1 Windows
+      1.1.2. Linux
+      1.1.3. Future extension to iOS and Android
+1.2 Crossing platform project organization
+      1.2.1 Source code organization
+      1.2.2 Build in windows  by visual studio
+      1.2.3 Build in linux  by makefiles      
