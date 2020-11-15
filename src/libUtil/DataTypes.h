@@ -87,8 +87,14 @@
 #if CV_VERSION_MAJOR < 4  
 #   include <opencv/cv.h>
 #   include <opencv/highgui.h>
+<<<<<<< HEAD
+#elif CV_VERSION_MAJOR >= 4
+#   include <opencv2/highgui.hpp>
+#   include <opencv2/imgproc/imgproc.hpp>
+=======
 #elif
 #   include <opencv2/highgui.h>
+>>>>>>> c08d31af3adec9e14efcc0d91f300eef5b91874a
 #endif
 
 #include <opencv2/imgproc/types_c.h>
@@ -102,7 +108,12 @@
 
 
 
+<<<<<<< HEAD
+
+//--------- my own defs ----------------
+=======
 //--------- my owen defs ----------------
+>>>>>>> c08d31af3adec9e14efcc0d91f300eef5b91874a
 #define float32		float
 #define float64		double
 
