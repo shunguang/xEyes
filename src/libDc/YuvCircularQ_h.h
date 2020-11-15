@@ -61,7 +61,7 @@ namespace xeyes {
 		//-----------------------------------------------------------------------------
 		uint32_t		m_items;	//the predefined # of elements of the queue.
 		uint32_t		m_headW;	//the index to write	
-		uint32_t		m_headR;	//the index to write	
+		uint32_t		m_headR;	//the index to read	
 
 		std::vector<YuvFrm_hPtr>	m_q;
 		std::vector<int>	m_v;        //count the wrt (++) / read(--) activities in m_q[i]
