@@ -2,9 +2,7 @@
 #define _CIRCULAR_Q_H_
 
 namespace xeyes {
-    //Question: Since allocQ and wrt call two different classes would it be correct
-    //to instantiate the template class with two generic types? Or do we use the shared_ptr?
-    template <class T, class T1>
+    template <class T>
     class CircularQ
     {
         private:
@@ -18,15 +16,16 @@ namespace xeyes {
             std::mutex m_mutexRW; //exclusive, non-recursive ownership semantics
             std::string m_name; //qname for debugging
             uint32_t m_wrtDropCnt;
+
         protected:
-        //Question: Do we use our shared_ptr or generic type?
-            void allocQ(const uint32_t nTotItems) {
+        //virtual function
+            virtual void allocQ(const uint32_t nTotItems) {
                 std::mutex::scoped_lock lock(m_mutexRW) // scoped lock
 
                 m_items = nTotITems;
                 m_q.clear();
                 for(uint32_t i=0;i<m_items;i++) {
-                    CircularQ_hPtr p;
+                    T p; //add parameters for virtual
                     m_q.push_back(p);
                 }
                 m_v.resize(m_items,0);
@@ -41,10 +40,18 @@ namespace xeyes {
                 m_headW = 0;
             }
         public:
-            //Question: How would we know what attributes x has? ie. the constructor
-            //I have right now is a combination of the one in YuvFrm_h and yuvCircularQ_h
-            //What else would I need to change/add?
-            CircularQ(T &x, const uint32_t nTotItems, const std::string &name)
+
+            //default constructor
+            CirCularQ() 
+            : m_v()
+            , m_q()
+            , m_wrtDropCnt(0)
+            {
+                allocQ(0);
+            }
+
+            //assignment constructor
+            CircularQ(const uint32_t nTotItems, const std::string &name)
             : m_v()
             , m_q()
             , m_name(name)
@@ -52,9 +59,24 @@ namespace xeyes {
             {
                 allocQ(nTotItems);
             }
+
+            //copy constructor
+            CircularQ(T &x) 
+            : m_v()
+            , m_q()
+            , m_name()
+            , m_wrtDropCnt(0)
+            {
+                m_v = x.m_v;
+                m_q = x.m_q;
+                m_name = x.m_name;
+            }
+
+            //destructor
             ~CircularQ() {
                 freeQ();
             }
+
             void resetName(const std::string &name) {
                 std::mutex::scoped_lock lock(m_mutexRW);
                 n_name = name;
@@ -69,15 +91,14 @@ namespace xeyes {
                 m_headR = 0;
                 m_v.resize(m_items,0);
             }
-            //Question: For read and write, is the instantiation of dst correct?
+
             bool wrt(T *src) {
                 bool sucWrt = false;
                 {
                     std::mutex::scoped_lock lock(m_mutexRW);
                     uint32_t &idx = m_headW;
                     if (cnt == 0) {
-                        T1 *dst = m_q[idx].get();
-                        *dst = *src;
+                        m_q[idx] = *src;
                         cnt++;
                         ++idx;
                         if(idx >= m_items) {
@@ -101,9 +122,7 @@ namespace xeyes {
                     uint32_t &idx = m_headR;
                     int &cnt = m_v[idx];
                     if(cnt > 0) {
-                        T1 *src = m_q[idx]
-                        *dst = *src;
-
+                        *dst = m_q[idx];
                         cnt = 0;
                         hasData = ture;
                         ++idx;
@@ -114,7 +133,6 @@ namespace xeyes {
                 }
                 return hasData;
             }
-        typedef std::shared_ptr<T> CircularQ_hPtr;
 
     };
 }
