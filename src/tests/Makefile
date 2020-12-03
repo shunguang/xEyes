@@ -3,13 +3,10 @@ CXX = /usr/bin/g++
 
 CFLAGS = -g -Wall
 
-all: output
+all: CircularQ.o
 
-output: CircularQ.o
-	$(CXX) CircularQ.o -o output
-
-CircularQ.o: ../libUtil/CircularQ.h
-	$(CXX) -c ../libUtil/CircularQ.h
+CircularQ.o: cqDriver.cpp
+	$(CXX) -c cqDriver.cpp
 
 clean:
 	rm *.o output
