@@ -3,10 +3,13 @@ CXX = /usr/bin/g++
 
 CFLAGS = -g -Wall
 
-all: CircularQ.o
+all: YuvCircularQ.o
 
 CircularQ.o: cqDriver.cpp
 	$(CXX) -c cqDriver.cpp
+
+YuvCircularQ.o: YuvDriver.cpp
+	$(CXX) -c YuvDriver.cpp
 
 clean:
 	rm *.o output
