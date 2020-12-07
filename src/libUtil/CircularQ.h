@@ -7,12 +7,11 @@
 #include <functional>
 #include <chrono>
 #include <iostream>
-
 namespace xeyes {
     template <class T>
     class CircularQ
     {
-        private:
+        public:
             uint32_t m_items; //predefined # of elements in queue
             uint32_t m_headW; //write index
             uint32_t m_headR; //read index
@@ -24,10 +23,9 @@ namespace xeyes {
             std::string m_name; //qname for debugging
             uint32_t m_wrtDropCnt;
 
-        protected:
         //virtual function
             virtual void allocQ(const uint32_t nTotItems) {
-                std::scoped_lock lock(m_mutexRW); // scoped lock
+                std::lock_guard<T> lock(m_mutexRW); // scoped lock
 
                 m_items = nTotItems;
                 m_q.clear();
@@ -36,19 +34,20 @@ namespace xeyes {
                     m_q.push_back(p);
                 }
                 m_v.resize(m_items,0);
-
             }
+
             void freeQ() {
-                std::scoped_lock lock(m_mutexRW);
+                std::lock_guard<T> lock(m_mutexRW);
 
                 m_q.clear();
                 m_v.clear();
                 m_headR = 0;
                 m_headW = 0;
             }
-        public:
-
-           
+            
+            //default constructor
+            CircularQ() {
+            }
 
             //assignment constructor
             CircularQ(const uint32_t nTotItems, const std::string &name)
@@ -78,7 +77,7 @@ namespace xeyes {
             }
 
             void resetName(const std::string &name) {
-                std::scoped_lock lock(m_mutexRW);
+                std::lock_guard<T> lock(m_mutexRW);
                 m_name = name;
             }
             void resetSize(const uint32_t nTotItems) {
@@ -86,18 +85,18 @@ namespace xeyes {
                 allocQ(nTotItems);
             }
             void reset() {
-                std::scoped_lock lock(m_mutexRW);
+                std::lock_guard<T> lock(m_mutexRW);
                 m_headW = 0;
                 m_headR = 0;
                 m_v.resize(m_items,0);
             }
 
-            bool wrt(T *src) {
+            bool wrt(const T *src) {
                 bool sucWrt = false;
                 {
-                    std::scoped_lock lock(m_mutexRW);
+                    std::lock_guard<T> lock(m_mutexRW);
                     uint32_t &idx = m_headW;
-		            int   &cnt = m_v[idx];
+		            int  &cnt = m_v[idx];
                     if (cnt == 0) {
                         m_q[idx] = *src;
                         cnt++;
@@ -116,10 +115,11 @@ namespace xeyes {
                 }
                 return sucWrt;
             }
+
             bool read(T *dst) {
                 bool hasData = false;
                 {
-                    std::scoped_lock lock(m_mutexRW);
+                    std::lock_guard<T> lock(m_mutexRW);
                     uint32_t &idx = m_headR;
                     int &cnt = m_v[idx];
                     if(cnt > 0) {
