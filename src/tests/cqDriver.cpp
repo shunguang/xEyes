@@ -4,65 +4,60 @@
  
 int main()
 {
+    //for read
+    int readi;
+    float readf;
+
     //initialize int queue 
     xeyes::CircularQ<int> test_q(5,"int_q");
-    
+
     //reset name to intQ
     test_q.resetName("intQ");
-    assert(test_q.m_name == "intQ");
+    assert(test_q.getName() == "intQ");
 
-    //write integers 1,2,3 into queue
-    int one = 1;
-    int two = 2;
-    int three = 3;
-    int four = 4;
-    test_q.wrt(&one);
-    test_q.wrt(&two);
-    test_q.wrt(&three);
+    //resize queue to 3
+    test_q.resetSize(3);
+    assert(test_q.getItems() == 3);
+
+    //write integers into queue
+    for(int i=0; i<4;i++) {
+        test_q.wrt(&i);
+    }
 
     //read queue
-    assert(test_q.read(&one) == true);
-    assert(test_q.read(&two) == true);
-    assert(test_q.read(&three) == true);
-    assert(test_q.m_q[0] == 1);
-    assert(test_q.m_q[1] == 2);
-    assert(test_q.m_q[2] == 3);
+    assert(test_q.read(&readi) == true);
+    assert(test_q.read(&readi) == true);
+    assert(test_q.read(&readi) == true);
+    assert(test_q.read(&readi) == false);
 
     //reset Queue
     test_q.reset();
-    assert(test_q.m_headW == 0);
-    assert(test_q.m_headR == 0);
-    assert(test_q.m_items == 0);
+    assert(test_q.getHeadW() == 0);
+    assert(test_q.getHeadR() == 0);
 
     //initialize float queue 
-    xeyes::CircularQ<float> test_q(5,"float_q");
+    xeyes::CircularQ<float> test_qf(3,"float_q");
     
     //reset name to floatQ
-    test_q.resetName("floatQ");
-    assert(test_q.m_name == "floatQ");
+    test_qf.resetName("floatQ");
+    assert(test_qf.getName() == "floatQ");
 
-    //write floats 1.0,2.0,3.0 into queue
-    float onef = 1.0;
-    float twof = 2.0;
-    float threef = 3.0;
-    float fourf = 4.0;
-    test_q.wrt(&one);
-    test_q.wrt(&two);
-    test_q.wrt(&three);
+    //write floats into queue
+    for(int i=0; i<4;i++) {
+        float j = (float)i;
+        test_qf.wrt(&j);
+    }
 
     //read queue
-    assert(test_q.read(&one) == true);
-    assert(test_q.read(&two) == true);
-    assert(test_q.read(&three) == true);
-    assert(test_q.m_q[0] == 1.0);
-    assert(test_q.m_q[1] == 2.0);
-    assert(test_q.m_q[2] == 3.0);
+    assert(test_qf.read(&readf) == true);
+    assert(test_qf.read(&readf) == true);
+    assert(test_qf.read(&readf) == true);
+    assert(test_qf.read(&readf) == false);
 
     //reset queue
-    test_q.reset();
-    assert(test_q.m_headW == 0);
-    assert(test_q.m_headR == 0);
-    assert(test_q.m_items == 0);
-    
+    test_qf.reset();
+    assert(test_qf.getHeadW() == 0);
+    assert(test_qf.getHeadR() == 0);
+
     return 0;
 }
