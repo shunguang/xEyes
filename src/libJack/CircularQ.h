@@ -35,7 +35,7 @@ namespace xeyes {
                 }
                 m_v.resize(m_items,0);
                 m_headR = 0;
-                m_headW = 0;cd 
+                m_headW = 0;
             }
 
             void freeQ() {
