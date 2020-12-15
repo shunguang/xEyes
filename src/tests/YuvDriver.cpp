@@ -1,44 +1,8 @@
+#include "YuvCircularQ.cpp"
 #include "../libDc/YuvFrm_h.h"
-#include <iostream>
-#include <assert.h>
-#include "../libUtil/CircularQ.h"
-
-class YuvCircularQ: public CircularQ<YuvFrm_h>
-{
-    public:
-        YuvCircularQ(const uint32_t imgW, const uint32_t imgH, const uint32_t nTotItems, const std::string &name)
-            : m_v()
-            , m_q()
-            , m_w(imgW)
-            , m_h(imgH)
-            , m_name(name)
-            , m_wrtDropCnt(0)
-        {
-            allocQ(nTotItems);
-        }
-
-        ~YuvCircularQ() {
-            freeQ();
-        }
-
-        void allocQ(const uint32_t nTotITems) {
-            std::lock_guard<YuvFrm_h> lock(m_mutexRW);
-
-            m_items = nTotItems;
-            m_q.clear();
-            for(uint32_t i=0;i<m_items;i++) {
-                YuvFrm_h p = new YuvFrm_h(m_w,m_h,0);
-                p->fn_ = i;
-                m_q.push_back(p);
-            }
-            m_v.resize(m_items,0);
-            m_headW = 0;
-            m_headR = 0;
-        }
-
-        uint32_t m_w;
-        uint32_t m_h;
-};
+#include "../libUtil/DataTypes.h"
+#include "../libUtil/"
+#include "../libDc/"
 
 int main() {
     //initialize YuvFrm queue 
@@ -46,11 +10,11 @@ int main() {
     
     //reset name to yuvQ
     test_q.resetName("yuvQ");
-    assert(test_q.m_name == "intQ");
+    assert(test_q.m_name == "yuvQ");
 
     //write yuv
-    YuvFrm_h one = new YuvFrm_h(m_w,m_h,0); 
-    YuvFrm_h two = new YuvFrm_h(m_w,m_h,0); 
+    YuvFrm_hPtr one( new YuvFrm_h(2,2,0) ); 
+    YuvFrm_hPtr two( new YuvFrm_h(3,3,0) ); 
     test_q.wrt(&one);
     test_q.wrt(&two);
 
