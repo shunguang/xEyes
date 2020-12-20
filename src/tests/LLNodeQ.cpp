@@ -8,7 +8,8 @@ class Node {
         int data;
         Node* next;
 
-        Node(int d) {data = d;}
+        Node(int d) : data(d) {}
+        Node(int d, Node* n) : data(d) , next(n) {}
         Node() {}
 };
 
@@ -16,25 +17,13 @@ class LLNodeQ: public xeyes::CircularQ<Node*>
 {
     public:
 
-        LLNodeQ(const uint32_t data, Node* next, const uint32_t nTotItems, const std::string &name)
-            : CircularQ(nTotItems, name)
-            , m_data(data)
-            , m_next(*next)
-        {
-            allocQ(nTotItems);
-        }
-
-        ~LLNodeQ() {
-            freeQ();
-        }
-
         virtual void allocQ(const uint32_t nTotItems) {
             std::lock_guard<std::mutex> lock(m_mutexRW);
 
             m_items = nTotItems;
             m_q.clear();
             for(uint32_t i=0;i<m_items;i++) {
-                Node* p = new Node(m_data);
+                Node* p = new Node(0, NULL);
                 m_q.push_back(p);
             }
             m_v.resize(m_items,0);

@@ -5,7 +5,7 @@ int main() {
     Vehicle readi;
 
     //initialize int queue 
-    VehicleQ test_q("123",123,5,"vehicle_q");
+    xeyes::CircularQ<Vehicle*> test_q(5,"vehicle_q");
 
     //reset name to nodeQ
     test_q.resetName("vehicleQ");

@@ -4,11 +4,8 @@ int main() {
      //for read
     Node readi;
 
-    //for initialization
-    Node* next = new Node(0);
-
     //initialize int queue 
-    LLNodeQ test_q(10,next,5,"node_q");
+    xeyes::CircularQ<Node*> test_q(5,"node_q");
 
     //reset name to nodeQ
     test_q.resetName("nodeQ");
@@ -20,7 +17,7 @@ int main() {
 
     //write nodes into queue
     for(int i=0; i<4;i++) {
-        Node* p = new Node(i);
+        Node* p = new Node(i, NULL);
         test_q.wrt(&p);
     }
 
