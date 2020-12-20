@@ -77,17 +77,20 @@
 		C.3 Create a consumer function  which read data  from the the queue and manipulated (compute mean and std)
     		it in a inifinite loop
 			
-		C.4 In the main function
+		C.4 In the start() function
             a) create the queue object and init  it 
             b) create thread A to run the producer function
             c) create thread B to run the consumer function
 			d) then join thread A and B
+		C.5 in quit()
+			when quit() you need to quit both threads.
+			
 	 D. Test
         D.1  Add some sleep time in the loops of C.2 and C.3
 		D.2. Play the sleep time parameters to see the the following three scenarios: 
 		     a) perfect case: no data drop in the wirtten thread, which means every element in the queque is processed by the consumer thread 
 		     b) Data drop:    written is fater than the read
-			 c). consumer thread wakeup too frequent (How to avoid this).
+			 c). Consumer thread wakeup too frequent (How to avoid this).
  		D.3. Try to change the 1d-vector size and # of items in the queque to test the upper bundaries of your machine.	What are these numbers?
 		
 	         
