@@ -61,6 +61,14 @@ namespace xeyes {
                 allocQ(nTotItems);
             }
 
+            CircularQ(const uint32_t nTotItems)
+            : m_v()
+            , m_q()
+            , m_wrtDropCnt(0)
+            {
+                allocQ(nTotItems);
+            }
+
             //copy constructor
             CircularQ(T &x) 
             : m_v()
