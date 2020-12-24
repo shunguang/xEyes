@@ -83,9 +83,10 @@
             a) create the queue object and init  it 
             b) create thread A to run the producer function
             c) create thread B to run the consumer function
-			d) then join thread A and B
+
 		C.5 in quit()
-			when quit() you need to quit both threads.
+			a) join thread A and B
+			b) when quit() you need to quit both threads.
 			
 	 D. Test
         D.1  Add some sleep time in the loops of C.2 and C.3
