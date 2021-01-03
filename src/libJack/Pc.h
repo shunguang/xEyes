@@ -2,6 +2,7 @@
 #define _PC_H_
 
 #include "CircularQ.h"
+#include "../tests/PcQ.cpp"
 #include <thread>
 #include <random>
 #include <iomanip>
@@ -12,6 +13,7 @@
 #include <iostream>
 #include <future>
 #include <numeric>
+#include <unistd.h>
 
 class Pc{
     public:
@@ -19,7 +21,8 @@ class Pc{
         ~Pc();
         void producer();
         void consumer();
-        void start();
+        void startP();
+        void startC();
         void quit();
         void meanStd(std::vector<double> v);
     private:
@@ -30,8 +33,10 @@ class Pc{
         std::vector<double> readi;
         bool flag;
         bool wrtFlag;
+        bool readFlag;
+        uint32_t nItems;
         //CircularQ
-        xeyes::CircularQ<std::vector<double>> queue;
+        PcQ queue;
 };
 
 #endif

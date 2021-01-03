@@ -1,6 +1,5 @@
 #include "Pc.h"
 
-
 Pc::Pc(const uint32_t VecSz, const uint32_t QueSize, const double mean, const double std)
     :nVecSz(VecSz)
     ,nQueSz(QueSize)
@@ -10,8 +9,10 @@ Pc::Pc(const uint32_t VecSz, const uint32_t QueSize, const double mean, const do
     ,readi(std::vector<double>())
     ,flag(false)
     ,wrtFlag(true)
+    ,readFlag(true)
+    ,nItems(0)
 {
-    xeyes::CircularQ<std::vector<double>> queue(QueSize);
+    PcQ queue(VecSz,QueSize);
 }
 
 Pc::~Pc(){}
@@ -21,16 +22,20 @@ void Pc::producer() {
     std::mt19937 e2(rd());
     std::normal_distribution<> dist(gauMean,gauStd);
     std::vector<double> vec;
+    flag = true;
     while (flag)
     {
-        if(queue.getItems() >= nQueSz) {
+        if(nItems >= nQueSz) {
             wrtFlag = false;
+            nItems = 0;
         }
         if(wrtFlag) {
             for(uint32_t i=0; i<nVecSz;i++) {
-                vec.push_back((std::round(dist(e2))));
+                vec.push_back(std::round(dist(e2)));
             }
             queue.wrt(&vec);
+            readFlag = true;
+            nItems++;
             std::cout << "Write";
             vec.clear();
         }
@@ -40,21 +45,29 @@ void Pc::producer() {
 void Pc::consumer() {
     while (flag)
     {
-        bool readElem = queue.read(&readi);
-        if(!readElem) {
-            wrtFlag = true;
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        while(readFlag) {
+            bool readElem = queue.read(&readi);
+            if(!readElem) {
+                wrtFlag = true;
+                readFlag = false;
+                return;
+            }
+            nItems--;
+            std::cout << "Read";
+            meanStd(readi);
         }
-        std::cout << "Read";
-        meanStd(readi);
     }
 }
 
-void Pc::start() {
+void Pc::startP() {
     flag = true;
     std::thread t1(&Pc::producer,this);
-    std::thread t2(&Pc::consumer,this);
     threads.push_back(std::move(t1));
+}
+
+void Pc::startC() {
+    flag = true;
+    std::thread t2(&Pc::consumer,this);
     threads.push_back(std::move(t2));
 }
 

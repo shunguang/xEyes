@@ -51,7 +51,7 @@ namespace xeyes {
             CircularQ()
             : m_v()
             , m_q()
-            , m_name(NULL)
+            , m_name()
             , m_wrtDropCnt(0)
             {
                 allocQ(0);
