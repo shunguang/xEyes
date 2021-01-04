@@ -1,8 +1,9 @@
 #include "LLNodeQ.cpp"
+#include <assert.h>
 
 int main() {
      //for read
-    Node readi;
+    Node* readi;
 
     //initialize int queue 
     xeyes::CircularQ<Node*> test_q(5,"node_q");
@@ -22,10 +23,14 @@ int main() {
     }
 
     //read queue
-    assert(test_q.read(&readi) == true);
-    assert(test_q.read(&readi) == true);
-    assert(test_q.read(&readi) == true);
-    assert(test_q.read(&readi) == false);
+    for(int i=0; i<4;i++) {
+        bool el = test_q.read(&readi);
+        if(el) {
+            std::cout<< "read!";
+        } else {
+            std::cout<< "none";
+        }
+    }
 
     //reset Queue
     test_q.reset();

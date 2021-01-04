@@ -1,5 +1,4 @@
 #include "../libJack/CircularQ.h"
-#include "CircularQ.h"
 #include <iostream>
 #include <assert.h>
 

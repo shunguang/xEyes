@@ -46,9 +46,15 @@ namespace xeyes {
                 m_headR = 0;
                 m_headW = 0;
             }
-            
+
             //default constructor
-            CircularQ() {
+            CircularQ()
+            : m_v()
+            , m_q()
+            , m_name()
+            , m_wrtDropCnt(0)
+            {
+                allocQ(0);
             }
 
             //assignment constructor
