@@ -4,10 +4,16 @@
 #ifndef __PC_Q_H__
 #define __PC_Q_H__
 
-class PcQ: public xeyes::CircularQ<std::vector<double>>
+struct Gau{
+	std::vector<double> v;
+	double mean;
+	double std;
+};
+
+class GauQ: public xeyes::CircularQ<Gau>
 {
     public:
-        PcQ(const uint32_t VecSz, const uint32_t QueSize)
+        GauQ(const uint32_t VecSz, const uint32_t QueSize)
             :CircularQ(QueSize)
             ,nVecSz(VecSz)
             ,nQueSz(QueSize)
@@ -15,10 +21,10 @@ class PcQ: public xeyes::CircularQ<std::vector<double>>
             allocQ(QueSize);
         }
 
-        PcQ() {
+        GauQ() {
         }
 
-        ~PcQ() {
+        ~GauQ() {
             freeQ();
         }
 
