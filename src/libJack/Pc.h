@@ -30,7 +30,7 @@ class Pc{
         uint32_t nQueSz;
         double gauMean, gauStd;
         std::vector<std::thread> threads;
-        std::vector<double> readi;
+        std::vector<double>* readi;
         bool flag;
         bool wrtFlag;
         bool readFlag;

@@ -20,11 +20,12 @@ int main() {
         vec.clear();
     }
 
-    assert(test.read(&readi) == true);
-    assert(test.read(&readi) == true);
-    assert(test.read(&readi) == true);
-    assert(test.read(&readi) == true);
+    test.read(&readi);
+    for(auto i : readi) {
+        std::cout<< i;
+    }
     */
+
     Pc test(100,10,1.0,2.0);
     test.startP();
     test.startC();

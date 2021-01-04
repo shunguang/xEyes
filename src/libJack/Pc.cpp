@@ -6,7 +6,7 @@ Pc::Pc(const uint32_t VecSz, const uint32_t QueSize, const double mean, const do
     ,gauMean(mean)
     ,gauStd(std)
     ,threads(std::vector<std::thread>())
-    ,readi(std::vector<double>())
+    ,readi(new std::vector<double>())
     ,flag(false)
     ,wrtFlag(true)
     ,readFlag(true)
@@ -22,7 +22,6 @@ void Pc::producer() {
     std::mt19937 e2(rd());
     std::normal_distribution<> dist(gauMean,gauStd);
     std::vector<double> vec;
-    flag = true;
     while (flag)
     {
         if(nItems >= nQueSz) {
@@ -46,7 +45,7 @@ void Pc::consumer() {
     while (flag)
     {
         while(readFlag) {
-            bool readElem = queue.read(&readi);
+            bool readElem = queue.read(readi);
             if(!readElem) {
                 wrtFlag = true;
                 readFlag = false;
@@ -54,7 +53,7 @@ void Pc::consumer() {
             }
             nItems--;
             std::cout << "Read";
-            meanStd(readi);
+            meanStd(*readi);
         }
     }
 }
