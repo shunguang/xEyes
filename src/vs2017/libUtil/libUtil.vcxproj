@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\libUtil\AppEnums.h" />
     <ClInclude Include="..\..\libUtil\AppLog.h" />
+    <ClInclude Include="..\..\libUtil\CircularQ.h" />
     <ClInclude Include="..\..\libUtil\CvQtUtil.h" />
     <ClInclude Include="..\..\libUtil\CvUtilFuncs.h" />
     <ClInclude Include="..\..\libUtil\cxxopts.hpp" />

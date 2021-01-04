@@ -54,6 +54,9 @@
     <ClInclude Include="..\..\libUtil\CvQtUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libUtil\CircularQ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libUtil\AppLog.cpp">

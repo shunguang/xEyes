@@ -1,4 +1,8 @@
+
 #include "../libJack/CircularQ.h"
+
+#ifndef __PC_Q_H__
+#define __PC_Q_H__
 
 class PcQ: public xeyes::CircularQ<std::vector<double>>
 {
@@ -35,3 +39,4 @@ class PcQ: public xeyes::CircularQ<std::vector<double>>
         uint32_t nVecSz;
         uint32_t nQueSz;
 };
+#endif
