@@ -2,7 +2,7 @@
 #define _PC_H_
 
 #include "CircularQ.h"
-#include "../tests/PcQ.cpp"
+#include "../tests/GauQ.h"
 #include <thread>
 #include <random>
 #include <iomanip>
@@ -21,8 +21,7 @@ class Pc{
         ~Pc();
         void producer();
         void consumer();
-        void startP();
-        void startC();
+        void start();
         void quit();
         void meanStd(std::vector<double> v);
     private:
@@ -30,13 +29,10 @@ class Pc{
         uint32_t nQueSz;
         double gauMean, gauStd;
         std::vector<std::thread> threads;
-        std::vector<double>* readi;
+        Gau readi;
         bool flag;
-        bool wrtFlag;
-        bool readFlag;
-        uint32_t nItems;
         //CircularQ
-        PcQ queue;
+        GauQ queue;
 };
 
 #endif

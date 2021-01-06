@@ -27,8 +27,7 @@ int main() {
     */
 
     Pc test(100,10,1.0,2.0);
-    test.startP();
-    test.startC();
+    test.start();
     sleep(20);
     test.quit();
 
