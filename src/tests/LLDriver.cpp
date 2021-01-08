@@ -1,4 +1,4 @@
-#include "../libJack/LLNodeQ.cpp"
+#include "../libJack/LLNodeQ.h"
 #include <assert.h>
 
 int main() {

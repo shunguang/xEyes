@@ -2,7 +2,7 @@
 #define _PC_H_
 
 #include "CircularQ.h"
-#include "../tests/GauQ.h"
+#include "GauQ.h"
 #include <thread>
 #include <random>
 #include <iomanip>

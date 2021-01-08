@@ -14,19 +14,21 @@ Pc::Pc(const uint32_t VecSz, const uint32_t QueSize, const double mean, const do
 
 Pc::~Pc(){}
 
+
 void Pc::producer() {
     while (flag)
     {
         Gau p(nVecSz,gauMean,gauStd);
         queue.wrt(&p);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         p.reset();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
 void Pc::consumer() {
     while (flag)
-    {
+    {   
+        
         bool readElem = queue.read(&readi);
         if(!readElem) {
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
