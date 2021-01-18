@@ -247,9 +247,12 @@ std::string CapSaveRtspH264::createLaunchStr()
 
 	//cout << "CapSaveRtspH264::createLaunchStr(): " << endl <<  m_camCfg.toString() << endl;
 
+	//todo: read these two from <m_camCfg>
+	std::string usrId = "abc";
+	std::string usrPw = "xyz";
 	ostringstream launchStream;
 	if( boost::iequals( m_camCfg.mp4LocationAndPrefix_, "NULL") ){
-		launchStream << "rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
+		launchStream << "rtspsrc debug=1 user-id=" << usrId << " user-pw=" << userPw << " location=" << m_camCfg.rtspUrl_ << " ! "
 			<< "rtph264depay ! h264parse ! "   //Parses H.264 streams  
 			<< "omxh264dec ! "                 //hd decoder
 	#	if CAP_TO_HOST    
@@ -261,7 +264,7 @@ std::string CapSaveRtspH264::createLaunchStr()
 			<< "appsink name=appYuvSink";
 	}
 	else{
-		launchStream << "-e -v rtspsrc  location=" << m_camCfg.rtspUrl_ << " ! "
+		launchStream << "-e -v rtspsrc debug=1 user-id=" << usrId << " user-pw=" << userPw << "   location=" << m_camCfg.rtspUrl_ << " ! "
 			<< "tee name=tsplit ! "     				//split into two parts
 			<< "queue ! rtph264depay ! h264parse ! "   	//Parses H.264 streams  
 			<< "omxh264dec ! "          				//hd decoder
