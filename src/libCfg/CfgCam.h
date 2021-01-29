@@ -63,6 +63,8 @@ namespace xeyes {
 		bool		isRec_;
 		bool		isDisp_;      
 		std::string mp4LocationAndPrefix_;
+		std::string usrId;
+		std::string usrPw;
 
 
 	};
