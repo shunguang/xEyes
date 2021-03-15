@@ -22,10 +22,12 @@
     <ClInclude Include="..\..\libDet\DetDefs.h" />
     <ClInclude Include="..\..\libDet\DetThreadBase.h" />
     <ClInclude Include="..\..\libDet\DetThreadBkgChg.h" />
+    <ClInclude Include="..\..\libDet\DetThreadDeepNet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libDet\DetThreadBase.cpp" />
     <ClCompile Include="..\..\libDet\DetThreadBkgChg.cpp" />
+    <ClCompile Include="..\..\libDet\DetThreadDeepNet.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

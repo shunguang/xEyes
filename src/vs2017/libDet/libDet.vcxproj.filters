@@ -24,12 +24,18 @@
     <ClInclude Include="..\..\libDet\DetThreadBkgChg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libDet\DetThreadDeepNet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libDet\DetThreadBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\libDet\DetThreadBkgChg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDet\DetThreadDeepNet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
