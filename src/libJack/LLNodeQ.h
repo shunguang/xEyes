@@ -1,7 +1,8 @@
 #include "../libJack/CircularQ.h"
 #include <iostream>
 #include <assert.h>
-
+#ifndef _LL_Q_
+#define _LL_Q_
 class Node {
     public:
         int data;
@@ -33,3 +34,4 @@ class LLNodeQ: public xeyes::CircularQ<Node*>
         uint32_t m_data;
         Node m_next;
 };
+#endif

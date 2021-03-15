@@ -1,10 +1,10 @@
-#include "../libUtil/CircularQ.h"
-#include "../libJack/CircularQ.h"
+#include "CircularQ.h"
 #include "../libDc/YuvFrm_h.h"
 #include "../libDc/YuvFrm_h.cpp"
 #include <iostream> 
 #include <assert.h>
-
+#ifndef _YUV_Q_
+#define _YUV_Q_
 class YuvCircularQ: public CircularQ<YuvFrm_hPtr>
 {
     public:
@@ -52,3 +52,4 @@ class YuvCircularQ: public CircularQ<YuvFrm_hPtr>
             std::string m_name; //qname for debugging
             uint32_t m_wrtDropCnt;
 };
+#endif

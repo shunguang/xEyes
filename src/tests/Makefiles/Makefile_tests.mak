@@ -9,12 +9,27 @@ CFLAGS	= -Wall -c $(DEBUG) -DqDNGDebug=1 -D__xlC__=1 -DNO_FCGI_DEFINES=1 -DqDNGU
 #define link flags and lib searching paths
 LFLAGS	= -Wall $(DEBUG) $(L_GST_LIB) -L$(QT_LIB) -L$(ODIR_LIB) -L$(JETSON_LIB)  -L$(CUDA_LIB) -L$(PLTF_LIB) -L$(GST_LIB)
 
+#link libs
+#L_GST_LIB=-lgstrtspserver-1.0
+LIBS	:= -lboost_timer -lboost_filesystem -lboost_system -lboost_date_time -lboost_regex \
+	-lboost_chrono -lboost_thread -pthread \
+	-lnppc_static -lnppif_static -lnppig_static -lnppial_static -lnppicc_static -lnppicom_static -lnppisu_static -lnppidei -lculibos -lcublas_static -lcudart_static \
+	-lopencv_stitching -lopencv_superres -lopencv_videostab -lopencv_photo -lopencv_dnn \
+	-lopencv_ml -lopencv_shape -lopencv_video -lopencv_calib3d -lopencv_features2d \
+	-lopencv_highgui -lopencv_videoio -lopencv_flann -lopencv_imgcodecs -lopencv_imgproc -lopencv_core \
+	-lQt5Core -lQt5Gui -lQt5Widgets -lQt5OpenGL \
+	-ljetson-inference -ljetson-utils \
+	-lgthread-2.0 -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lgstapp-1.0 -lz -lv4l2 \
+	-ldl -lm -lpthread -lrt
+
 OBJS = CircularQ.o \
 	LLNodeQ.o \
 	VehicleQ.o \
+	PcDriver.o \
 	cqDriver.out \
 	LLNodeQ.out \
-	VehicleQ.out
+	VehicleQ.out \
+	PcDriver.out
 
 #default: directories $(TARGETFILE)
 
@@ -37,6 +52,9 @@ LLNodeQ.o: $(SDIR_PROJ)/LLDriver.cpp
 VehicleQ.o: $(SDIR_PROJ)/VehicleDriver.cpp
 	$(CXX) $(CFLAGS) -o VehicleQ.o $(SDIR_PROJ)/VehicleDriver.cpp
 
+PcDriver.o: $(SDIR_PROJ)/PcDriver.cpp
+	$(CXX) $(LIBS) $(CFLAGS) -o PcDriver.o $(SDIR_PROJ)/PcDriver.cpp
+
 cqDriver.out : CircularQ.o
 	$(CXX) $(LFLAGS) CircularQ.o -o cqDriver.out
 
@@ -49,5 +67,8 @@ LLNodeQ.out: LLNodeQ.o
 VehicleQ.out: VehicleQ.o
 	$(CXX) $(LFLAGS) VehicleQ.o -o VehicleQ.out
 
+PcDriver.out: PcDriver.o
+	$(CXX) $(LIBS) $(LFLAGS) PcDriver.o -o PcDriver.out
+
 clean:
-	\rm -r $(ODIR_PROJ)/*.o $(TARGETFILE)
+	rm *.o *.out $(TARGETFILE)

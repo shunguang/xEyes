@@ -6,67 +6,42 @@ Pc::Pc(const uint32_t VecSz, const uint32_t QueSize, const double mean, const do
     ,gauMean(mean)
     ,gauStd(std)
     ,threads(std::vector<std::thread>())
-    ,readi(new std::vector<double>())
+    ,readi(VecSz, mean ,std)
     ,flag(false)
-    ,wrtFlag(true)
-    ,readFlag(true)
-    ,nItems(0)
+    ,queue(VecSz, QueSize)
 {
-    PcQ queue(VecSz,QueSize);
 }
 
 Pc::~Pc(){}
 
+
 void Pc::producer() {
-    std::random_device rd;
-    std::mt19937 e2(rd());
-    std::normal_distribution<> dist(gauMean,gauStd);
-    std::vector<double> vec;
     while (flag)
     {
-        if(nItems >= nQueSz) {
-            wrtFlag = false;
-            nItems = 0;
-        }
-        if(wrtFlag) {
-            for(uint32_t i=0; i<nVecSz;i++) {
-                vec.push_back(std::round(dist(e2)));
-            }
-            queue.wrt(&vec);
-            readFlag = true;
-            nItems++;
-            std::cout << "Write";
-            vec.clear();
-        }
+        Gau p(nVecSz,gauMean,gauStd);
+        queue.wrt(&p);
+        p.reset();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
 void Pc::consumer() {
     while (flag)
-    {
-        while(readFlag) {
-            bool readElem = queue.read(readi);
-            if(!readElem) {
-                wrtFlag = true;
-                readFlag = false;
-                return;
-            }
-            nItems--;
-            std::cout << "Read";
-            meanStd(*readi);
+    {   
+        
+        bool readElem = queue.read(&readi);
+        if(!readElem) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
+        meanStd(readi.getVec());
     }
 }
 
-void Pc::startP() {
+void Pc::start() {
     flag = true;
     std::thread t1(&Pc::producer,this);
-    threads.push_back(std::move(t1));
-}
-
-void Pc::startC() {
-    flag = true;
     std::thread t2(&Pc::consumer,this);
+    threads.push_back(std::move(t1));
     threads.push_back(std::move(t2));
 }
 
@@ -84,6 +59,9 @@ void Pc::meanStd(std::vector<double> v) {
     double sq_sum = std::inner_product(v.begin(), v.end(), v.begin(), 0.0);
     double stdev = std::sqrt(sq_sum / v.size());
 
-    std::cout<< mean;
-    std::cout<< stdev;
+    std::cout<< "Mean: ";
+    std::cout<< mean  << std::endl;
+    std::cout<< "Standard Deviation: ";
+    std::cout<< stdev << std::endl;
+    std::cout<< "\n";
 }

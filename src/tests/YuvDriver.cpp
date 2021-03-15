@@ -1,4 +1,4 @@
-#include "YuvCircularQ.cpp"
+#include "../libJack/YuvCircularQ.cpp"
 #include "../libDc/YuvFrm_h.h"
 #include "../libUtil/DataTypes.h"
 #include "../libUtil/"

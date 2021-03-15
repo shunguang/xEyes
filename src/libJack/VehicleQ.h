@@ -1,7 +1,8 @@
-#include "../libJack/CircularQ.h"
+#include "CircularQ.h"
 #include <iostream>
 #include <assert.h>
-
+#ifndef _VEHICLE_Q_
+#define _VEHICLE_Q_
 class Vehicle
 {
     public:
@@ -37,3 +38,4 @@ class VehicleQ: public xeyes::CircularQ<Vehicle*>
             m_headR = 0;
         }
 };
+#endif
