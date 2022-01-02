@@ -87,14 +87,9 @@
 #if CV_VERSION_MAJOR < 4  
 #   include <opencv/cv.h>
 #   include <opencv/highgui.h>
-<<<<<<< HEAD
 #elif CV_VERSION_MAJOR >= 4
 #   include <opencv2/highgui.hpp>
 #   include <opencv2/imgproc/imgproc.hpp>
-=======
-#elif
-#   include <opencv2/highgui.h>
->>>>>>> c08d31af3adec9e14efcc0d91f300eef5b91874a
 #endif
 
 #include <opencv2/imgproc/types_c.h>
@@ -106,14 +101,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-
-
-<<<<<<< HEAD
-
 //--------- my own defs ----------------
-=======
-//--------- my owen defs ----------------
->>>>>>> c08d31af3adec9e14efcc0d91f300eef5b91874a
 #define float32		float
 #define float64		double
 
@@ -156,4 +144,13 @@
 #   define APP_LOCAL_TIME	    std::chrono::system_clock::now()
 #   define APP_UNIVERSAL_TIME   std::chrono::system_clock::now()
 #endif
+
+#define APP_FRM_CNT					uint64_t
+#define APP_TIME_MS         int64_t    //milli second: 1sec=1e-3 ms
+#define APP_TIME_US         uint64_t   //micro second: 1sec=1e-6 us 
+#define APP_TIME_CURRENT_US (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
+#define APP_TIME_CURRENT_MS (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
+#define APP_TIME_US2MS( t_us )  ( (int64_t)(t_us/1000) )
+#define APP_TIME_MS2US( t_ms )  ( ((uint64_t)t_ms) * 1000 )
+
 #endif
