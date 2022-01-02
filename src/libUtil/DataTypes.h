@@ -145,9 +145,14 @@
 #   define APP_UNIVERSAL_TIME   std::chrono::system_clock::now()
 #endif
 
-#define APP_FRM_CNT					uint64_t
-#define APP_TIME_MS         int64_t    //milli second: 1sec=1e-3 ms
-#define APP_TIME_US         uint64_t   //micro second: 1sec=1e-6 us 
+//facts: 
+//      1. int64.MaxValue=  9,223,372,036,854,775,807 ~ 9.2e+18 
+//         1 year = 3.1536e+7sec =  3.1536e+10 ms = 3.1536e+13 us
+//      2. int64_t is better than uint64_t when do subtractions (do not need to worry about  overflow)
+//         uint32_t a = (uint32_t)5 - (uint32_t)7 = (-2 % 2^32) = 4294967294 
+#define APP_FRM_CNT					int64_t
+#define APP_TIME_MS         int64_t   //milli second: 1sec=1e-3 ms
+#define APP_TIME_US         int64_t   //micro second: 1sec=1e-6 us 
 #define APP_TIME_CURRENT_US (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
 #define APP_TIME_CURRENT_MS (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
 #define APP_TIME_US2MS( t_us )  ( (int64_t)(t_us/1000) )
