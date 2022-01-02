@@ -155,7 +155,7 @@
 #define APP_TIME_US         int64_t   //micro second: 1sec=1e-6 us 
 #define APP_TIME_CURRENT_US (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
 #define APP_TIME_CURRENT_MS (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
-#define APP_TIME_US2MS( t_us )  ( (int64_t)(t_us/1000) )
-#define APP_TIME_MS2US( t_ms )  ( ((uint64_t)t_ms) * 1000 )
+#define APP_TIME_US2MS( t_us )  ( t_us/1000 )
+#define APP_TIME_MS2US( t_ms )  ( t_ms*1000 )
 
 #endif
