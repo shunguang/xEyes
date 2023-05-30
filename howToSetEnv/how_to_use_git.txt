@@ -1,6 +1,8 @@
 1. add modified deleted files
 git status
+git add *.cpp
 git commit -a -m "msg"
+git pull
 git push
 
 2. add new files
