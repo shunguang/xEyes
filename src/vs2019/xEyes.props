@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <PROJ_SRC>C:\Projects\xEyes\src</PROJ_SRC>
+    <PROJ_SRC>E:\swu\projects\xEyes\src</PROJ_SRC>
     <FFTW_X64>C:\pkg\fftw\fftw-3.3.5-dll64</FFTW_X64>	
     <BOOST_INC>C:\pkg\boost\boost_1_71_0</BOOST_INC>
     <BOOST_LIB>C:\pkg\boost\boost_1_71_0\lib64-msvc-14.2</BOOST_LIB>
@@ -14,8 +14,8 @@
     <FFMPEG_INC>C:\pkg\ffmpeg\ffmpeg-20170503-a75ef15-win64-dev\include</FFMPEG_INC>
     <FFMPEG_LIB>C:\pkg\ffmpeg\ffmpeg-20170503-a75ef15-win64-dev\lib</FFMPEG_LIB>
     <PROJ_INC>$(BOOST_INC);$(CV_INC);$(PROJ_SRC);$(QT_INC);$(FFMPEG_INC);$(FFTW_X64)</PROJ_INC>
-    <PROJ_BUILD>C:\Projects\xEyes\vs14-x64\int</PROJ_BUILD>
-    <PROJ_EXPORT>C:\Projects\xEyes\vs14-x64\bin</PROJ_EXPORT>
+    <PROJ_BUILD>E:\swu\projects\xEyes\vs14-x64\int</PROJ_BUILD>
+    <PROJ_EXPORT>E:\swu\projects\xEyes\vs14-x64\bin</PROJ_EXPORT>
     <PROJ_LIB>$(BOOST_LIB);$(CV_LIB);$(QT_LIB);$(FFMPEG_LIB);$(FFTW_X64);$(PROJ_EXPORT)\$(Configuration)</PROJ_LIB>
     <MY_CV_LIBS>opencv_core320.lib;opencv_highgui320.lib;opencv_imgcodecs320.lib;opencv_imgproc320.lib;opencv_features2d320.lib;opencv_xfeatures2d320.lib;opencv_videoio320.lib;opencv_video320.lib;opencv_videostab320.lib;opencv_calib3d320.lib;opencv_flann320.lib;opencv_objdetect320.lib</MY_CV_LIBS>
     <MY_CV_LIBS_D>opencv_core320d.lib;opencv_highgui320d.lib;opencv_imgcodecs320d.lib;opencv_imgproc320d.lib;opencv_features2d320d.lib;opencv_xfeatures2d320d.lib;opencv_videoio320d.lib;opencv_video320d.lib;opencv_videostab320d.lib;opencv_calib3d320d.lib;opencv_flann320d.lib;opencv_objdetect320d.lib</MY_CV_LIBS_D>

@@ -38,5 +38,7 @@
 *.ipch
 *.db*
 
-
+# folders
+src/vs2019/libGui/GeneratedFiles/*.*
+vs14-x64/
 
