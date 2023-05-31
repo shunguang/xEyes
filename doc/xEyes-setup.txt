@@ -1,0 +1,11 @@
+--- A. edit ~/.bashrc ---
+
+  1. Define the following env in ~/.bashrc
+    **replace PATH with the path to xEyes**
+      export XEYES_SRC=PATH/xEyes/src
+    **replace PATH with desired build destination (usually same level as xEyes)**
+      export XEYES_BUILD=PATH/build_xeyes
+      
+--- B. Makefile_app_header.mak ---
+
+  1. 

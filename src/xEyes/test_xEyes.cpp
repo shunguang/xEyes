@@ -1,9 +1,37 @@
+/*
+*------------------------------------------------------------------------
+*test_xEyes.cpp
+*
+* This code was developed by Shunguang Wu in his spare time. No government
+* or any client funds were used.
+*
+*
+* THE SOFTWARE IS PROVIDED AS-IS AND WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+* WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+*
+* IN NO EVENT SHALL THE AUTHOR OR DISTRIBUTOR BE LIABLE FOR
+* ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+* OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+* WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
+* LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+* OF THIS SOFTWARE.
+*
+* Permission to use, copy, modify, distribute, and sell this software and
+* its documentation for any purpose is prohibited unless it is granted under
+* the author's written notice.
+*
+* Copyright(c) 2020 by Shunguang Wu, All Right Reserved
+*-------------------------------------------------------------------------
+*/
 #include "libUtil/util.h"
 #include "libCfg/Cfg.h"
 
-//#include "libDs/CudaUtil.h"
-#include "libTest/TestCaps.h"
-#include "libTest/TestGui.h"
+//#include "libDc/CudaUtil.h"
+#include "libRun/RunCap.h"
+#include "libRun/RunDet.h"
+#include "libRun/RunGui.h"
+#include "libRun/RunXEyes.h"
 
 using namespace std;
 using namespace xeyes;
@@ -32,18 +60,34 @@ int test_xEyes(int argc, char **argv)
 	
 	//cudaDeviceInit(0, NULL);
 
-	//TestCaps x(cfg);
-	//x.startThreads();
 
+	int appRet = 0;
 	QApplication app(argc, argv);
 	QFont font;
 	font.setFamily(font.defaultFamily());
 	font.setPointSize(9);
 	app.setFont(font);
 
-	TestGui runGui(cfg);
-	runGui.show();
-	int ret = app.exec();
+	int testFlag = 3;
+	if (testFlag == 0) {
+		RunCap x(cfg);
+		x.startAllThreads();
+	}
+	else if (testFlag == 1) {
+		RunDet x(cfg);
+		x.startAllThreads();
+	}
+	else if (testFlag == 2) {
+		RunGui x(cfg);
+		x.show();
+		appRet = app.exec();
+	}
+	else if (testFlag == 3) {
+		RunXEyes x(cfg);
+		x.show();
+		appRet = app.exec();
+	}
+
 
 	endLogThread();
 	return 0;
@@ -62,7 +106,7 @@ string locateCfgFile( int argc, char **argv)
 #if _WINDOWS
 			cfgFile = "c:/Projects/xEyes/src/xEyes/res/" + f0;            //for development
 #else
-			cfgFile = "/home/swu/Projects/xEyes/src/xEyes/res/" + f0;            //for development
+			cfgFile = "/home/swu/projects/xEyes/src/xEyes/res/" + f0;            //for development
 #endif
 		}
 	}
@@ -85,7 +129,7 @@ void   startLog( const CfgPtr cfg )
 	CfgLog log = cfg->getLog();
 	myCreateDir( log.logFolder );
 	string ymd0 = ""; // getPrettyTimeStamp();
-	string logFile = log.logFolder + "/logNgv" + ymd0 + ".txt";
+	string logFile = log.logFolder + "/log" + ymd0 + ".txt";
 	startLogThread(logFile, true, true);
 
 	//dump current cfg into log file

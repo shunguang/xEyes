@@ -3,8 +3,10 @@
 PROJ_NAME=libCap
 include Makefile_app_header.mak
 
-OBJS = 	$(ODIR_PROJ)/RunCapBase.o \
-	$(ODIR_PROJ)/RunCapCamA.o
+OBJS = 	$(ODIR_PROJ)/CapThreadBase.o \
+	$(ODIR_PROJ)/CapThreadSyn.o \
+	$(ODIR_PROJ)/CapSaveRtspH264.o \
+	$(ODIR_PROJ)/CapAndSaveThread.o
 	
 default:  directories $(TARGETFILE)
 
@@ -16,11 +18,17 @@ directories:
 $(TARGETFILE) : $(OBJS)
 	ar rcs $(TARGETFILE) $(OBJS)
 	
-$(ODIR_PROJ)/RunCapBase.o: $(SDIR_PROJ)/RunCapBase.cpp $(SDIR_PROJ)/RunCapBase.h
-	$(CXX) -o $(ODIR_PROJ)/RunCapBase.o $(CFLAGS) $(SDIR_PROJ)/RunCapBase.cpp
+$(ODIR_PROJ)/CapThreadBase.o: $(SDIR_PROJ)/CapThreadBase.cpp $(SDIR_PROJ)/CapThreadBase.h
+	$(CXX) -o $(ODIR_PROJ)/CapThreadBase.o $(CFLAGS) $(SDIR_PROJ)/CapThreadBase.cpp
     
-$(ODIR_PROJ)/RunCapCamA.o: $(SDIR_PROJ)/RunCapCamA.cpp $(SDIR_PROJ)/RunCapCamA.h
-	$(CXX) -o $(ODIR_PROJ)/RunCapCamA.o $(CFLAGS) $(SDIR_PROJ)/RunCapCamA.cpp
+$(ODIR_PROJ)/CapThreadSyn.o: $(SDIR_PROJ)/CapThreadSyn.cpp $(SDIR_PROJ)/CapThreadSyn.h
+	$(CXX) -o $(ODIR_PROJ)/CapThreadSyn.o $(CFLAGS) $(SDIR_PROJ)/CapThreadSyn.cpp
+
+$(ODIR_PROJ)/CapSaveRtspH264.o: $(SDIR_PROJ)/CapSaveRtspH264.cpp $(SDIR_PROJ)/CapSaveRtspH264.h
+	$(CXX) -o $(ODIR_PROJ)/CapSaveRtspH264.o $(CFLAGS) $(SDIR_PROJ)/CapSaveRtspH264.cpp
+
+$(ODIR_PROJ)/CapAndSaveThread.o: $(SDIR_PROJ)/CapAndSaveThread.cpp $(SDIR_PROJ)/CapAndSaveThread.h
+	$(CXX) -o $(ODIR_PROJ)/CapAndSaveThread.o $(CFLAGS) $(SDIR_PROJ)/CapAndSaveThread.cpp
 
 clean:
 	\rm -r $(ODIR_PROJ)/*.o $(TARGETFILE)

@@ -1,0 +1,15 @@
+Week 2
+
+A. Before discussion you need to do the following
+ (1). reading code  in libUtil/FifoQ.h
+ (2). reading code YuvCircularQ_h/.cpp,  FrmInfoCircularQ.h/cpp, Extend it as a universal thread safe circular queue by using template
+ (3). write unit test drivers for both A and B
+      -mkdir ./xEyes/src/unitTest
+	  -copy  ./xEyes/src/xEyes/main.cpp to above folder and use it as template to call your future test programs such as test1.cpp, test2.cpp,...
+	  -copy ./xEyes/src/Makefile_xEyes.mak to ./xEyes/src/Makefile_unitTest.mak, and use it as a tempalte to write your own unitest Makefile 
+ 	  -use "make -f Makefile_unitTest.mak" command to build your programs in unitTest folder
+	  
+B. During discussion
+ (1) we will go over Ch1.3
+ (2) You need to demo me your code and ask/answer questions.
+

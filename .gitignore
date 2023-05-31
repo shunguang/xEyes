@@ -38,7 +38,16 @@
 *.ipch
 *.db*
 
+
+#QT generated files
+moc_*.cpp
+qrc_*.cpp
+
 # folders
-src/vs2019/libGui/GeneratedFiles/*.*
+GeneratedFiles/
 vs14-x64/
+vs14-x64/
+ref/
+x64/
+datasets/
 

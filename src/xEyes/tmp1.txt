@@ -1,0 +1,11 @@
+02/29-22:48:05 (545460846592)->---start---
+Using launch string: -e -v rtspsrc  location= rtsp://192.168.1.5/11 ! tee name=tsplit ! queue ! 
+rtph264depay ! h264parse ! omxh264dec ! nvvidconv ! video/x-raw, format=I420, width=480, height=270 ! 
+appsink name=myYuvSink tsplit. ! queue ! rtph264depay ! h264parse ! splitmuxsink name=myMp4Sink 
+location=test_save_%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE
+
+
+main_loop(): Using launch string: -e -v rtspsrc  location= rtsp://192.168.1.5/11 tee name=tsplit ! queue !
+ rtph264depay ! h264parse ! omxh264dec ! nvvidconv ! video/x-raw, format=I420, width=1920, height=1080 ! 
+ appsink name=appYuvSink tsplit. ! queue ! rtph264depay ! h264parse ! splitmuxsink name=myMp4Sink 
+ location=./frontDoor/capF%04d.mp4 max-size-time=7200000000000 max-size-bytes=0 max-files=100 send-keyframe-requests=TRUE

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,10 +20,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\libDet\DetDefs.h" />
+    <ClInclude Include="..\..\libDet\DetThreadBase.h" />
+    <ClInclude Include="..\..\libDet\DetThreadBkgChg.h" />
+    <ClInclude Include="..\..\libDet\DetThreadDeepNet.h" />
     <ClInclude Include="..\..\libDet\RunDetBase.h" />
     <ClInclude Include="..\..\libDet\RunDetBkgChg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\libDet\DetThreadBase.cpp" />
+    <ClCompile Include="..\..\libDet\DetThreadBkgChg.cpp" />
+    <ClCompile Include="..\..\libDet\DetThreadDeepNet.cpp" />
     <ClCompile Include="..\..\libDet\RunDetBase.cpp" />
     <ClCompile Include="..\..\libDet\RunDetBkgChg.cpp" />
   </ItemGroup>

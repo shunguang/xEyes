@@ -1,4 +1,30 @@
 /*
+*------------------------------------------------------------------------
+*DataTypes.h
+*
+* This code was developed by Shunguang Wu in his spare time. No government
+* or any client funds were used.
+*
+*
+* THE SOFTWARE IS PROVIDED AS-IS AND WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+* WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+*
+* IN NO EVENT SHALL THE AUTHOR OR DISTRIBUTOR BE LIABLE FOR
+* ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+* OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+* WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
+* LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+* OF THIS SOFTWARE.
+*
+* Permission to use, copy, modify, distribute, and sell this software and
+* its documentation for any purpose is prohibited unless it is granted under
+* the author's written notice.
+*
+* Copyright(c) 2020 by Shunguang Wu, All Right Reserved
+*-------------------------------------------------------------------------
+*/
+/*
  *----------------------------------------------------------------------------------
  * DataTypes.h - the defines of data types
  *
@@ -36,7 +62,7 @@
 #include <ctime>  
 
 //---------- boost ---------
-#define APP_USE_CUDA 0
+#define APP_USE_CUDA 1
 #define APP_USE_BOOST 1
 #if APP_USE_BOOST
 #include <boost/date_time.hpp>
@@ -55,18 +81,27 @@
 #endif
 
 //---------- opencv ---------
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+//startig from opencv4, it does not install the deprecated opencv foldr
+#include <opencv2/core/version.hpp>
+
+#if CV_VERSION_MAJOR < 4  
+#   include <opencv/cv.h>
+#   include <opencv/highgui.h>
+#elif CV_VERSION_MAJOR >= 4
+#   include <opencv2/highgui.hpp>
+#   include <opencv2/imgproc/imgproc.hpp>
+#endif
+
+#include <opencv2/imgproc/types_c.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/utility.hpp>
 #include <opencv2/videostab/global_motion.hpp>
 #include <opencv2/features2d.hpp>
 //#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/opencv.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-//--------- my owen defs ----------------
+//--------- my own defs ----------------
 #define float32		float
 #define float64		double
 
@@ -109,5 +144,18 @@
 #   define APP_LOCAL_TIME	    std::chrono::system_clock::now()
 #   define APP_UNIVERSAL_TIME   std::chrono::system_clock::now()
 #endif
-#define LOG_MAX_MSG_LEN         2048
+
+//facts: 
+//      1. int64.MaxValue=  9,223,372,036,854,775,807 ~ 9.2e+18 
+//         1 year = 3.1536e+7sec =  3.1536e+10 ms = 3.1536e+13 us
+//      2. int64_t is better than uint64_t when do subtractions (do not need to worry about  overflow)
+//         uint32_t a = (uint32_t)5 - (uint32_t)7 = (-2 % 2^32) = 4294967294 
+#define APP_FRM_CNT					int64_t
+#define APP_TIME_MS         int64_t   //milli second: 1sec=1e-3 ms
+#define APP_TIME_US         int64_t   //micro second: 1sec=1e-6 us 
+#define APP_TIME_CURRENT_US (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
+#define APP_TIME_CURRENT_MS (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
+#define APP_TIME_US2MS( t_us )  ( t_us/1000 )
+#define APP_TIME_MS2US( t_ms )  ( t_ms*1000 )
+
 #endif
